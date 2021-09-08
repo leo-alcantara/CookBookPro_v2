@@ -14,9 +14,10 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public Recipe delete(Recipe recipe) {
+        return null;
     }
+
 
     @Override
     public Collection<Recipe> findAll() {
@@ -29,8 +30,8 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    public boolean update(Recipe recipe) {
-        return false;
+    public Recipe update(Recipe recipe) {
+        return null;
     }
 
     @Override

@@ -5,9 +5,9 @@ import java.util.Collection;
 public interface GenericCRUDMethods <T, ID> {
 
     T create(T t);
-    boolean delete(ID id);
+    T delete(T t);
     Collection<T> findAll();
     T findById(ID id);
-    boolean update(T t);
+    T update(T t);
     void clear();
 }
