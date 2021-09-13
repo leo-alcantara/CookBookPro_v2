@@ -103,7 +103,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     @Transactional
     public Collection<Recipe> findRecipeSeveralCategories(RecipeCategory recipeCategory) {
-       Query query = entityManager.createQuery("SELECT r, c FROM Recipe r, RecipeCategory c WHERE c.category = ?1", Recipe.class);
+       Query query = entityManager.createQuery("SELECT r, c FROM Recipe r, RecipeCategory c WHERE c.category in (?1)", Recipe.class);
         query.setParameter(1, recipeCategory);
 
         return query.getResultList();

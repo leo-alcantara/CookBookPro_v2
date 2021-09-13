@@ -37,8 +37,8 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     }
 
     @Override
-    public RecipeIngredient findById(Integer integer) {
-        RecipeIngredient recipeIngredient = entityManager.find(RecipeIngredient.class, integer);
+    public RecipeIngredient findById(String id) {
+        RecipeIngredient recipeIngredient = entityManager.find(RecipeIngredient.class, id);
         return recipeIngredient;
     }
 
