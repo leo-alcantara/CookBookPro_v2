@@ -12,9 +12,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Repository
-
 public class RecipeDAOImpl implements RecipeDAO {
-
 
     @PersistenceContext
     EntityManager entityManager;
@@ -35,7 +33,6 @@ public class RecipeDAOImpl implements RecipeDAO {
         entityManager.remove(recipe);
         return recipe;
     }
-
 
     @Override
     @Transactional
@@ -61,7 +58,6 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public void clear() {
         entityManager.clear();
-
     }
 
     @Override
@@ -102,7 +98,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     //TALK TO SIMON
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeSeveralCategories(RecipeCategory recipeCategory) {
+    public Collection<Recipe> findRecipeSeveralCategories(Collection<RecipeCategory> recipeCategory) {
        Query query = entityManager.createQuery("SELECT r, c FROM Recipe r, RecipeCategory c WHERE c.category in (?1)", Recipe.class);
         query.setParameter(1, recipeCategory);
 

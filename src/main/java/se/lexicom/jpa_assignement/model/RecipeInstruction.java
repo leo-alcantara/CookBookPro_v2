@@ -44,12 +44,12 @@ public class RecipeInstruction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeInstruction that = (RecipeInstruction) o;
-        return Objects.equals(getRecipeInstructions(), that.getRecipeInstructions());
+        return Objects.equals(getRecipeInstructionId(), that.getRecipeInstructionId()) && Objects.equals(getRecipeInstructions(), that.getRecipeInstructions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRecipeInstructions());
+        return Objects.hash(getRecipeInstructionId(), getRecipeInstructions());
     }
 
     @Override

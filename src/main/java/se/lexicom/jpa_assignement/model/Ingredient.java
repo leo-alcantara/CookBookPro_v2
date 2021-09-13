@@ -40,19 +40,19 @@ public class Ingredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return getIngredientId() == that.getIngredientId() && Objects.equals(getIngredientName(), that.getIngredientName());
+        return Objects.equals(getIngredientName(), that.getIngredientName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIngredientId(), getIngredientName());
+        return Objects.hash(getIngredientName());
     }
 
     @Override
     public String toString() {
         return "Ingredient{" +
                 "ingredientId=" + ingredientId +
-                ", ingredient='" + ingredientName + '\'' +
+                ", ingredientName='" + ingredientName + '\'' +
                 '}';
     }
 }

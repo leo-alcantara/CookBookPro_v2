@@ -67,12 +67,12 @@ public class RecipeCategory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeCategory that = (RecipeCategory) o;
-        return Objects.equals(getCategory(), that.getCategory()) && Objects.equals(getRecipes(), that.getRecipes());
+        return Objects.equals(getCategory(), that.getCategory());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCategory(), getRecipes());
+        return Objects.hash(getCategory());
     }
 
     @Override
@@ -80,7 +80,6 @@ public class RecipeCategory {
         return "RecipeCategory{" +
                 "recipeCategoryId=" + recipeCategoryId +
                 ", category='" + category + '\'' +
-                ", recipes=" + recipes +
                 '}';
     }
 }

@@ -81,12 +81,12 @@ public class RecipeIngredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeIngredient that = (RecipeIngredient) o;
-        return Double.compare(that.getAmount(), getAmount()) == 0 && Objects.equals(getIngredient(), that.getIngredient()) && getMeasurement() == that.getMeasurement();
+        return Double.compare(that.getAmount(), getAmount()) == 0 && Objects.equals(getIngredient(), that.getIngredient());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIngredient(), getAmount(), getMeasurement());
+        return Objects.hash(getIngredient(), getAmount());
     }
 
     @Override
@@ -95,8 +95,6 @@ public class RecipeIngredient {
                 "recipeIngredientId='" + recipeIngredientId + '\'' +
                 ", ingredient=" + ingredient +
                 ", amount=" + amount +
-                ", measurement=" + measurement +
-                ", recipe=" + recipe +
                 '}';
     }
 }
