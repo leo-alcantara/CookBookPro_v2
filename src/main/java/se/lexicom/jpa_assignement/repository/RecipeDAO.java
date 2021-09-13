@@ -9,6 +9,6 @@ public interface RecipeDAO extends GenericCRUDMethods <Recipe, Integer>{
 
     Collection<Recipe> findRecipeByName(String recipeName);
     Collection<Recipe> findRecipeByIngredientName(String ingredientName);
-    Collection<Recipe> findRecipeByCategory(RecipeCategory category);
+    Collection<Recipe> findRecipeByCategory(String categoryName);
     Collection<Recipe> findRecipeSeveralCategories(Collection<RecipeCategory> recipeCategory);
 }

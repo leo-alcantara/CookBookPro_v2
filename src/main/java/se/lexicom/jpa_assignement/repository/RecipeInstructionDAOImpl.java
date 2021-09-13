@@ -42,8 +42,8 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
 
     @Override
     @Transactional
-    public RecipeInstruction findById(Integer integer) {
-        RecipeInstruction recipeInstruction = entityManager.find(RecipeInstruction.class, integer);
+    public RecipeInstruction findById(String recipeInstructionId) {
+        RecipeInstruction recipeInstruction = entityManager.find(RecipeInstruction.class, recipeInstructionId);
         return recipeInstruction;
     }
 

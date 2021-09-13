@@ -1,0 +1,110 @@
+package se.lexicom.jpa_assignement.repository;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
+import se.lexicom.jpa_assignement.model.*;
+
+import javax.transaction.Transactional;
+
+import java.util.Collection;
+import java.util.HashSet;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@AutoConfigureTestEntityManager
+@AutoConfigureTestDatabase
+@Transactional
+class RecipeDAOImplTest {
+
+    @Autowired
+    private RecipeDAO recipeDAO;
+
+    @Autowired
+    TestEntityManager testEntityManager;
+
+    private Recipe testRecipe;
+    private int testId;
+
+    private Collection<RecipeIngredient> ingredientsList;
+    private RecipeInstruction recipeInstruction;
+    private Collection<RecipeCategory> recipeCategories;
+    private Ingredient ingredient;
+    private Collection<Recipe> recipes;
+    private RecipeIngredient recipeIngredient;
+    private RecipeCategory recipeCategory;
+
+    @BeforeEach
+    void setUp() {
+        ingredientsList = new HashSet<>();
+        recipeCategories = new HashSet<>();
+        ingredient = new Ingredient("Salt");
+        recipes = new HashSet<>();
+        recipeIngredient = new RecipeIngredient(ingredient, 10, Measurement.GRAM, testRecipe);
+        recipeCategory = new RecipeCategory("BBQ", recipes);
+        ingredientsList.add(recipeIngredient);
+        recipeCategories.add(recipeCategory);
+
+        testRecipe = testEntityManager.persist(new Recipe("Feijoada", ingredientsList, recipeInstruction, recipeCategories));
+        testId = testRecipe.getRecipeId();
+    }
+
+    @Test
+    void test_findRecipeByName_successful() {
+        //Arrange
+        Collection<Recipe> foundRecipes = null;
+        //Act
+        foundRecipes = recipeDAO.findRecipeByName("Feijoada");
+        //Assert
+        assertTrue(foundRecipes.contains(testRecipe));
+    }
+
+    //TALK TO SIMON WHAT TO ASSERT TO GET THE EXCEPTION THROWN
+    @Test
+    void test_findRecipeByName_throw_exception() {
+        //Arrange
+        String recipeName = null;
+        //Act
+        //Assert
+        assertThrows(ExceptionManager.class, ()->recipeDAO.findRecipeByName(recipeName));
+    }
+
+    @Test
+    void test_findRecipeByIngredientName_successful() {
+        //Arrange
+        Collection<Recipe> foundRecipes = null;
+        //Act
+        foundRecipes= recipeDAO.findRecipeByIngredientName(recipeIngredient.getIngredient().getIngredientName());
+
+        //Assert
+        assertEquals(1, foundRecipes.size());
+    }
+
+    @Test
+    void test_findRecipeByCategory_successful() {
+        //Arrange
+        Collection<Recipe> foundRecipes = null;
+
+        //Act
+       foundRecipes = recipeDAO.findRecipeByCategory(recipeCategory.getCategory());
+
+        //Assert
+        assertEquals(1, foundRecipes.size());
+
+    }
+
+    @Test
+    void test_findRecipeSeveralCategories_successful() {
+        //Arrange
+
+        //Act
+
+        //Assert
+    }
+}

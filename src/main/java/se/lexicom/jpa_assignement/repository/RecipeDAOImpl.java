@@ -85,12 +85,12 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeByCategory(RecipeCategory category) throws ExceptionManager {
-        if (category == null) {
-            throw new ExceptionManager("Can not find item: " + category);
+    public Collection<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
+        if (categoryName == null) {
+            throw new ExceptionManager("Can not find item: " + categoryName);
         }
         Query query = entityManager.createQuery("SELECT r FROM Recipe r WHERE r.categories = ?1", Recipe.class)
-                .setParameter(1, category);
+                .setParameter(1, categoryName);
 
         return query.getResultList();
     }
