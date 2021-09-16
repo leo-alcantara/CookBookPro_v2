@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +40,8 @@ class RecipeDAOImplTest {
     private Collection<Recipe> recipes;
     private RecipeIngredient recipeIngredient;
     private RecipeCategory recipeCategory;
+    private RecipeCategory recipeCategory2;
+    private Collection<String> categoryNames;
 
     @BeforeEach
     void setUp() {
@@ -48,8 +51,13 @@ class RecipeDAOImplTest {
         recipes = new HashSet<>();
         recipeIngredient = new RecipeIngredient(ingredient, 10, Measurement.GRAM, testRecipe);
         recipeCategory = new RecipeCategory("BBQ", recipes);
+        recipeCategory2 = new RecipeCategory("Meat", recipes);
         ingredientsList.add(recipeIngredient);
         recipeCategories.add(recipeCategory);
+        recipeCategories.add(recipeCategory2);
+        categoryNames = new HashSet<>();
+        categoryNames.add("BBQ");
+        categoryNames.add("Vegan");
 
         testRecipe = testEntityManager.persist(new Recipe("Feijoada", ingredientsList, recipeInstruction, recipeCategories));
         testId = testRecipe.getRecipeId();
@@ -79,11 +87,13 @@ class RecipeDAOImplTest {
     void test_findRecipeByIngredientName_successful() {
         //Arrange
         Collection<Recipe> foundRecipes = null;
+        int size = 1;
         //Act
-        foundRecipes= recipeDAO.findRecipeByIngredientName(recipeIngredient.getIngredient().getIngredientName());
+        foundRecipes = recipeDAO.findRecipeByIngredientName("Salt");
 
         //Assert
-        assertEquals(1, foundRecipes.size());
+        assertNotNull(foundRecipes);
+        //assertEquals(size, foundRecipes.size());
     }
 
     @Test
@@ -102,9 +112,13 @@ class RecipeDAOImplTest {
     @Test
     void test_findRecipeSeveralCategories_successful() {
         //Arrange
+        Collection<Recipe> foundRecipes = null;
 
         //Act
+        foundRecipes = recipeDAO.findRecipeSeveralCategories(categoryNames);
 
         //Assert
+        assertNotNull(foundRecipes);
+        assertEquals(1, foundRecipes.size());
     }
 }

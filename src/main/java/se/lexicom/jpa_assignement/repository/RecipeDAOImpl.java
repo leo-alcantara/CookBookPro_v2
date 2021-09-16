@@ -4,12 +4,14 @@ import org.springframework.stereotype.Repository;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 import se.lexicom.jpa_assignement.model.Recipe;
 import se.lexicom.jpa_assignement.model.RecipeCategory;
+import se.lexicom.jpa_assignement.model.RecipeIngredient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class RecipeDAOImpl implements RecipeDAO {
@@ -76,32 +78,31 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public Collection<Recipe> findRecipeByIngredientName(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
-            throw new ExceptionManager("Can not find item: " + ingredientName);
+            throw new ExceptionManager("There is no such ingredient called: " + ingredientName);
         }
-        Query query = entityManager.createQuery("SELECT r.recipe FROM RecipeIngredient r WHERE r.ingredient.ingredientName = ?1", Recipe.class)
-                .setParameter(1, ingredientName);
-        return query.getResultList();
+        return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.ingredients AS ri WHERE ri.ingredient.ingredientName = ?1", Recipe.class)
+                .setParameter(1, ingredientName).getResultList();
     }
 
     @Override
     @Transactional
     public Collection<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
         if (categoryName == null) {
-            throw new ExceptionManager("Can not find item: " + categoryName);
+            throw new ExceptionManager("There is no such category called: " + categoryName);
         }
-        Query query = entityManager.createQuery("SELECT r FROM Recipe r WHERE r.categories = ?1", Recipe.class)
-                .setParameter(1, categoryName);
-
-        return query.getResultList();
+        return  entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category = ?1", Recipe.class)
+                .setParameter(1, categoryName).getResultList();
     }
 
     //TALK TO SIMON
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeSeveralCategories(Collection<RecipeCategory> recipeCategory) {
-       Query query = entityManager.createQuery("SELECT r, c FROM Recipe r, RecipeCategory c WHERE c.category in (?1)", Recipe.class);
-        query.setParameter(1, recipeCategory);
-
-        return query.getResultList();
+    public Collection<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) {
+        return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category in (:recipeCategory)", Recipe.class)
+                .setParameter("recipeCategory", recipeCategory).getResultList();
     }
+
+
+
+
 }

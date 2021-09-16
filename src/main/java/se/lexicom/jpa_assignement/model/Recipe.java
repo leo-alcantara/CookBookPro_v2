@@ -16,12 +16,13 @@ public class Recipe {
             CascadeType.MERGE,
             CascadeType.DETACH,
             CascadeType.REFRESH},
+            orphanRemoval = true,
             fetch = FetchType.LAZY,
     mappedBy = "recipe")
     private Collection<RecipeIngredient> ingredients;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipeInstructionId")
+    @JoinColumn(name = "recipe_instruction_id")
     private RecipeInstruction instructions;
 
     @ManyToMany(cascade = {CascadeType.DETACH,

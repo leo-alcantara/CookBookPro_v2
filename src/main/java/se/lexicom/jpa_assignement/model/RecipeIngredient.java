@@ -13,7 +13,7 @@ public class RecipeIngredient {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String recipeIngredientId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
     private double amount;

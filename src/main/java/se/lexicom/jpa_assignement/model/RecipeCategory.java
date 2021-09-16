@@ -13,8 +13,10 @@ public class RecipeCategory {
     private String category;
 
     @ManyToMany(cascade = {CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH}, fetch = FetchType.LAZY)
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
     @JoinTable(name = "recipes_categories", joinColumns = @JoinColumn(name = "recipe_category_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private Collection<Recipe> recipes;
