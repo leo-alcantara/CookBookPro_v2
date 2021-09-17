@@ -6,7 +6,6 @@ import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.Collection;
 
@@ -36,15 +35,13 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     @Override
     @Transactional
     public Collection<RecipeInstruction> findAll() {
-        Query query = entityManager.createQuery("SELECT r FROM RecipeInstruction r");
-        return query.getResultList();
+        return entityManager.createQuery("SELECT r FROM RecipeInstruction r").getResultList();
     }
 
     @Override
     @Transactional
     public RecipeInstruction findById(String recipeInstructionId) {
-        RecipeInstruction recipeInstruction = entityManager.find(RecipeInstruction.class, recipeInstructionId);
-        return recipeInstruction;
+        return entityManager.find(RecipeInstruction.class, recipeInstructionId);
     }
 
     @Override

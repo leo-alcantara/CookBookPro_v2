@@ -39,15 +39,13 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     @Transactional
     public Collection<Recipe> findAll() {
-        Query query = entityManager.createQuery("SELECT r FROM Recipe r");
-        return query.getResultList();
+        return entityManager.createQuery("SELECT r FROM Recipe r").getResultList();
     }
 
     @Override
     @Transactional
     public Recipe findById(Integer integer) {
-        Recipe recipe = entityManager.find(Recipe.class, integer);
-        return recipe;
+        return entityManager.find(Recipe.class, integer);
     }
 
     @Override
@@ -68,9 +66,8 @@ public class RecipeDAOImpl implements RecipeDAO {
         if (recipeName == null) {
             throw new ExceptionManager("Can not find item: " + recipeName);
         }
-        Query query = entityManager.createQuery("SELECT r FROM Recipe r WHERE r.recipeName = ?1", Recipe.class)
-                .setParameter(1, recipeName);
-        return query.getResultList();
+        return entityManager.createQuery("SELECT r FROM Recipe r WHERE r.recipeName = ?1", Recipe.class)
+                .setParameter(1, recipeName).getResultList();
     }
 
     //TEST

@@ -32,14 +32,12 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
 
     @Override
     public Collection<RecipeIngredient> findAll() {
-        Query query = entityManager.createQuery("SELECT r FROM RecipeIngredient r");
-        return query.getResultList();
+        return entityManager.createQuery("SELECT r FROM RecipeIngredient r").getResultList();
     }
 
     @Override
     public RecipeIngredient findById(String id) {
-        RecipeIngredient recipeIngredient = entityManager.find(RecipeIngredient.class, id);
-        return recipeIngredient;
+        return entityManager.find(RecipeIngredient.class, id);
     }
 
     @Override
