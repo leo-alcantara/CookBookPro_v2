@@ -41,9 +41,9 @@ public class Recipe {
     public Recipe(String recipeName, Collection<RecipeIngredient> ingredients,
                   RecipeInstruction instructions, Collection<RecipeCategory> categories) {
         this.recipeName = recipeName;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
-        this.categories = categories;
+        setIngredients(ingredients);
+        setInstructions(instructions);
+        setCategories(categories);
     }
 
     //Convenience Methods

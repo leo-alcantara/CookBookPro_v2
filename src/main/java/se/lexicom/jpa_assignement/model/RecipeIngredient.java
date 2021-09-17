@@ -19,7 +19,11 @@ public class RecipeIngredient {
     private double amount;
     private Measurement measurement;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 

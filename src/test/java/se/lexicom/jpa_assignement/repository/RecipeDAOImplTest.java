@@ -88,12 +88,13 @@ class RecipeDAOImplTest {
         //Arrange
         Collection<Recipe> foundRecipes = null;
         int size = 1;
+        testRecipe.addRecipeIngredient(recipeIngredient);
         //Act
-        foundRecipes = recipeDAO.findRecipeByIngredientName("Salt");
+        foundRecipes = recipeDAO.findRecipeByIngredientName(recipeIngredient.getIngredient().getIngredientName());
 
         //Assert
         assertNotNull(foundRecipes);
-        //assertEquals(size, foundRecipes.size());
+        assertEquals(size, foundRecipes.size());
     }
 
     @Test
@@ -105,6 +106,7 @@ class RecipeDAOImplTest {
        foundRecipes = recipeDAO.findRecipeByCategory(recipeCategory.getCategory());
 
         //Assert
+        assertNotNull(foundRecipes);
         assertEquals(1, foundRecipes.size());
 
     }
