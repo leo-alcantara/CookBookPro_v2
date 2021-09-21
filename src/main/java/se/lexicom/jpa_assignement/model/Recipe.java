@@ -1,7 +1,7 @@
 package se.lexicom.jpa_assignement.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +19,7 @@ public class Recipe {
             orphanRemoval = true,
             fetch = FetchType.LAZY,
     mappedBy = "recipe")
-    private Collection<RecipeIngredient> ingredients;
+    private List<RecipeIngredient> ingredients;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_instruction_id")
@@ -33,13 +33,13 @@ public class Recipe {
     @JoinTable(name = "recipes_categories",
             joinColumns = @JoinColumn(name = "recipe_id"),
     inverseJoinColumns = @JoinColumn(name = "recipe_category_id"))
-    private Collection<RecipeCategory> categories;
+    private List<RecipeCategory> categories;
 
     public Recipe() {
     }
 
-    public Recipe(String recipeName, Collection<RecipeIngredient> ingredients,
-                  RecipeInstruction instructions, Collection<RecipeCategory> categories) {
+    public Recipe(String recipeName, List<RecipeIngredient> ingredients,
+                  RecipeInstruction instructions, List<RecipeCategory> categories) {
         this.recipeName = recipeName;
         setIngredients(ingredients);
         setInstructions(instructions);
@@ -83,11 +83,11 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public Collection<RecipeIngredient> getIngredients() {
+    public List<RecipeIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Collection<RecipeIngredient> ingredients) {
+    public void setIngredients(List<RecipeIngredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -99,11 +99,11 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public Collection<RecipeCategory> getCategories() {
+    public List<RecipeCategory> getCategories() {
         return categories;
     }
 
-    public void setCategories(Collection<RecipeCategory> categories) {
+    public void setCategories(List<RecipeCategory> categories) {
         this.categories = categories;
     }
 

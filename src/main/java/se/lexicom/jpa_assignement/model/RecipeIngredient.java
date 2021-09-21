@@ -16,6 +16,7 @@ public class RecipeIngredient {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
     private double amount;
     private Measurement measurement;
 

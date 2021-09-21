@@ -1,7 +1,7 @@
 package se.lexicom.jpa_assignement.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,14 +17,15 @@ public class RecipeCategory {
             CascadeType.PERSIST,
             CascadeType.REFRESH},
             fetch = FetchType.LAZY)
-    @JoinTable(name = "recipes_categories", joinColumns = @JoinColumn(name = "recipe_category_id"),
+    @JoinTable(name = "recipes_categories",
+            joinColumns = @JoinColumn(name = "recipe_category_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Collection<Recipe> recipes;
+    private List<Recipe> recipes;
 
     public RecipeCategory() {
     }
 
-    public RecipeCategory(String category, Collection<Recipe> recipes) {
+    public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;
         this.recipes = recipes;
     }
@@ -56,11 +57,11 @@ public class RecipeCategory {
         this.category = category;
     }
 
-    public Collection<Recipe> getRecipes() {
+    public List<Recipe> getRecipes() {
         return recipes;
     }
 
-    public void setRecipes(Collection<Recipe> recipes) {
+    public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
 

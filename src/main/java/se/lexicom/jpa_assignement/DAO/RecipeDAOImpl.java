@@ -93,7 +93,10 @@ public class RecipeDAOImpl implements RecipeDAO {
     //TALK TO SIMON
     @Override
     @Transactional
-    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) {
+    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) throws ExceptionManager {
+        if (recipeCategory == null) {
+            throw new ExceptionManager("There is no such category called: " + recipeCategory);
+        }
         return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category in (:recipeCategory)", Recipe.class)
                 .setParameter("recipeCategory", recipeCategory).getResultList();
     }
