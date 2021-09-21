@@ -58,13 +58,15 @@ public class Recipe {
     }
 
     public void addRecipeCategory (RecipeCategory recipeCategory){
-        categories.add(recipeCategory);
-        recipeCategory.getRecipes().add(this);
+        if(!categories.contains(recipeCategory)){
+            categories.add(recipeCategory);
+        }
     }
 
     public void removeRecipeCategory(RecipeCategory recipeCategory){
-        recipeCategory.setRecipes(null);
-        categories.remove(recipeCategory);
+        if(categories.contains(recipeCategory)){
+            categories.remove(recipeCategory);
+        }
     }
 
     public int getRecipeId() {

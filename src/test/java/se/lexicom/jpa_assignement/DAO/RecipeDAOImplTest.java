@@ -27,7 +27,6 @@ class RecipeDAOImplTest {
     @Autowired
     private RecipeDAO recipeDAO;
 
-
     @Autowired
     TestEntityManager testEntityManager;
 
@@ -108,7 +107,6 @@ class RecipeDAOImplTest {
         assertTrue(foundRecipes2.contains(testRecipe2));
     }
 
-    //TALK TO SIMON WHAT TO ASSERT TO GET THE EXCEPTION THROWN
     @Test
     void test_findRecipeByName_throw_exception() {
         //Arrange
@@ -130,6 +128,7 @@ class RecipeDAOImplTest {
         //Assert
         assertNotNull(foundRecipes);
         assertEquals(size, foundRecipes.size());
+        assertTrue(foundRecipes.contains(testRecipe));
     }
 
     @Test
@@ -144,6 +143,7 @@ class RecipeDAOImplTest {
         //Assert
         //assertNull(foundRecipes);
         assertEquals(size, foundRecipes.size());
+        assertTrue(foundRecipes.isEmpty());
 
     }
 
@@ -181,6 +181,7 @@ class RecipeDAOImplTest {
         //Assert
         //assertNotNull(foundRecipes);
         assertEquals(size, foundRecipes.size());
+        assertTrue(foundRecipes.isEmpty());
     }
 
     @Test
@@ -223,6 +224,7 @@ class RecipeDAOImplTest {
         //Assert
         assertNotNull(foundRecipes);
         assertEquals(size, foundRecipes.size());
+        assertFalse(foundRecipes.contains(names));
     }
 
     @Test

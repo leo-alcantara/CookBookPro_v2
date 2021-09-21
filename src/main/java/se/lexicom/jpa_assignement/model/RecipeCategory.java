@@ -31,14 +31,16 @@ public class RecipeCategory {
     }
 
     //Convenience Methods
-    public void addRecipe (Recipe recipe){
-        recipes.add(recipe);
-        recipe.getCategories().add(this);
+    public void addRecipe(Recipe recipe) {
+        if (!recipes.contains(recipe)) {
+            recipes.add(recipe);
+        }
     }
 
-    public void removeRecipe(Recipe recipe){
-        recipe.setCategories(null);
-        recipes.remove(recipe);
+    public void removeRecipe(Recipe recipe) {
+        if (recipes.contains(recipe)) {
+            recipes.remove(recipe);
+        }
     }
 
     public int getRecipeCategoryId() {
