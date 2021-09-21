@@ -34,7 +34,6 @@ class RecipeDAOImplTest {
     private Recipe testRecipe;
     private Recipe testRecipe2;
     private Recipe testRecipe3;
-    private int testId;
 
     private List<RecipeIngredient> ingredientsList;
     private List<RecipeIngredient> ingredientsList2;
@@ -90,7 +89,6 @@ class RecipeDAOImplTest {
         testRecipe = testEntityManager.persist(new Recipe("Feijoada", ingredientsList, recipeInstruction, recipeCategories));
         testRecipe2 = testEntityManager.persist(new Recipe("Onion Soup", ingredientsList2, recipeInstruction, recipeCategories));
         testRecipe3 = testEntityManager.persist(new Recipe("Rib Eye", ingredientsList3, recipeInstruction, recipeCategories));
-        testId = testRecipe.getRecipeId();
 
     }
 
