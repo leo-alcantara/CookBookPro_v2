@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.repository;
+package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
@@ -6,9 +6,8 @@ import se.lexicom.jpa_assignement.model.Ingredient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,28 +28,35 @@ public class IngredientDAOImpl implements IngredientDAO {
 
     @Override
     @Transactional
-    public Ingredient delete(Ingredient ingredient) {
+    public Ingredient delete(Ingredient ingredient) throws ExceptionManager {
+        if (ingredient == null) {
+            throw new ExceptionManager("Can not remove item: " + ingredient);
+        }
         entityManager.remove(ingredient);
         return ingredient;
     }
 
     @Override
     @Transactional
-    public Collection<Ingredient> findAll() {
-        Query query = entityManager.createQuery("SELECT i FROM Ingredient i");
-        return query.getResultList();
+    public List<Ingredient> findAll() {
+        return entityManager.createQuery("SELECT i FROM Ingredient i", Ingredient.class).getResultList();
     }
 
     @Override
     @Transactional
-    public Ingredient findById(Integer integer) {
-        Ingredient ingredient = entityManager.find(Ingredient.class, integer);
-        return ingredient;
+    public Ingredient findById(Integer ingredientId) throws ExceptionManager {
+        if (ingredientId == null) {
+            throw new ExceptionManager("Can not find item: " + ingredientId);
+        }
+        return entityManager.find(Ingredient.class, ingredientId);
     }
 
     @Override
     @Transactional
-    public Ingredient update(Ingredient ingredient) {
+    public Ingredient update(Ingredient ingredient) throws ExceptionManager {
+        if (ingredient == null) {
+            throw new ExceptionManager("Can not update item: " + ingredient);
+        }
         return entityManager.merge(ingredient);
     }
 

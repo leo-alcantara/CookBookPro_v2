@@ -1,17 +1,16 @@
-package se.lexicom.jpa_assignement.repository;
+package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 import se.lexicom.jpa_assignement.model.Recipe;
-import se.lexicom.jpa_assignement.model.RecipeCategory;
-import se.lexicom.jpa_assignement.model.RecipeIngredient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+
 
 @Repository
 public class RecipeDAOImpl implements RecipeDAO {
@@ -38,8 +37,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Collection<Recipe> findAll() {
-        return entityManager.createQuery("SELECT r FROM Recipe r").getResultList();
+    public List<Recipe> findAll() {
+        return entityManager.createQuery("SELECT r FROM Recipe r", Recipe.class).getResultList();
     }
 
     @Override
@@ -62,7 +61,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeByName(String recipeName) throws ExceptionManager {
+    public List<Recipe> findRecipeByName(String recipeName) throws ExceptionManager {
         if (recipeName == null) {
             throw new ExceptionManager("Can not find item: " + recipeName);
         }
@@ -73,7 +72,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     //TEST
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeByIngredientName(String ingredientName) throws ExceptionManager {
+    public List<Recipe> findRecipeByIngredientName(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("There is no such ingredient called: " + ingredientName);
         }
@@ -83,7 +82,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
+    public List<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
         if (categoryName == null) {
             throw new ExceptionManager("There is no such category called: " + categoryName);
         }
@@ -94,7 +93,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     //TALK TO SIMON
     @Override
     @Transactional
-    public Collection<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) {
+    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) {
         return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category in (:recipeCategory)", Recipe.class)
                 .setParameter("recipeCategory", recipeCategory).getResultList();
     }

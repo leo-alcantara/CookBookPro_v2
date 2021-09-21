@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.repository;
+package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
@@ -7,7 +7,7 @@ import se.lexicom.jpa_assignement.model.RecipeInstruction;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
@@ -27,20 +27,26 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
 
     @Override
     @Transactional
-    public RecipeInstruction delete(RecipeInstruction recipeInstruction) {
+    public RecipeInstruction delete(RecipeInstruction recipeInstruction) throws ExceptionManager {
+        if (recipeInstruction == null) {
+            throw new ExceptionManager("Can not delete item: " + recipeInstruction);
+        }
         entityManager.remove(recipeInstruction);
         return recipeInstruction;
     }
 
     @Override
     @Transactional
-    public Collection<RecipeInstruction> findAll() {
-        return entityManager.createQuery("SELECT r FROM RecipeInstruction r").getResultList();
+    public List<RecipeInstruction> findAll() {
+        return entityManager.createQuery("SELECT r FROM RecipeInstruction r", RecipeInstruction.class).getResultList();
     }
 
     @Override
     @Transactional
-    public RecipeInstruction findById(String recipeInstructionId) {
+    public RecipeInstruction findById(String recipeInstructionId) throws ExceptionManager {
+        if (recipeInstructionId == null) {
+            throw new ExceptionManager("Can not find item: " + recipeInstructionId);
+        }
         return entityManager.find(RecipeInstruction.class, recipeInstructionId);
     }
 

@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.repository;
+package se.lexicom.jpa_assignement.DAO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,20 +1,18 @@
-package se.lexicom.jpa_assignement.repository;
+package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 import se.lexicom.jpa_assignement.model.RecipeCategory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 
     @PersistenceContext
     EntityManager entityManager;
-
 
     @Override
     @Transactional
@@ -38,16 +36,17 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 
     @Override
     @Transactional
-    public Collection<RecipeCategory> findAll() {
-        Query query = entityManager.createQuery("SELECT rc FROM RecipeCategory rc");
-        return query.getResultList();
+    public List<RecipeCategory> findAll() {
+        return entityManager.createQuery("SELECT rc FROM RecipeCategory rc", RecipeCategory.class).getResultList();
     }
 
     @Override
     @Transactional
-    public RecipeCategory findById(Integer integer) {
-        RecipeCategory recipeCategory = entityManager.find(RecipeCategory.class, integer);
-        return recipeCategory;
+    public RecipeCategory findById(Integer recipeCategoryId) throws ExceptionManager {
+        if (recipeCategoryId == null) {
+            throw new ExceptionManager("Can not delete item: " + recipeCategoryId);
+        }
+        return entityManager.find(RecipeCategory.class, recipeCategoryId);
     }
 
     @Override
