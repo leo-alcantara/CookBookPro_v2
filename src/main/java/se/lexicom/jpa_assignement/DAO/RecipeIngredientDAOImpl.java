@@ -15,6 +15,7 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     EntityManager entityManager;
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public RecipeIngredient create(RecipeIngredient recipeIngredient) throws ExceptionManager {
         if (recipeIngredient == null) {
             throw new ExceptionManager("Can not persist item: " + recipeIngredient);
@@ -24,6 +25,7 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public RecipeIngredient delete(RecipeIngredient recipeIngredient) throws ExceptionManager {
         if (recipeIngredient == null) {
             throw new ExceptionManager("Can not delete item: " + recipeIngredient);
@@ -33,11 +35,13 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public List<RecipeIngredient> findAll() {
         return entityManager.createQuery("SELECT r FROM RecipeIngredient r", RecipeIngredient.class).getResultList();
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public RecipeIngredient findById(String recipeIngredientId) throws ExceptionManager {
         if (recipeIngredientId == null) {
             throw new ExceptionManager("Can not find item: " + recipeIngredientId);
@@ -46,6 +50,7 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public RecipeIngredient update(RecipeIngredient recipeIngredient) throws ExceptionManager {
         if (recipeIngredient == null) {
             throw new ExceptionManager("Can not update item: " + recipeIngredient);
@@ -54,6 +59,7 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     }
 
     @Override
+    @org.springframework.transaction.annotation.Transactional
     public void clear() {
         entityManager.clear();
     }

@@ -15,7 +15,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     EntityManager entityManager;
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeCategory create(RecipeCategory recipeCategory) throws ExceptionManager {
         if (recipeCategory == null) {
             throw new ExceptionManager("Can not save item: " + recipeCategory);
@@ -25,7 +25,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeCategory delete(RecipeCategory recipeCategory) throws ExceptionManager {
         if (recipeCategory == null) {
             throw new ExceptionManager("Can not delete item: " + recipeCategory);
@@ -35,13 +35,13 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<RecipeCategory> findAll() {
         return entityManager.createQuery("SELECT rc FROM RecipeCategory rc", RecipeCategory.class).getResultList();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeCategory findById(Integer recipeCategoryId) throws ExceptionManager {
         if (recipeCategoryId == null) {
             throw new ExceptionManager("Can not delete item: " + recipeCategoryId);
@@ -50,13 +50,13 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeCategory update(RecipeCategory recipeCategory) {
         return entityManager.merge(recipeCategory);
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void clear() {
         entityManager.clear();
     }

@@ -6,7 +6,6 @@ import se.lexicom.jpa_assignement.model.Ingredient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public class IngredientDAOImpl implements IngredientDAO {
     EntityManager entityManager;
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient create(Ingredient ingredient) throws ExceptionManager {
         if (ingredient == null) {
             throw new ExceptionManager("Can not persist item: " + ingredient);
@@ -27,7 +26,7 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient delete(Ingredient ingredient) throws ExceptionManager {
         if (ingredient == null) {
             throw new ExceptionManager("Can not remove item: " + ingredient);
@@ -37,13 +36,13 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Ingredient> findAll() {
         return entityManager.createQuery("SELECT i FROM Ingredient i", Ingredient.class).getResultList();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient findById(Integer ingredientId) throws ExceptionManager {
         if (ingredientId == null) {
             throw new ExceptionManager("Can not find item: " + ingredientId);
@@ -52,7 +51,7 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient update(Ingredient ingredient) throws ExceptionManager {
         if (ingredient == null) {
             throw new ExceptionManager("Can not update item: " + ingredient);
@@ -61,13 +60,13 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void clear() {
         entityManager.clear();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient findIngredientByName(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("Can not find item: " + ingredientName);
@@ -79,7 +78,7 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Ingredient findIngredientByNameContain(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("Can not find item: " + ingredientName);

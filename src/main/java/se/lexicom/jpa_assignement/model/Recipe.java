@@ -1,6 +1,9 @@
 package se.lexicom.jpa_assignement.model;
 
+import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,31 +44,57 @@ public class Recipe {
     public Recipe(String recipeName, List<RecipeIngredient> ingredients,
                   RecipeInstruction instructions, List<RecipeCategory> categories) {
         this.recipeName = recipeName;
-        setIngredients(ingredients);
+        //setIngredients(ingredients);
+        for (RecipeIngredient i:ingredients
+             ) {addRecipeIngredient(i);
+        }
         setInstructions(instructions);
-        setCategories(categories);
-    }
-
-    //Convenience Methods
-    public void addRecipeIngredient(RecipeIngredient recipeIngredient){
-        ingredients.add(recipeIngredient);
-        recipeIngredient.setRecipe(this);
-    }
-
-    public void removeRecipeIngredients(RecipeIngredient recipeIngredient){
-        recipeIngredient.setRecipe(null);
-        ingredients.remove(recipeIngredient);
-    }
-
-    public void addRecipeCategory (RecipeCategory recipeCategory){
-        if(!categories.contains(recipeCategory)){
-            categories.add(recipeCategory);
+        //setCategories(categories);
+        for (RecipeCategory c:categories
+             ) {addRecipeCategory(c);
         }
     }
 
+    //Convenience Methods
+    public boolean addRecipeIngredient(RecipeIngredient recipeIngredient){
+        if(recipeIngredient==null) throw new ExceptionManager("Parameter can not be null");
+        if(ingredients==null)ingredients= new ArrayList<>();
+        if(!ingredients.contains(recipeIngredient)){
+            recipeIngredient.setRecipe(this);
+            this.getIngredients().add(recipeIngredient);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeRecipeIngredients(RecipeIngredient recipeIngredient){
+        if(recipeIngredient==null) throw new ExceptionManager("Parameter can not be null");
+        if(ingredients==null)ingredients= new ArrayList<>();
+        if(ingredients.contains(recipeIngredient)){
+            this.ingredients.remove(recipeIngredient);
+            recipeIngredient.setRecipe(null);
+            return true;
+        }
+       return false;
+    }
+
+    public boolean addRecipeCategory (RecipeCategory recipeCategory){
+        if(recipeCategory==null) throw new ExceptionManager("Parameter can not be null");
+        if(categories==null)categories= new ArrayList<>();
+        if(!categories.contains(recipeCategory)){
+            recipeCategory.addRecipe(this);
+            categories.add(recipeCategory);
+            return true;
+        }
+        return false;
+    }
+
     public void removeRecipeCategory(RecipeCategory recipeCategory){
+        if(recipeCategory==null) throw new ExceptionManager("Parameter can not be null");
+        if(categories==null)categories= new ArrayList<>();
         if(categories.contains(recipeCategory)){
-            categories.remove(recipeCategory);
+            this.categories.remove(recipeCategory);
+            recipeCategory.removeRecipe(this);
         }
     }
 

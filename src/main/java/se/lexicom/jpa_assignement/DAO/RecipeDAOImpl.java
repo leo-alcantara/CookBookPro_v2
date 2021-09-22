@@ -7,7 +7,7 @@ import se.lexicom.jpa_assignement.model.Recipe;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import javax.transaction.Transactional;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     EntityManager entityManager;
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Recipe create(Recipe recipe) throws ExceptionManager {
         if (recipe == null) {
             throw new ExceptionManager("Can not save item: " + recipe);
@@ -29,38 +29,38 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Recipe delete(Recipe recipe) {
         entityManager.remove(recipe);
         return recipe;
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Recipe> findAll() {
         return entityManager.createQuery("SELECT r FROM Recipe r", Recipe.class).getResultList();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Recipe findById(Integer integer) {
         return entityManager.find(Recipe.class, integer);
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public Recipe update(Recipe recipe) {
         return entityManager.merge(recipe);
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void clear() {
         entityManager.clear();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Recipe> findRecipeByName(String recipeName) throws ExceptionManager {
         if (recipeName == null) {
             throw new ExceptionManager("Can not find item: " + recipeName);
@@ -69,9 +69,8 @@ public class RecipeDAOImpl implements RecipeDAO {
                 .setParameter(1, recipeName).getResultList();
     }
 
-    //TEST
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Recipe> findRecipeByIngredientName(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("There is no such ingredient called: " + ingredientName);
@@ -81,7 +80,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
         if (categoryName == null) {
             throw new ExceptionManager("There is no such category called: " + categoryName);
@@ -90,9 +89,8 @@ public class RecipeDAOImpl implements RecipeDAO {
                 .setParameter(1, categoryName).getResultList();
     }
 
-    //TALK TO SIMON
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) throws ExceptionManager {
         if (recipeCategory == null) {
             throw new ExceptionManager("There is no such category called: " + recipeCategory);

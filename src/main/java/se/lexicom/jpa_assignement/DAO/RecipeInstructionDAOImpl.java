@@ -6,7 +6,7 @@ import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -16,7 +16,7 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     EntityManager entityManager;
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeInstruction create(RecipeInstruction recipeInstruction) throws ExceptionManager {
         if (recipeInstruction == null) {
             throw new ExceptionManager("Can not persist item: " + recipeInstruction);
@@ -26,7 +26,7 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeInstruction delete(RecipeInstruction recipeInstruction) throws ExceptionManager {
         if (recipeInstruction == null) {
             throw new ExceptionManager("Can not delete item: " + recipeInstruction);
@@ -36,13 +36,13 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public List<RecipeInstruction> findAll() {
         return entityManager.createQuery("SELECT r FROM RecipeInstruction r", RecipeInstruction.class).getResultList();
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeInstruction findById(String recipeInstructionId) throws ExceptionManager {
         if (recipeInstructionId == null) {
             throw new ExceptionManager("Can not find item: " + recipeInstructionId);
@@ -51,13 +51,13 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public RecipeInstruction update(RecipeInstruction recipeInstruction) {
         return entityManager.merge(recipeInstruction);
     }
 
     @Override
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public void clear() {
         entityManager.clear();
     }
