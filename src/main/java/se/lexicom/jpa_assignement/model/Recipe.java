@@ -82,7 +82,7 @@ public class Recipe {
         if(recipeCategory==null) throw new ExceptionManager("Parameter can not be null");
         if(categories==null)categories= new ArrayList<>();
         if(!categories.contains(recipeCategory)){
-            recipeCategory.addRecipe(this);
+            recipeCategory.getRecipes().add(this);
             categories.add(recipeCategory);
             return true;
         }
@@ -94,7 +94,7 @@ public class Recipe {
         if(categories==null)categories= new ArrayList<>();
         if(categories.contains(recipeCategory)){
             this.categories.remove(recipeCategory);
-            recipeCategory.removeRecipe(this);
+            recipeCategory.getRecipes().remove(this);
         }
     }
 

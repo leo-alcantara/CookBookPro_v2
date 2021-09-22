@@ -90,16 +90,10 @@ class RecipeTest {
     @Test
     void addRecipeIngredient() {
         //Arrange
-        assertFalse(testRecipe.getIngredients().contains(recipeIngredient2));
         //Act
-        testRecipe.addRecipeIngredient(recipeIngredient2);
-        testRecipe2.addRecipeIngredient(recipeIngredient3);
-        testRecipe3.addRecipeIngredient(recipeIngredient);
-
         //Assert
-        assertTrue(testRecipe.getIngredients().contains(recipeIngredient2));
-        assertTrue(testRecipe2.getIngredients().contains(recipeIngredient3));
-        assertTrue(testRecipe3.getIngredients().contains(recipeIngredient));
+        assertTrue(recipeIngredient.getRecipe().getRecipeName().equals("Feijoada"));
+
     }
 
     @Test
