@@ -15,19 +15,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@AutoConfigureTestEntityManager
-@AutoConfigureTestDatabase
-@Transactional
+
 class RecipeTest {
 
     @Autowired
     TestEntityManager testEntityManager;
 
-    private Recipe recipe;
+
     private Recipe testRecipe;
-    private Recipe testRecipe2;
-    private Recipe testRecipe3;
+
 
     private List<RecipeIngredient> ingredientsList;
     private List<RecipeIngredient> ingredientsList2;
@@ -64,8 +60,7 @@ class RecipeTest {
         ingredient3 = new Ingredient("Garlic");
         recipes = new ArrayList<>();
         recipeIngredient = new RecipeIngredient(ingredient, 10, Measurement.GRAM, testRecipe);
-        recipeIngredient2 = new RecipeIngredient(ingredient2, 10, Measurement.KILO, testRecipe2);
-        recipeIngredient3 = new RecipeIngredient(ingredient3, 20, Measurement.GRAM, testRecipe3);
+
         recipeCategory = new RecipeCategory("BBQ", recipes);
         recipeCategory2 = new RecipeCategory("Meat", recipes);
         recipeCategory3 = new RecipeCategory("Soups", recipes);
@@ -79,12 +74,8 @@ class RecipeTest {
         categoryNames.add("Vegan");
         categoryNames.add(ingredient3.getIngredientName());
 
-        testRecipe = testEntityManager
-                .persist(new Recipe("Feijoada", ingredientsList, recipeInstruction, recipeCategories));
-        testRecipe2 = testEntityManager
-                .persist(new Recipe("Onion Soup", ingredientsList2, recipeInstruction, recipeCategories));
-        testRecipe3 = testEntityManager
-                .persist(new Recipe("Rib Eye", ingredientsList3, recipeInstruction, recipeCategories));
+        testRecipe = new Recipe("Feijoada", ingredientsList, recipeInstruction, recipeCategories);
+
     }
 
     @Test

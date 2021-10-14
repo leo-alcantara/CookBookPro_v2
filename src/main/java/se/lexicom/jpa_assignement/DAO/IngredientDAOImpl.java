@@ -65,21 +65,10 @@ public class IngredientDAOImpl implements IngredientDAO {
         entityManager.clear();
     }
 
-    @Override
-    @org.springframework.transaction.annotation.Transactional
-    public Ingredient findIngredientByName(String ingredientName) throws ExceptionManager {
-        if (ingredientName == null) {
-            throw new ExceptionManager("Can not find item: " + ingredientName);
-        }
-        Optional<Ingredient> ingredient = entityManager.createQuery("SELECT i FROM Ingredient i WHERE i.ingredientName = ?1", Ingredient.class)
-                .setParameter(1, ingredientName).getResultStream().findFirst();
-
-        return ingredient.orElseThrow(() -> new ExceptionManager("Ingredient not found"));
-    }
 
     @Override
     @org.springframework.transaction.annotation.Transactional
-    public Ingredient findIngredientByNameContain(String ingredientName) throws ExceptionManager {
+    public Ingredient findIngredientByNameContainsIgnoreCase(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("Can not find item: " + ingredientName);
         }

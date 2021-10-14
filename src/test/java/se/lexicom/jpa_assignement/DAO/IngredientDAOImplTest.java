@@ -45,7 +45,7 @@ class IngredientDAOImplTest {
         Ingredient ingredientFound = null;
 
         //Act
-        found.add(ingredientFound = ingredientDAO.findIngredientByName(testIngredient.getIngredientName()));
+        found.add(ingredientFound = ingredientDAO.findIngredientByNameContainsIgnoreCase(testIngredient.getIngredientName()));
 
         //Assert
         assertFalse(found.isEmpty());
@@ -58,7 +58,7 @@ class IngredientDAOImplTest {
         Ingredient ingredientFound = null;
 
         //Act
-        ingredientFound = ingredientDAO.findIngredientByNameContain("sa");
+        ingredientFound = ingredientDAO.findIngredientByNameContainsIgnoreCase("sa");
         //Assert
         assertEquals("Salt", ingredientFound.getIngredientName());
 

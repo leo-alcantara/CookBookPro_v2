@@ -44,12 +44,12 @@ public class Recipe {
     public Recipe(String recipeName, List<RecipeIngredient> ingredients,
                   RecipeInstruction instructions, List<RecipeCategory> categories) {
         this.recipeName = recipeName;
-        //setIngredients(ingredients);
+
         for (RecipeIngredient i:ingredients
              ) {addRecipeIngredient(i);
         }
         setInstructions(instructions);
-        //setCategories(categories);
+
         for (RecipeCategory c:categories
              ) {addRecipeCategory(c);
         }

@@ -28,9 +28,14 @@ public class RecipeCategory {
     public RecipeCategory() {
     }
 
+
+
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;
-        this.recipes = recipes;
+        //this.recipes = recipes;
+        for (Recipe r:recipes
+        ) {addRecipe(r);
+        }
     }
 
     //Convenience Methods
