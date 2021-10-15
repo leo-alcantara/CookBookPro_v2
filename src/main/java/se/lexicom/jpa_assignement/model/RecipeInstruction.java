@@ -1,9 +1,8 @@
 package se.lexicom.jpa_assignement.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
@@ -11,9 +10,8 @@ import java.util.Objects;
 public class RecipeInstruction {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String recipeInstructionId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int recipeInstructionId;
     private String recipeInstructions;
 
     public RecipeInstruction() {
@@ -23,11 +21,11 @@ public class RecipeInstruction {
         this.recipeInstructions = recipeInstructions;
     }
 
-    public String getRecipeInstructionId() {
+    public int getRecipeInstructionId() {
         return recipeInstructionId;
     }
 
-    public void setRecipeInstructionId(String recipeInstructionId) {
+    public void setRecipeInstructionId(int recipeInstructionId) {
         this.recipeInstructionId = recipeInstructionId;
     }
 

@@ -20,53 +20,53 @@ public class IngredientController {
     }
 
     @PostMapping("/api/ingredients")
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient){
-        Ingredient saved=ingredientService.createIngredient(ingredient);
+    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
+        Ingredient saved = ingredientService.createIngredient(ingredient);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> findById(@PathVariable("id") Integer ingredientId){
-        Ingredient foundById=ingredientService.findById(ingredientId);
+    public ResponseEntity<Ingredient> findById(@PathVariable("id") Integer ingredientId) {
+        Ingredient foundById = ingredientService.findById(ingredientId);
         return ResponseEntity.ok(foundById);
     }
 
     @GetMapping("/api/ingredients")
-    public ResponseEntity<List<Ingredient>> findAll(){
-        List<Ingredient> allFound=ingredientService.findAll();
-         return ResponseEntity.ok(allFound);
+    public ResponseEntity<List<Ingredient>> findAll() {
+        List<Ingredient> allFound = ingredientService.findAll();
+        return ResponseEntity.ok(allFound);
     }
 
     @PutMapping("/api/ingredients/{id}")
     public ResponseEntity<Ingredient> update(@PathVariable("id") Integer ingredientId,
-                                             @RequestBody Ingredient ingredient){
-        if(ingredientId.equals(ingredient.getIngredientId())){
-            Ingredient updatedIngredient=ingredientService.update(ingredient);
+                                             @RequestBody Ingredient ingredient) {
+        if (ingredientId.equals(ingredient.getIngredientId())) {
+            Ingredient updatedIngredient = ingredientService.update(ingredient);
             return ResponseEntity.ok().body(updatedIngredient);
-        }else {
+        } else {
             return ResponseEntity.badRequest().build();
         }
     }
 
     //NOT SURE IF THIS IS RIGHT
     @DeleteMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> delete(@PathVariable("id") Ingredient ingredient){
-        Ingredient deletedIngredient= ingredientService.delete(ingredient);
-        return ResponseEntity.ok(ingredient);
+    public ResponseEntity<Ingredient> delete(@PathVariable("id") Ingredient ingredient) {
+        Ingredient deletedIngredient = ingredientService.delete(ingredient);
+        return ResponseEntity.ok(deletedIngredient);
     }
 
+    //NOT SURE IF THIS IS RIGHT
     @DeleteMapping("/api/ingredients")
-    public ResponseEntity<Void> clear(){
+    public ResponseEntity<Void> clear() {
         ingredientService.clear();
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/api/ingredients/{ingredientName}")
-    public ResponseEntity<Ingredient> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredientName") String ingredientName){
-        Ingredient foundIngredient=ingredientService.findIngredientByNameContainsIgnoreCase(ingredientName);
+    @GetMapping("/api/ingredients/{ingredient-name}")
+    public ResponseEntity<Ingredient> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
+        Ingredient foundIngredient = ingredientService.findIngredientByNameContainsIgnoreCase(ingredientName);
         return ResponseEntity.ok(foundIngredient);
     }
-
 
 
 }

@@ -17,27 +17,27 @@ public class IngredientService {
         this.ingredientDAO = ingredientDAO;
     }
 
-    public Ingredient createIngredient(Ingredient ingredient){
+    public Ingredient createIngredient(Ingredient ingredient) {
         return ingredientDAO.create(ingredient);
     }
 
-    public Ingredient findById(Integer ingredientId){
+    public Ingredient findById(Integer ingredientId) {
         return ingredientDAO.findById(ingredientId);
     }
 
-    public List<Ingredient> findAll(){
-       return ingredientDAO.findAll();
+    public List<Ingredient> findAll() {
+        return ingredientDAO.findAll();
     }
 
-    public Ingredient update(Ingredient ingredient){
+    public Ingredient update(Ingredient ingredient) {
         return ingredientDAO.update(ingredient);
     }
 
-    public Ingredient delete(Ingredient ingredient){
-       return ingredientDAO.delete(ingredient);
+    public Ingredient delete(Ingredient ingredient) {
+        return ingredientDAO.delete(ingredient);
     }
 
-    public void clear(){
+    public void clear() {
         ingredientDAO.clear();
     }
 

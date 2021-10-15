@@ -1,6 +1,7 @@
 package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
@@ -16,7 +17,7 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     EntityManager entityManager;
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public RecipeInstruction create(RecipeInstruction recipeInstruction) throws ExceptionManager {
         if (recipeInstruction == null) {
             throw new ExceptionManager("Can not persist item: " + recipeInstruction);
@@ -26,7 +27,7 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public RecipeInstruction delete(RecipeInstruction recipeInstruction) throws ExceptionManager {
         if (recipeInstruction == null) {
             throw new ExceptionManager("Can not delete item: " + recipeInstruction);
@@ -36,14 +37,14 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public List<RecipeInstruction> findAll() {
         return entityManager.createQuery("SELECT r FROM RecipeInstruction r", RecipeInstruction.class).getResultList();
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
-    public RecipeInstruction findById(String recipeInstructionId) throws ExceptionManager {
+    @Transactional
+    public RecipeInstruction findById(Integer recipeInstructionId) throws ExceptionManager {
         if (recipeInstructionId == null) {
             throw new ExceptionManager("Can not find item: " + recipeInstructionId);
         }
@@ -51,13 +52,13 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public RecipeInstruction update(RecipeInstruction recipeInstruction) {
         return entityManager.merge(recipeInstruction);
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public void clear() {
         entityManager.clear();
     }

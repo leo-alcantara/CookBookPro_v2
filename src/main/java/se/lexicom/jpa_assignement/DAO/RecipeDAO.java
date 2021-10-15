@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RecipeDAO extends GenericCRUDMethods <Recipe, Integer>{
 
-    List<Recipe> findRecipeByName(String recipeName);
-    List<Recipe> findRecipeByIngredientName(String ingredientName);
-    List<Recipe> findRecipeByCategory(String categoryName);
-    List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory);
+    List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName);
+    List<Recipe> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
+    List<Recipe> findRecipeByCategoryContainsIgnoreCase(String categoryName);
+    List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategories);
 }

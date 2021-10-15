@@ -8,10 +8,8 @@ import se.lexicom.jpa_assignement.model.Recipe;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 import java.util.Collection;
 import java.util.List;
-
 
 @Repository
 public class RecipeDAOImpl implements RecipeDAO {
@@ -31,7 +29,10 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Recipe delete(Recipe recipe) {
+    public Recipe delete(Recipe recipe) throws ExceptionManager {
+        if (recipe == null) {
+            throw new ExceptionManager(recipe + " recipe does not exist in the database.");
+        }
         entityManager.remove(recipe);
         return recipe;
     }
@@ -62,45 +63,43 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public List<Recipe> findRecipeByName(String recipeName) throws ExceptionManager {
+    public List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName) throws ExceptionManager {
         if (recipeName == null) {
             throw new ExceptionManager("Can not find item: " + recipeName);
         }
-        return entityManager.createQuery("SELECT r FROM Recipe r WHERE r.recipeName = ?1", Recipe.class)
+        return entityManager.createQuery("SELECT r FROM Recipe r WHERE UPPER(r.recipeName ) LIKE UPPER(CONCAT('%', ?1 , '%'))", Recipe.class)
                 .setParameter(1, recipeName).getResultList();
     }
 
     @Override
     @Transactional
-    public List<Recipe> findRecipeByIngredientName(String ingredientName) throws ExceptionManager {
+    public List<Recipe> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName) throws ExceptionManager {
         if (ingredientName == null) {
             throw new ExceptionManager("There is no such ingredient called: " + ingredientName);
         }
-        return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.ingredients AS ri WHERE ri.ingredient.ingredientName = ?1", Recipe.class)
+        return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.ingredients AS ri WHERE UPPER(ri.ingredient.ingredientName) LIKE UPPER(CONCAT('%', ?1, '%'))", Recipe.class)
                 .setParameter(1, ingredientName).getResultList();
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
-    public List<Recipe> findRecipeByCategory(String categoryName) throws ExceptionManager {
+    @Transactional
+    public List<Recipe> findRecipeByCategoryContainsIgnoreCase(String categoryName) throws ExceptionManager {
         if (categoryName == null) {
             throw new ExceptionManager("There is no such category called: " + categoryName);
         }
-        return  entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category = ?1", Recipe.class)
+        return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE UPPER(rc.category) LIKE UPPER(CONCAT('%', ?1 , '%'))", Recipe.class)
                 .setParameter(1, categoryName).getResultList();
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
-    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategory) throws ExceptionManager {
-        if (recipeCategory == null) {
-            throw new ExceptionManager("There is no such category called: " + recipeCategory);
+    @Transactional
+    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategories) throws ExceptionManager {
+        if (recipeCategories == null) {
+            throw new ExceptionManager("There is no such category called: " + recipeCategories);
         }
         return entityManager.createQuery("SELECT r FROM Recipe r JOIN FETCH r.categories AS rc WHERE rc.category in (:recipeCategory)", Recipe.class)
-                .setParameter("recipeCategory", recipeCategory).getResultList();
+                .setParameter("recipeCategory", recipeCategories).getResultList();
     }
-
-
 
 
 }
