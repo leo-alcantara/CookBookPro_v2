@@ -1,72 +1,33 @@
 package se.lexicom.jpa_assignement.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.model.Ingredient;
-import se.lexicom.jpa_assignement.service.IngredientService;
 
 import java.util.List;
 
-@RestController
-public class IngredientController {
-
-    private final IngredientService ingredientService;
-
-    @Autowired
-    public IngredientController(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
-    }
-
+public interface IngredientController {
     @PostMapping("/api/ingredients")
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
-        Ingredient saved = ingredientService.createIngredient(ingredient);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-    }
+    ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient);
 
     @GetMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> findById(@PathVariable("id") Integer ingredientId) {
-        Ingredient foundById = ingredientService.findById(ingredientId);
-        return ResponseEntity.ok(foundById);
-    }
+    ResponseEntity<Ingredient> findById(@PathVariable("id") Integer ingredientId);
 
     @GetMapping("/api/ingredients")
-    public ResponseEntity<List<Ingredient>> findAll() {
-        List<Ingredient> allFound = ingredientService.findAll();
-        return ResponseEntity.ok(allFound);
-    }
+    ResponseEntity<List<Ingredient>> findAll();
 
     @PutMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> update(@PathVariable("id") Integer ingredientId,
-                                             @RequestBody Ingredient ingredient) {
-        if (ingredientId.equals(ingredient.getIngredientId())) {
-            Ingredient updatedIngredient = ingredientService.update(ingredient);
-            return ResponseEntity.ok().body(updatedIngredient);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
+    ResponseEntity<Ingredient> update(@PathVariable("id") Integer ingredientId,
+                                      @RequestBody Ingredient ingredient);
 
     //NOT SURE IF THIS IS RIGHT
     @DeleteMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> delete(@PathVariable("id") Ingredient ingredient) {
-        Ingredient deletedIngredient = ingredientService.delete(ingredient);
-        return ResponseEntity.ok(deletedIngredient);
-    }
+    ResponseEntity<Ingredient> delete(@PathVariable("id") Ingredient ingredient);
 
     //NOT SURE IF THIS IS RIGHT
     @DeleteMapping("/api/ingredients")
-    public ResponseEntity<Void> clear() {
-        ingredientService.clear();
-        return ResponseEntity.ok().build();
-    }
+    ResponseEntity<Void> clear();
 
     @GetMapping("/api/ingredients/{ingredient-name}")
-    public ResponseEntity<Ingredient> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
-        Ingredient foundIngredient = ingredientService.findIngredientByNameContainsIgnoreCase(ingredientName);
-        return ResponseEntity.ok(foundIngredient);
-    }
-
-
+    ResponseEntity<Ingredient> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName);
 }

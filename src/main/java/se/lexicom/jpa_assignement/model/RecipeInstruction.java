@@ -17,6 +17,11 @@ public class RecipeInstruction {
     public RecipeInstruction() {
     }
 
+    public RecipeInstruction(int recipeInstructionId, String recipeInstructions) {
+        this.recipeInstructionId = recipeInstructionId;
+        this.recipeInstructions = recipeInstructions;
+    }
+
     public RecipeInstruction(String recipeInstructions) {
         this.recipeInstructions = recipeInstructions;
     }

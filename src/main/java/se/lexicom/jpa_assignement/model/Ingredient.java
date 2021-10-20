@@ -19,6 +19,11 @@ public class Ingredient {
         this.ingredientName = ingredient;
     }
 
+    public Ingredient(int ingredientId, String ingredientName) {
+        this.ingredientId = ingredientId;
+        this.ingredientName = ingredientName;
+    }
+
     public int getIngredientId() {
         return ingredientId;
     }

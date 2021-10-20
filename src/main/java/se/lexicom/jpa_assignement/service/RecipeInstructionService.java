@@ -1,45 +1,19 @@
 package se.lexicom.jpa_assignement.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import se.lexicom.jpa_assignement.DAO.RecipeInstructionDAOImpl;
 import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import java.util.List;
 
-@Service
-public class RecipeInstructionService {
+public interface RecipeInstructionService {
+    RecipeInstruction createRecipeInstruction(RecipeInstruction recipeInstruction);
 
-    private final RecipeInstructionDAOImpl recipeInstructionDAO;
+    RecipeInstruction findById(Integer recipeInstructionId);
 
-    @Autowired
-    public RecipeInstructionService(RecipeInstructionDAOImpl recipeInstructionDAO) {
-        this.recipeInstructionDAO = recipeInstructionDAO;
-    }
+    List<RecipeInstruction> findAll();
 
-    public RecipeInstruction createRecipeInstruction(RecipeInstruction recipeInstruction) {
-        return recipeInstructionDAO.create(recipeInstruction);
-    }
+    RecipeInstruction update(RecipeInstruction recipeInstruction);
 
-    public RecipeInstruction findById(Integer recipeInstructionId) {
-        return recipeInstructionDAO.findById(recipeInstructionId);
-    }
+    RecipeInstruction delete(RecipeInstruction recipeInstruction);
 
-    public List<RecipeInstruction> findAll() {
-        return recipeInstructionDAO.findAll();
-    }
-
-    public RecipeInstruction update(RecipeInstruction recipeInstruction) {
-        return recipeInstructionDAO.update(recipeInstruction);
-    }
-
-    public RecipeInstruction delete(RecipeInstruction recipeInstruction) {
-        return recipeInstructionDAO.delete(recipeInstruction);
-    }
-
-    public void clear() {
-        recipeInstructionDAO.clear();
-    }
-
-
+    void clear();
 }

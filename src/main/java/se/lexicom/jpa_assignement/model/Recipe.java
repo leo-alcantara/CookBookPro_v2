@@ -41,17 +41,25 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(int recipeId, String recipeName, List<RecipeIngredient> ingredients, RecipeInstruction instructions, List<RecipeCategory> categories) {
+        this.recipeId = recipeId;
+        this.recipeName = recipeName;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.categories = categories;
+    }
+
     public Recipe(String recipeName, List<RecipeIngredient> ingredients,
                   RecipeInstruction instructions, List<RecipeCategory> categories) {
         this.recipeName = recipeName;
 
-        for (RecipeIngredient i:ingredients
-             ) {addRecipeIngredient(i);
+        for (RecipeIngredient i:ingredients) {
+            addRecipeIngredient(i);
         }
         setInstructions(instructions);
 
-        for (RecipeCategory c:categories
-             ) {addRecipeCategory(c);
+        for (RecipeCategory c:categories) {
+            addRecipeCategory(c);
         }
     }
 

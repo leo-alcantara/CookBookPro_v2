@@ -28,7 +28,11 @@ public class RecipeCategory {
     public RecipeCategory() {
     }
 
-
+    public RecipeCategory(int recipeCategoryId, String category, List<Recipe> recipes) {
+        this.recipeCategoryId = recipeCategoryId;
+        this.category = category;
+        this.recipes = recipes;
+    }
 
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;

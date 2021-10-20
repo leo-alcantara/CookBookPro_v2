@@ -1,60 +1,28 @@
 package se.lexicom.jpa_assignement.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import se.lexicom.jpa_assignement.DAO.RecipeDAOImpl;
 import se.lexicom.jpa_assignement.model.Recipe;
 
 import java.util.Collection;
 import java.util.List;
 
-@Service
-public class RecipeService {
+public interface RecipeService {
+    Recipe createRecipe(Recipe recipe);
 
-    private final RecipeDAOImpl recipeDAO;
+    Recipe findById(Integer recipeId);
 
-    @Autowired
-    public RecipeService(RecipeDAOImpl recipeDAO) {
-        this.recipeDAO = recipeDAO;
-    }
+    List<Recipe> findAll();
 
-    public Recipe createRecipe(Recipe recipe) {
-        return recipeDAO.create(recipe);
-    }
+    Recipe update(Recipe recipe);
 
-    public Recipe findById(Integer recipeId) {
-        return recipeDAO.findById(recipeId);
-    }
+    Recipe delete(Recipe recipe);
 
-    public List<Recipe> findAll() {
-        return recipeDAO.findAll();
-    }
+    void clear();
 
-    public Recipe update(Recipe recipe) {
-        return recipeDAO.update(recipe);
-    }
+    List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName);
 
-    public Recipe delete(Recipe recipe) {
-        return recipeDAO.delete(recipe);
-    }
+    List<Recipe> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
 
-    public void clear() {
-        recipeDAO.clear();
-    }
+    List<Recipe> findRecipeByCategoryContainsIgnoreCase(String categoryName);
 
-    public List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName) {
-        return recipeDAO.findRecipeByNameContainsIgnoreCase(recipeName);
-    }
-
-    public List<Recipe> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName) {
-        return recipeDAO.findRecipeByIngredientNameContainsIgnoreCase(ingredientName);
-    }
-
-    public List<Recipe> findRecipeByCategoryContainsIgnoreCase(String categoryName) {
-        return recipeDAO.findRecipeByCategoryContainsIgnoreCase(categoryName);
-    }
-
-    public List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategories) {
-        return recipeDAO.findRecipeSeveralCategories(recipeCategories);
-    }
+    List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategories);
 }
