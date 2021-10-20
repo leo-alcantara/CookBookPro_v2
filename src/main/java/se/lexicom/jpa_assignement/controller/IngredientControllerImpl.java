@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicom.jpa_assignement.dto.IngredientDto;
+import se.lexicom.jpa_assignement.form.IngredientFormDto;
 import se.lexicom.jpa_assignement.model.Ingredient;
 import se.lexicom.jpa_assignement.service.IngredientServiceImpl;
 
@@ -21,48 +23,38 @@ public class IngredientControllerImpl implements IngredientController {
 
     @Override
     @PostMapping("/api/ingredients")
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
-        Ingredient saved = ingredientServiceImpl.createIngredient(ingredient);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<IngredientDto> createIngredient(@RequestBody IngredientFormDto formDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ingredientServiceImpl.createIngredient(formDto));
     }
 
     @Override
     @GetMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> findById(@PathVariable("id") Integer ingredientId) {
-        Ingredient foundById = ingredientServiceImpl.findById(ingredientId);
-        return ResponseEntity.ok(foundById);
+    public ResponseEntity<IngredientDto> findById(@PathVariable("id") Integer ingredientId) {
+        return ResponseEntity.ok(ingredientServiceImpl.findById(ingredientId));
     }
 
     @Override
     @GetMapping("/api/ingredients")
-    public ResponseEntity<List<Ingredient>> findAll() {
-        List<Ingredient> allFound = ingredientServiceImpl.findAll();
-        return ResponseEntity.ok(allFound);
+    public ResponseEntity<List<IngredientDto>> findAll() {
+        return ResponseEntity.ok(ingredientServiceImpl.findAll());
     }
 
     @Override
-    @PutMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> update(@PathVariable("id") Integer ingredientId,
-                                             @RequestBody Ingredient ingredient) {
-        if (ingredientId.equals(ingredient.getIngredientId())) {
-            Ingredient updatedIngredient = ingredientServiceImpl.update(ingredient);
-            return ResponseEntity.ok().body(updatedIngredient);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    //NOT SURE IF THIS IS RIGHT
-    @Override
-    @DeleteMapping("/api/ingredients/{id}")
-    public ResponseEntity<Ingredient> delete(@PathVariable("id") Ingredient ingredient) {
-        Ingredient deletedIngredient = ingredientServiceImpl.delete(ingredient);
-        return ResponseEntity.ok(deletedIngredient);
+    @PutMapping("/api/ingredients")
+    public ResponseEntity<IngredientDto> update(@RequestBody IngredientFormDto formDto) {
+            return ResponseEntity.ok().body(ingredientServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping("/api/ingredients")
+    public ResponseEntity<IngredientDto> delete(@RequestBody Ingredient ingredient) {
+        return ResponseEntity.ok(ingredientServiceImpl.delete(ingredient));
+    }
+
+    //NOT SURE IF THIS IS RIGHT
+    @Override
+    @DeleteMapping("/api/ingredients/clear")
     public ResponseEntity<Void> clear() {
         ingredientServiceImpl.clear();
         return ResponseEntity.ok().build();
@@ -70,9 +62,8 @@ public class IngredientControllerImpl implements IngredientController {
 
     @Override
     @GetMapping("/api/ingredients/{ingredient-name}")
-    public ResponseEntity<Ingredient> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
-        Ingredient foundIngredient = ingredientServiceImpl.findIngredientByNameContainsIgnoreCase(ingredientName);
-        return ResponseEntity.ok(foundIngredient);
+    public ResponseEntity<IngredientDto> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
+        return ResponseEntity.ok(ingredientServiceImpl.findIngredientByNameContainsIgnoreCase(ingredientName));
     }
 
 

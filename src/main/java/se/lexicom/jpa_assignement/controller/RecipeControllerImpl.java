@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicom.jpa_assignement.dto.RecipeDto;
+import se.lexicom.jpa_assignement.form.RecipeFormDto;
 import se.lexicom.jpa_assignement.model.Recipe;
 import se.lexicom.jpa_assignement.service.RecipeServiceImpl;
 
@@ -22,48 +24,38 @@ public class RecipeControllerImpl implements RecipeController {
 
     @Override
     @PostMapping("/api/recipes")
-    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
-        Recipe saved = recipeServiceImpl.createRecipe(recipe);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<RecipeDto> createRecipe(@RequestBody RecipeFormDto formDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(recipeServiceImpl.createRecipe(formDto));
     }
 
     @Override
     @GetMapping("/api/recipes/{id}")
-    public ResponseEntity<Recipe> findById(@PathVariable("id") Integer recipeId) {
-        Recipe foundById = recipeServiceImpl.findById(recipeId);
-        return ResponseEntity.ok(foundById);
+    public ResponseEntity<RecipeDto> findById(@PathVariable("id") Integer recipeId) {
+        return ResponseEntity.ok(recipeServiceImpl.findById(recipeId));
     }
 
     @Override
     @GetMapping("/api/recipes")
-    public ResponseEntity<List<Recipe>> findAll() {
-        List<Recipe> allFound = recipeServiceImpl.findAll();
-        return ResponseEntity.ok(allFound);
+    public ResponseEntity<List<RecipeDto>> findAll() {
+        return ResponseEntity.ok(recipeServiceImpl.findAll());
     }
 
     @Override
-    @PutMapping("/api/recipes/{id}")
-    public ResponseEntity<Recipe> update(@PathVariable("id") Integer recipeId,
-                                         @RequestBody Recipe recipe) {
-        if (recipeId.equals(recipe.getRecipeId())) {
-            Recipe updatedRecipe = recipeServiceImpl.update(recipe);
-            return ResponseEntity.ok().body(updatedRecipe);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    //NOT SURE IF THIS IS RIGHT
-    @Override
-    @DeleteMapping("/api/recipes/{id}")
-    public ResponseEntity<Recipe> delete(@PathVariable("id") Recipe recipe) {
-        Recipe deletedRecipe = recipeServiceImpl.delete(recipe);
-        return ResponseEntity.ok(deletedRecipe);
+    @PutMapping("/api/recipes")
+    public ResponseEntity<RecipeDto> update(@RequestBody RecipeFormDto formDto) {
+            return ResponseEntity.ok().body(recipeServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping("/api/recipes")
+    public ResponseEntity<RecipeDto> delete(@RequestBody Recipe recipe) {
+        return ResponseEntity.ok(recipeServiceImpl.delete(recipe));
+    }
+
+    //NOT SURE IF THIS IS RIGHT
+    @Override
+    @DeleteMapping("/api/recipes/clear")
     public ResponseEntity<Void> clear() {
         recipeServiceImpl.clear();
         return ResponseEntity.ok().build();
@@ -71,29 +63,25 @@ public class RecipeControllerImpl implements RecipeController {
 
     @Override
     @GetMapping("/api/recipes/{recipe-name}")
-    public ResponseEntity<List<Recipe>> findRecipeByNameContainsIgnoreCase(@PathVariable("recipe-name") String recipeName) {
-        List<Recipe> foundRecipes = recipeServiceImpl.findRecipeByNameContainsIgnoreCase(recipeName);
-        return ResponseEntity.ok(foundRecipes);
+    public ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(@PathVariable("recipe-name") String recipeName) {
+        return ResponseEntity.ok(recipeServiceImpl.findRecipeByNameContainsIgnoreCase(recipeName));
     }
 
     @Override
     @GetMapping("/api/recipes/{ingredient-name}")
-    public ResponseEntity<List<Recipe>> findRecipeByIngredientNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
-        List<Recipe> foundRecipes = recipeServiceImpl.findRecipeByIngredientNameContainsIgnoreCase(ingredientName);
-        return ResponseEntity.ok(foundRecipes);
+    public ResponseEntity<List<RecipeDto>> findRecipeByIngredientNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
+        return ResponseEntity.ok(recipeServiceImpl.findRecipeByIngredientNameContainsIgnoreCase(ingredientName));
     }
 
     @Override
     @GetMapping("/api/recipes/{category-name}")
-    public ResponseEntity<List<Recipe>> findRecipeByCategoryContainsIgnoreCase(@PathVariable("category-name") String categoryName) {
-        List<Recipe> foundRecipes = recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName);
-        return ResponseEntity.ok(foundRecipes);
+    public ResponseEntity<List<RecipeDto>> findRecipeByCategoryContainsIgnoreCase(@PathVariable("category-name") String categoryName) {
+        return ResponseEntity.ok(recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName));
     }
 
     @Override
     @GetMapping("/api/recipes/{recipe-categories}")
-    public ResponseEntity<List<Recipe>> findRecipeSeveralCategories(@PathVariable("recipe-categories") Collection<String> recipeCategories) {
-        List<Recipe> foundRecipes = recipeServiceImpl.findRecipeSeveralCategories(recipeCategories);
-        return ResponseEntity.ok(foundRecipes);
+    public ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(@PathVariable("recipe-categories") Collection<String> recipeCategories) {
+        return ResponseEntity.ok(recipeServiceImpl.findRecipeSeveralCategories(recipeCategories));
     }
 }

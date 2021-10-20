@@ -2,57 +2,75 @@ package se.lexicom.jpa_assignement.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.lexicom.jpa_assignement.DAO.IngredientDAOImpl;
+import se.lexicom.jpa_assignement.dto.IngredientDto;
+import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
+import se.lexicom.jpa_assignement.form.IngredientFormDto;
 import se.lexicom.jpa_assignement.model.Ingredient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientDAOImpl ingredientDAO;
+    private final ConversionService convert;
 
     @Autowired
-    public IngredientServiceImpl(IngredientDAOImpl ingredientDAO) {
+    public IngredientServiceImpl(IngredientDAOImpl ingredientDAO, ConversionService convert) {
         this.ingredientDAO = ingredientDAO;
+        this.convert = convert;
     }
 
     @Override
-    public Ingredient createIngredient(Ingredient ingredient) {
-        return ingredientDAO.create(ingredient);
+    @Transactional
+    public IngredientDto createIngredient(IngredientFormDto form) {
+        Ingredient saved = ingredientDAO.create(convert.toIngredient(form));
+        return convert.toIngredientDto(saved);
     }
 
     @Override
-    public Ingredient findById(Integer ingredientId) {
-        return ingredientDAO.findById(ingredientId);
+    @Transactional
+    public IngredientDto findById(Integer ingredientId) {
+        Ingredient fondIngredient = ingredientDAO.findById(ingredientId);
+        return convert.toIngredientDto(fondIngredient);
     }
 
     @Override
-    public List<Ingredient> findAll() {
-        return ingredientDAO.findAll();
+    @Transactional
+    public List<IngredientDto> findAll() {
+        List<Ingredient> ingredientList = ingredientDAO.findAll();
+        List<IngredientDto> ingredientDtoList = new ArrayList<>();
+        ingredientList.forEach((i) -> ingredientDtoList.add(convert.toIngredientDto(i)));
+        return ingredientDtoList;
     }
 
     @Override
-    public Ingredient update(Ingredient ingredient) {
-        return ingredientDAO.update(ingredient);
+    @Transactional
+    public IngredientDto update(IngredientFormDto formDto) {
+        Ingredient original = ingredientDAO.update(convert.toIngredient(formDto));
+        return convert.toIngredientDto(original);
     }
 
     @Override
-    public Ingredient delete(Ingredient ingredient) {
-        return ingredientDAO.delete(ingredient);
+    @Transactional
+    public IngredientDto delete(Ingredient ingredient) {
+        ingredientDAO.delete(ingredient);
+        return convert.toIngredientDto(ingredient);
     }
 
     @Override
+    @Transactional
     public void clear() {
         ingredientDAO.clear();
     }
 
     @Override
-    public Ingredient findIngredientByNameContainsIgnoreCase(String ingredientName){
-        return ingredientDAO.findIngredientByNameContainsIgnoreCase(ingredientName);
+    @Transactional
+    public IngredientDto findIngredientByNameContainsIgnoreCase(String ingredientName) {
+        Ingredient foundIngredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(ingredientName);
+        return convert.toIngredientDto(foundIngredient);
     }
-
-
-
-
 }

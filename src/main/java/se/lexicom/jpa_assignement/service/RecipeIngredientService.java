@@ -1,19 +1,22 @@
 package se.lexicom.jpa_assignement.service;
 
+import se.lexicom.jpa_assignement.dto.RecipeIngredientDto;
+import se.lexicom.jpa_assignement.form.RecipeIngredientFormDto;
 import se.lexicom.jpa_assignement.model.RecipeIngredient;
 
 import java.util.List;
 
 public interface RecipeIngredientService {
-    RecipeIngredient createRecipeIngredient(RecipeIngredient recipeIngredient);
 
-    RecipeIngredient findById(Integer recipeIngredientId);
+    RecipeIngredientDto createRecipeIngredient(RecipeIngredientFormDto formDto);
 
-    List<RecipeIngredient> findAll();
+    RecipeIngredientDto findById(Integer recipeIngredientId);
 
-    RecipeIngredient update(RecipeIngredient recipeIngredient);
+    List<RecipeIngredientDto> findAll();
 
-    RecipeIngredient delete(RecipeIngredient recipeIngredient);
+    RecipeIngredientDto update(RecipeIngredientFormDto formDto);
+
+    RecipeIngredientDto delete(RecipeIngredient recipeIngredient);
 
     void clear();
 }

@@ -1,19 +1,22 @@
 package se.lexicom.jpa_assignement.service;
 
+import se.lexicom.jpa_assignement.dto.RecipeInstructionDto;
+import se.lexicom.jpa_assignement.form.RecipeInstructionFormDto;
 import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import java.util.List;
 
 public interface RecipeInstructionService {
-    RecipeInstruction createRecipeInstruction(RecipeInstruction recipeInstruction);
 
-    RecipeInstruction findById(Integer recipeInstructionId);
+    RecipeInstructionDto createRecipeInstruction(RecipeInstructionFormDto formDto);
 
-    List<RecipeInstruction> findAll();
+    RecipeInstructionDto findById(Integer recipeInstructionId);
 
-    RecipeInstruction update(RecipeInstruction recipeInstruction);
+    List<RecipeInstructionDto> findAll();
 
-    RecipeInstruction delete(RecipeInstruction recipeInstruction);
+    RecipeInstructionDto update(RecipeInstructionFormDto formDto);
+
+    RecipeInstructionDto delete(RecipeInstruction recipeInstruction);
 
     void clear();
 }

@@ -1,28 +1,31 @@
 package se.lexicom.jpa_assignement.service;
 
+import se.lexicom.jpa_assignement.dto.RecipeDto;
+import se.lexicom.jpa_assignement.form.RecipeFormDto;
 import se.lexicom.jpa_assignement.model.Recipe;
 
 import java.util.Collection;
 import java.util.List;
 
 public interface RecipeService {
-    Recipe createRecipe(Recipe recipe);
 
-    Recipe findById(Integer recipeId);
+    RecipeDto createRecipe(RecipeFormDto formDto);
 
-    List<Recipe> findAll();
+    RecipeDto findById(Integer recipeId);
 
-    Recipe update(Recipe recipe);
+    List<RecipeDto> findAll();
 
-    Recipe delete(Recipe recipe);
+    RecipeDto update(RecipeFormDto formDto);
+
+    RecipeDto delete(Recipe recipe);
 
     void clear();
 
-    List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName);
+    List<RecipeDto> findRecipeByNameContainsIgnoreCase(String recipeName);
 
-    List<Recipe> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
+    List<RecipeDto> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
 
-    List<Recipe> findRecipeByCategoryContainsIgnoreCase(String categoryName);
+    List<RecipeDto> findRecipeByCategoryContainsIgnoreCase(String categoryName);
 
-    List<Recipe> findRecipeSeveralCategories(Collection<String> recipeCategories);
+    List<RecipeDto> findRecipeSeveralCategories(Collection<String> recipeCategories);
 }

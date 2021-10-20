@@ -1,21 +1,23 @@
 package se.lexicom.jpa_assignement.service;
 
+import se.lexicom.jpa_assignement.dto.IngredientDto;
+import se.lexicom.jpa_assignement.form.IngredientFormDto;
 import se.lexicom.jpa_assignement.model.Ingredient;
 
 import java.util.List;
 
 public interface IngredientService {
-    Ingredient createIngredient(Ingredient ingredient);
+    IngredientDto createIngredient(IngredientFormDto form);
 
-    Ingredient findById(Integer ingredientId);
+    IngredientDto findById(Integer ingredientId);
 
-    List<Ingredient> findAll();
+    List<IngredientDto> findAll();
 
-    Ingredient update(Ingredient ingredient);
+    IngredientDto update(IngredientFormDto formDto);
 
-    Ingredient delete(Ingredient ingredient);
+    IngredientDto delete(Ingredient ingredient);
 
     void clear();
 
-    Ingredient findIngredientByNameContainsIgnoreCase(String ingredientName);
+    IngredientDto findIngredientByNameContainsIgnoreCase(String ingredientName);
 }

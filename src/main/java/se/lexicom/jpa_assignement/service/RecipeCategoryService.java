@@ -1,19 +1,22 @@
 package se.lexicom.jpa_assignement.service;
 
+import se.lexicom.jpa_assignement.dto.RecipeCategoryDto;
+import se.lexicom.jpa_assignement.form.RecipeCategoryFormDto;
 import se.lexicom.jpa_assignement.model.RecipeCategory;
 
 import java.util.List;
 
 public interface RecipeCategoryService {
-    RecipeCategory createRecipeCategory(RecipeCategory recipeCategory);
 
-    RecipeCategory findById(Integer recipeCategoryId);
+    RecipeCategoryDto createRecipeCategory(RecipeCategoryFormDto form);
 
-    List<RecipeCategory> findAll();
+    RecipeCategoryDto findById(Integer recipeCategoryId);
 
-    RecipeCategory update(RecipeCategory recipeCategory);
+    List<RecipeCategoryDto> findAll();
 
-    RecipeCategory delete(RecipeCategory recipeCategory);
+    RecipeCategoryDto update(RecipeCategoryFormDto formDto);
+
+    RecipeCategoryDto delete(RecipeCategory recipeCategory);
 
     void clear();
 }

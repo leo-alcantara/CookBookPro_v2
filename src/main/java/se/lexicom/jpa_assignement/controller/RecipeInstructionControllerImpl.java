@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicom.jpa_assignement.dto.RecipeInstructionDto;
+import se.lexicom.jpa_assignement.form.RecipeInstructionFormDto;
 import se.lexicom.jpa_assignement.model.RecipeInstruction;
 import se.lexicom.jpa_assignement.service.RecipeInstructionServiceImpl;
 
@@ -21,47 +23,38 @@ public class RecipeInstructionControllerImpl implements RecipeInstructionControl
 
     @Override
     @PostMapping("/api/recipe-instructions")
-    public ResponseEntity<RecipeInstruction> createRecipeInstructions(@RequestBody RecipeInstruction recipeInstruction) {
-        RecipeInstruction saved = recipeInstructionServiceImpl.createRecipeInstruction(recipeInstruction);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    public ResponseEntity<RecipeInstructionDto> createRecipeInstructions(@RequestBody RecipeInstructionFormDto formDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(recipeInstructionServiceImpl.createRecipeInstruction(formDto));
     }
 
     @Override
     @GetMapping("/api/recipe-instructions/{id}")
-    public ResponseEntity<RecipeInstruction> findById(@PathVariable("id") Integer recipeInstructionId) {
-        RecipeInstruction foundById = recipeInstructionServiceImpl.findById(recipeInstructionId);
-        return ResponseEntity.ok(foundById);
+    public ResponseEntity<RecipeInstructionDto> findById(@PathVariable("id") Integer recipeInstructionId) {
+        return ResponseEntity.ok(recipeInstructionServiceImpl.findById(recipeInstructionId));
     }
 
     @Override
     @GetMapping("/api/recipe-instructions")
-    public ResponseEntity<List<RecipeInstruction>> findAll() {
-        List<RecipeInstruction> allFound = recipeInstructionServiceImpl.findAll();
-        return ResponseEntity.ok(allFound);
+    public ResponseEntity<List<RecipeInstructionDto>> findAll() {
+        return ResponseEntity.ok(recipeInstructionServiceImpl.findAll());
     }
 
     @Override
-    @PutMapping("/api/recipe-instructions/{id}")
-    public ResponseEntity<RecipeInstruction> update(@PathVariable("id") Integer recipeInstructionId,
-                                                    @RequestBody RecipeInstruction recipeInstruction) {
-        if (recipeInstructionId.equals(recipeInstruction.getRecipeInstructionId())) {
-            RecipeInstruction updatedRecipeInstruction = recipeInstructionServiceImpl.update(recipeInstruction);
-            return ResponseEntity.ok().body(updatedRecipeInstruction);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    //NOT SURE IF THIS IS RIGHT
-    @Override
-    @DeleteMapping("/api/recipe-instructions/{id}")
-    public ResponseEntity<RecipeInstruction> delete(@PathVariable("id") RecipeInstruction recipeInstruction) {
-        return ResponseEntity.ok(recipeInstructionServiceImpl.delete(recipeInstruction));
+    @PutMapping("/api/recipe-instructions")
+    public ResponseEntity<RecipeInstructionDto> update(RecipeInstructionFormDto formDto) {
+            return ResponseEntity.ok().body(recipeInstructionServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping("/api/recipe-instructions")
+    public ResponseEntity<RecipeInstructionDto> delete(@RequestBody RecipeInstruction recipeInstruction) {
+        return ResponseEntity.ok(recipeInstructionServiceImpl.delete(recipeInstruction));
+    }
+
+    //NOT SURE IF THIS IS RIGHT
+    @Override
+    @DeleteMapping("/api/recipe-instructions/clear")
     public ResponseEntity<Void> clear() {
         recipeInstructionServiceImpl.clear();
         return ResponseEntity.ok().build();

@@ -2,42 +2,33 @@ package se.lexicom.jpa_assignement.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.lexicom.jpa_assignement.DAO.RecipeDAO;
+import se.lexicom.jpa_assignement.dto.RecipeDto;
+import se.lexicom.jpa_assignement.form.RecipeFormDto;
 import se.lexicom.jpa_assignement.model.Recipe;
 
 import java.util.Collection;
 import java.util.List;
 
 public interface RecipeController {
-    @PostMapping("/api/recipes")
-    ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe);
 
-    @GetMapping("/api/recipes/{id}")
-    ResponseEntity<Recipe> findById(@PathVariable("id") Integer recipeId);
+    ResponseEntity<RecipeDto> createRecipe(@RequestBody RecipeFormDto formDto);
 
-    @GetMapping("/api/recipes")
-    ResponseEntity<List<Recipe>> findAll();
+    ResponseEntity<RecipeDto> findById(Integer recipeId);
 
-    @PutMapping("/api/recipes/{id}")
-    ResponseEntity<Recipe> update(@PathVariable("id") Integer recipeId,
-                                  @RequestBody Recipe recipe);
+    ResponseEntity<List<RecipeDto>> findAll();
 
-    //NOT SURE IF THIS IS RIGHT
-    @DeleteMapping("/api/recipes/{id}")
-    ResponseEntity<Recipe> delete(@PathVariable("id") Recipe recipe);
+    ResponseEntity<RecipeDto> update(RecipeFormDto formDto);
 
-    //NOT SURE IF THIS IS RIGHT
-    @DeleteMapping("/api/recipes")
+    ResponseEntity<RecipeDto> delete(Recipe recipe);
+
     ResponseEntity<Void> clear();
 
-    @GetMapping("/api/recipes/{recipe-name}")
-    ResponseEntity<List<Recipe>> findRecipeByNameContainsIgnoreCase(@PathVariable("recipe-name") String recipeName);
+    ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(String recipeName);
 
-    @GetMapping("/api/recipes/{ingredient-name}")
-    ResponseEntity<List<Recipe>> findRecipeByIngredientNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName);
+    ResponseEntity<List<RecipeDto>> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
 
-    @GetMapping("/api/recipes/{category-name}")
-    ResponseEntity<List<Recipe>> findRecipeByCategoryContainsIgnoreCase(@PathVariable("category-name") String categoryName);
+    ResponseEntity<List<RecipeDto>> findRecipeByCategoryContainsIgnoreCase(String categoryName);
 
-    @GetMapping("/api/recipes/{recipe-categories}")
-    ResponseEntity<List<Recipe>> findRecipeSeveralCategories(@PathVariable("recipe-categories") Collection<String> recipeCategories);
+    ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(Collection<String> recipeCategories);
 }
