@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.form;
+package se.lexicom.jpa_assignement.model.form;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import se.lexicom.jpa_assignement.model.Ingredient;

@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.form;
+package se.lexicom.jpa_assignement.model.form;
 
 public class RecipeInstructionFormDto {
 

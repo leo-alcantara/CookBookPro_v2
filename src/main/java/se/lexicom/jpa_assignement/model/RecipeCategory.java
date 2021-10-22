@@ -1,5 +1,6 @@
 package se.lexicom.jpa_assignement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 
 import javax.persistence.*;

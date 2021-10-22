@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeIngredientDto;
-import se.lexicom.jpa_assignement.form.RecipeIngredientFormDto;
+import se.lexicom.jpa_assignement.model.form.RecipeIngredientFormDto;
 import se.lexicom.jpa_assignement.model.RecipeIngredient;
 import se.lexicom.jpa_assignement.service.RecipeIngredientServiceImpl;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/api/recipe-ingredient")
+@CrossOrigin("*")
 public class RecipeIngredientControllerImpl implements RecipeIngredientController {
 
     private final RecipeIngredientServiceImpl recipeIngredientServiceImpl;
@@ -22,39 +25,39 @@ public class RecipeIngredientControllerImpl implements RecipeIngredientControlle
     }
 
     @Override
-    @PostMapping("/api/recipe-ingredient")
-    public ResponseEntity<RecipeIngredientDto> createRecipeIngredient(@RequestBody RecipeIngredientFormDto formDto) {
+    @PostMapping
+    public ResponseEntity<RecipeIngredientDto> createRecipeIngredient(@RequestBody @Valid RecipeIngredientFormDto formDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(recipeIngredientServiceImpl.createRecipeIngredient(formDto));
     }
 
     @Override
-    @GetMapping("/api/recipe-ingredient/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<RecipeIngredientDto> findById(@PathVariable("id") Integer recipeIngredientId) {
         return ResponseEntity.ok(recipeIngredientServiceImpl.findById(recipeIngredientId));
     }
 
     @Override
-    @GetMapping("/api/recipe-ingredient")
+    @GetMapping
     public ResponseEntity<List<RecipeIngredientDto>> findAll() {
         return ResponseEntity.ok(recipeIngredientServiceImpl.findAll());
     }
 
     @Override
-    @PutMapping("/api/recipe-ingredient")
-    public ResponseEntity<RecipeIngredientDto> update(@RequestBody RecipeIngredientFormDto formDto) {
+    @PutMapping
+    public ResponseEntity<RecipeIngredientDto> update(@RequestBody @Valid RecipeIngredientFormDto formDto) {
             return ResponseEntity.ok().body(recipeIngredientServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
-    @DeleteMapping("/api/recipe-ingredient")
+    @DeleteMapping
     public ResponseEntity<RecipeIngredientDto> delete(@RequestBody RecipeIngredient recipeIngredient) {
         return ResponseEntity.ok(recipeIngredientServiceImpl.delete(recipeIngredient));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
-    @DeleteMapping("/api/recipe-ingredient/clear")
+    @DeleteMapping(path = "/clear")
     public ResponseEntity<Void> clear() {
         recipeIngredientServiceImpl.clear();
         return ResponseEntity.ok().build();

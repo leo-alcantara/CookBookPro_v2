@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.IngredientDto;
-import se.lexicom.jpa_assignement.form.IngredientFormDto;
+import se.lexicom.jpa_assignement.model.form.IngredientFormDto;
 import se.lexicom.jpa_assignement.model.Ingredient;
 import se.lexicom.jpa_assignement.service.IngredientServiceImpl;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/api/ingredients")
+@CrossOrigin("*")
 public class IngredientControllerImpl implements IngredientController {
 
     private final IngredientServiceImpl ingredientServiceImpl;
@@ -22,46 +25,46 @@ public class IngredientControllerImpl implements IngredientController {
     }
 
     @Override
-    @PostMapping("/api/ingredients")
-    public ResponseEntity<IngredientDto> createIngredient(@RequestBody IngredientFormDto formDto) {
+    @PostMapping
+    public ResponseEntity<IngredientDto> createIngredient(@RequestBody @Valid IngredientFormDto formDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ingredientServiceImpl.createIngredient(formDto));
     }
 
     @Override
-    @GetMapping("/api/ingredients/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<IngredientDto> findById(@PathVariable("id") Integer ingredientId) {
         return ResponseEntity.ok(ingredientServiceImpl.findById(ingredientId));
     }
 
     @Override
-    @GetMapping("/api/ingredients")
+    @GetMapping
     public ResponseEntity<List<IngredientDto>> findAll() {
         return ResponseEntity.ok(ingredientServiceImpl.findAll());
     }
 
     @Override
-    @PutMapping("/api/ingredients")
-    public ResponseEntity<IngredientDto> update(@RequestBody IngredientFormDto formDto) {
+    @PutMapping
+    public ResponseEntity<IngredientDto> update(@RequestBody @Valid IngredientFormDto formDto) {
             return ResponseEntity.ok().body(ingredientServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
-    @DeleteMapping("/api/ingredients")
+    @DeleteMapping
     public ResponseEntity<IngredientDto> delete(@RequestBody Ingredient ingredient) {
         return ResponseEntity.ok(ingredientServiceImpl.delete(ingredient));
     }
 
     //NOT SURE IF THIS IS RIGHT
     @Override
-    @DeleteMapping("/api/ingredients/clear")
+    @DeleteMapping("/clear")
     public ResponseEntity<Void> clear() {
         ingredientServiceImpl.clear();
         return ResponseEntity.ok().build();
     }
 
     @Override
-    @GetMapping("/api/ingredients/{ingredient-name}")
+    @GetMapping("/{ingredient-name}")
     public ResponseEntity<IngredientDto> findIngredientByNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
         return ResponseEntity.ok(ingredientServiceImpl.findIngredientByNameContainsIgnoreCase(ingredientName));
     }

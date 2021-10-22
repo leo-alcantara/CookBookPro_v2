@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicom.jpa_assignement.DAO.RecipeCategoryDAOImpl;
 import se.lexicom.jpa_assignement.dto.RecipeCategoryDto;
-import se.lexicom.jpa_assignement.form.RecipeCategoryFormDto;
+import se.lexicom.jpa_assignement.model.form.RecipeCategoryFormDto;
 import se.lexicom.jpa_assignement.model.RecipeCategory;
 
 import java.util.ArrayList;

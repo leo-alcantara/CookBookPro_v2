@@ -2,9 +2,8 @@ package se.lexicom.jpa_assignement.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.lexicom.jpa_assignement.DAO.RecipeDAO;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
-import se.lexicom.jpa_assignement.form.RecipeFormDto;
+import se.lexicom.jpa_assignement.model.form.RecipeFormDto;
 import se.lexicom.jpa_assignement.model.Recipe;
 
 import java.util.Collection;

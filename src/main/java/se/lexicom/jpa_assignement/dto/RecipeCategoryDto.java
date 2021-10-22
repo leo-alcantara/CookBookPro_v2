@@ -10,12 +10,12 @@ public class RecipeCategoryDto {
     private int recipeCategoryId;
     private String category;
     @JsonBackReference
-    private List<Recipe> recipes;
+    private List<RecipeDto> recipes;
 
     public RecipeCategoryDto() {
     }
 
-    public RecipeCategoryDto(int recipeCategoryId, String category, List<Recipe> recipes) {
+    public RecipeCategoryDto(int recipeCategoryId, String category, List<RecipeDto> recipes) {
         this.recipeCategoryId = recipeCategoryId;
         this.category = category;
         this.recipes = recipes;
@@ -37,11 +37,11 @@ public class RecipeCategoryDto {
         this.category = category;
     }
 
-    public List<Recipe> getRecipes() {
+    public List<RecipeDto> getRecipes() {
         return recipes;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
+    public void setRecipes(List<RecipeDto> recipes) {
         this.recipes = recipes;
     }
 }

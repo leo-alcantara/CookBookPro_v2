@@ -2,10 +2,11 @@ package se.lexicom.jpa_assignement.service;
 
 import org.springframework.stereotype.Component;
 import se.lexicom.jpa_assignement.dto.*;
-import se.lexicom.jpa_assignement.form.*;
+import se.lexicom.jpa_assignement.model.form.*;
 import se.lexicom.jpa_assignement.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ConversionService {
@@ -35,8 +36,10 @@ public class ConversionService {
     }
 
     public RecipeIngredientDto toRecipeIngredientDto(RecipeIngredient recipeIngredient){
-        return new RecipeIngredientDto(recipeIngredient.getRecipeIngredientId(), recipeIngredient.getIngredient(),
-                recipeIngredient.getAmount(), recipeIngredient.getMeasurement(), recipeIngredient.getRecipe());
+        RecipeDto recipeDto = new RecipeDto();
+        IngredientDto ingredientDto = new IngredientDto();
+        return new RecipeIngredientDto(recipeIngredient.getRecipeIngredientId(), ingredientDto,
+                recipeIngredient.getAmount(), recipeIngredient.getMeasurement(), recipeDto);
     }
 
     //RECIPE INSTRUCTION CONVERTER
@@ -55,7 +58,10 @@ public class ConversionService {
     }
 
     public RecipeDto toRecipeDto(Recipe recipe){
-        return new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), recipe.getIngredients(),
-                recipe.getInstructions(), recipe.getCategories());
+        List<RecipeIngredientDto> ingredientsDto = new ArrayList<>();
+        RecipeInstructionDto recipeInstructionDto = new RecipeInstructionDto();
+        List<RecipeCategoryDto> recipeCategoryDtoList = new ArrayList<>();
+        return new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto,
+                recipeInstructionDto, recipeCategoryDtoList);
     }
 }

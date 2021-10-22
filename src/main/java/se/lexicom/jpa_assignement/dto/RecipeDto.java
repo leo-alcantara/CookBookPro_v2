@@ -12,15 +12,15 @@ public class RecipeDto {
     private int recipeId;
     private String recipeName;
     @JsonManagedReference
-    private List<RecipeIngredient> ingredients;
-    private RecipeInstruction instructions;
+    private List<RecipeIngredientDto> ingredients;
+    private RecipeInstructionDto instructions;
     @JsonManagedReference
-    private List<RecipeCategory> categories;
+    private List<RecipeCategoryDto> categories;
 
     public RecipeDto() {
     }
 
-    public RecipeDto(int recipeId, String recipeName, List<RecipeIngredient> ingredients, RecipeInstruction instructions, List<RecipeCategory> categories) {
+    public RecipeDto(int recipeId, String recipeName, List<RecipeIngredientDto> ingredients, RecipeInstructionDto instructions, List<RecipeCategoryDto> categories) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredients = ingredients;
@@ -44,27 +44,27 @@ public class RecipeDto {
         this.recipeName = recipeName;
     }
 
-    public List<RecipeIngredient> getIngredients() {
+    public List<RecipeIngredientDto> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<RecipeIngredient> ingredients) {
+    public void setIngredients(List<RecipeIngredientDto> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public RecipeInstruction getInstructions() {
+    public RecipeInstructionDto getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(RecipeInstruction instructions) {
+    public void setInstructions(RecipeInstructionDto instructions) {
         this.instructions = instructions;
     }
 
-    public List<RecipeCategory> getCategories() {
+    public List<RecipeCategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<RecipeCategory> categories) {
+    public void setCategories(List<RecipeCategoryDto> categories) {
         this.categories = categories;
     }
 }

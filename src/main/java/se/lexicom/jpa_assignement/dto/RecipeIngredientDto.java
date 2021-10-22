@@ -8,16 +8,16 @@ import se.lexicom.jpa_assignement.model.Recipe;
 public class RecipeIngredientDto {
 
     private int recipeIngredientId;
-    private Ingredient ingredient;
+    private IngredientDto ingredient;
     private double amount;
     private Measurement measurement;
     @JsonBackReference
-    private Recipe recipe;
+    private RecipeDto recipe;
 
     public RecipeIngredientDto() {
     }
 
-    public RecipeIngredientDto(int recipeIngredientId, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredientDto(int recipeIngredientId, IngredientDto ingredient, double amount, Measurement measurement, RecipeDto recipe) {
         this.recipeIngredientId = recipeIngredientId;
         this.ingredient = ingredient;
         this.amount = amount;
@@ -33,11 +33,11 @@ public class RecipeIngredientDto {
         this.recipeIngredientId = recipeIngredientId;
     }
 
-    public Ingredient getIngredient() {
+    public IngredientDto getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(Ingredient ingredient) {
+    public void setIngredient(IngredientDto ingredient) {
         this.ingredient = ingredient;
     }
 
@@ -57,11 +57,11 @@ public class RecipeIngredientDto {
         this.measurement = measurement;
     }
 
-    public Recipe getRecipe() {
+    public RecipeDto getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(RecipeDto recipe) {
         this.recipe = recipe;
     }
 }

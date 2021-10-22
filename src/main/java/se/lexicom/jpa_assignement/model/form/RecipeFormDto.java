@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.form;
+package se.lexicom.jpa_assignement.model.form;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import se.lexicom.jpa_assignement.model.RecipeCategory;

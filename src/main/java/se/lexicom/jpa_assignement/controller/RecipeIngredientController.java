@@ -3,7 +3,7 @@ package se.lexicom.jpa_assignement.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeIngredientDto;
-import se.lexicom.jpa_assignement.form.RecipeIngredientFormDto;
+import se.lexicom.jpa_assignement.model.form.RecipeIngredientFormDto;
 import se.lexicom.jpa_assignement.model.RecipeIngredient;
 
 import java.util.List;
