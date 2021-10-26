@@ -1,9 +1,6 @@
 package se.lexicom.jpa_assignement.model.form;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import se.lexicom.jpa_assignement.model.RecipeCategory;
-import se.lexicom.jpa_assignement.model.RecipeIngredient;
-import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import java.util.List;
 
@@ -13,15 +10,15 @@ public class RecipeFormDto {
     @JsonManagedReference
     private List<RecipeIngredientFormDto> ingredients;
     //Change type to string
-    private RecipeInstructionFormDto instructions;
+    private String instructions;
     @JsonManagedReference
     //Change type to String
-    private List<RecipeCategoryFormDto> categories;
+    private String categories;
 
     public RecipeFormDto() {
     }
 
-    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, RecipeInstructionFormDto instructions, List<RecipeCategoryFormDto> categories) {
+    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, String instructions, String categories) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -44,19 +41,22 @@ public class RecipeFormDto {
         this.ingredients = ingredients;
     }
 
-    public RecipeInstructionFormDto getInstructions() {
+    public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(RecipeInstructionFormDto instructions) {
+    public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
 
-    public List<RecipeCategoryFormDto> getCategories() {
+    public String getCategories() {
         return categories;
     }
 
-    public void setCategories(List<RecipeCategoryFormDto> categories) {
+    public void setCategories(String categories) {
         this.categories = categories;
     }
 }
+
+
+

@@ -41,7 +41,7 @@ public class ConversionService {
             RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
             recipeCategories.add(recipeCategory);
         }
-        RecipeInstruction recipeInstruction = new RecipeInstruction(formDto.getRecipe().getInstructions().getRecipeInstructions());
+        RecipeInstruction recipeInstruction = new RecipeInstruction(formDto.getRecipe().getInstructions());
         Recipe recipe = new Recipe(formDto.getRecipe().getRecipeName(), recipeIngredients, recipeInstruction, recipeCategories);
         return new RecipeIngredient(0,formDto.getIngredient(), formDto.getAmount(),
                 formDto.getMeasurement(), recipe);
@@ -63,8 +63,7 @@ public class ConversionService {
 
     //RECIPE CONVERTER
     public Recipe toRecipe(RecipeFormDto formDto){
-        //Fix path after changing type to string
-        RecipeInstruction instruction = new RecipeInstruction(0, formDto.getInstructions().getRecipeInstructions());
+        RecipeInstruction instruction = new RecipeInstruction(0, formDto.getInstructions());
         List<RecipeCategory> categories = new ArrayList<>();
         for (RecipeCategory rc: categories){
             RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
@@ -92,13 +91,12 @@ public class ConversionService {
         for (RecipeIngredient ri: recipe.getIngredients()){
             ingredientsDto.add(toRecipeIngredientDto(ri));
         }
-        RecipeInstructionDto recipeInstructionDto = new RecipeInstructionDto(recipe.getInstructions().getRecipeInstructionId(),
-                recipe.getInstructions().getRecipeInstructions());
+        RecipeInstructionDto recipeInstructionDto = new RecipeInstructionDto(recipe.getInstructions().getRecipeInstructionId(), recipe.getInstructions().getRecipeInstructions());
+
         List<RecipeCategoryDto> recipeCategoryDtoList = new ArrayList<>();
         for(RecipeCategory recipeCategory : recipe.getCategories()){
             recipeCategoryDtoList.add(toRecipeCategoryDto(recipeCategory));
         }
-        return new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto,
-                recipeInstructionDto, recipeCategoryDtoList);
+        return new RecipeDto(recipe.getRecipeName(), ingredientsDto, recipeInstructionDto, recipeCategoryDtoList);
     }
 }
