@@ -31,21 +31,31 @@ public class ConversionService {
 
     //RECIPE INGREDIENT CONVERTER
     public RecipeIngredient toRecipeIngredient(RecipeIngredientFormDto formDto){
-        return new RecipeIngredient(0, formDto.getIngredient(), formDto.getAmount(),
-                formDto.getMeasurement(), formDto.getRecipe());
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+        for (RecipeIngredient ri: recipeIngredients){
+            RecipeIngredient recipeIngredient = new RecipeIngredient(ri.getIngredient(), ri.getAmount(), ri.getMeasurement(), ri.getRecipe());
+            recipeIngredients.add(recipeIngredient);
+        }
+        List<RecipeCategory> recipeCategories = new ArrayList<>();
+        for (RecipeCategory rc: recipeCategories){
+            RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
+            recipeCategories.add(recipeCategory);
+        }
+        RecipeInstruction recipeInstruction = new RecipeInstruction(formDto.getRecipe().getInstructions().getRecipeInstructions());
+        Recipe recipe = new Recipe(formDto.getRecipe().getRecipeName(), recipeIngredients, recipeInstruction, recipeCategories);
+        return new RecipeIngredient(0,formDto.getIngredient(), formDto.getAmount(),
+                formDto.getMeasurement(), recipe);
     }
 
     public RecipeIngredientDto toRecipeIngredientDto(RecipeIngredient recipeIngredient){
-        RecipeDto recipeDto = new RecipeDto();
-        IngredientDto ingredientDto = new IngredientDto();
-        return new RecipeIngredientDto(recipeIngredient.getRecipeIngredientId(), ingredientDto,
-                recipeIngredient.getAmount(), recipeIngredient.getMeasurement(), recipeDto);
+        IngredientDto ingredientDto = new IngredientDto(0, recipeIngredient.getIngredient().getIngredientName());
+        return new RecipeIngredientDto(ingredientDto, recipeIngredient.getAmount(), recipeIngredient.getMeasurement());
     }
 
     //RECIPE INSTRUCTION CONVERTER
-    public RecipeInstruction toRecipeInstruction (RecipeInstructionFormDto formDto){
+    /*public RecipeInstruction toRecipeInstruction (RecipeInstructionFormDto formDto){
         return new RecipeInstruction(0, formDto.getRecipeInstructions());
-    }
+    }*/
 
     public RecipeInstructionDto toRecipeInstructionDto(RecipeInstruction recipeInstruction){
         return new RecipeInstructionDto(recipeInstruction.getRecipeInstructionId(), recipeInstruction.getRecipeInstructions());
@@ -53,14 +63,41 @@ public class ConversionService {
 
     //RECIPE CONVERTER
     public Recipe toRecipe(RecipeFormDto formDto){
-        return new Recipe(0, formDto.getRecipeName(), formDto.getIngredients(),
-                formDto.getInstructions(), formDto.getCategories());
+        //Fix path after changing type to string
+        RecipeInstruction instruction = new RecipeInstruction(0, formDto.getInstructions().getRecipeInstructions());
+        List<RecipeCategory> categories = new ArrayList<>();
+        for (RecipeCategory rc: categories){
+            RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
+            categories.add(recipeCategory);
+        }
+        List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
+        for (RecipeIngredientFormDto ri: formDto.getIngredients()){
+            RecipeIngredient recipeIngredient = new RecipeIngredient(new Ingredient(ri.getIngredient().getIngredientName()),
+                    ri.getAmount(), ri.getMeasurement());
+            recipeIngredientList.add(recipeIngredient);
+        }
+
+        Recipe recipe = new Recipe(formDto.getRecipeName(), recipeIngredientList, instruction, categories);
+        for (RecipeIngredient ri: recipeIngredientList){
+            recipe.addRecipeIngredient(ri);
+        }
+        for (RecipeCategory rc: categories){
+            recipe.addRecipeCategory(rc);
+        }
+        return recipe;
     }
 
     public RecipeDto toRecipeDto(Recipe recipe){
         List<RecipeIngredientDto> ingredientsDto = new ArrayList<>();
-        RecipeInstructionDto recipeInstructionDto = new RecipeInstructionDto();
+        for (RecipeIngredient ri: recipe.getIngredients()){
+            ingredientsDto.add(toRecipeIngredientDto(ri));
+        }
+        RecipeInstructionDto recipeInstructionDto = new RecipeInstructionDto(recipe.getInstructions().getRecipeInstructionId(),
+                recipe.getInstructions().getRecipeInstructions());
         List<RecipeCategoryDto> recipeCategoryDtoList = new ArrayList<>();
+        for(RecipeCategory recipeCategory : recipe.getCategories()){
+            recipeCategoryDtoList.add(toRecipeCategoryDto(recipeCategory));
+        }
         return new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto,
                 recipeInstructionDto, recipeCategoryDtoList);
     }

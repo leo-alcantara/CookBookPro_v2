@@ -15,7 +15,8 @@ public interface RecipeController {
 
     ResponseEntity<RecipeDto> findById(Integer recipeId);
 
-    ResponseEntity<List<RecipeDto>> findAll();
+    ResponseEntity<List<RecipeDto>> find( @RequestParam(name = "search", defaultValue = "all") String search,
+                                          @RequestParam(name = "values", defaultValue = "all") String[] values);
 
     ResponseEntity<RecipeDto> update(RecipeFormDto formDto);
 

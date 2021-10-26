@@ -35,13 +35,19 @@ public class RecipeCategory {
         this.recipes = recipes;
     }
 
+    public RecipeCategory(String category) {
+        this.category = category;
+    }
+
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;
         //this.recipes = recipes;
         for (Recipe r:recipes
         ) {addRecipe(r);
+
         }
     }
+
 
     //Convenience Methods
     public boolean addRecipe(Recipe recipe){

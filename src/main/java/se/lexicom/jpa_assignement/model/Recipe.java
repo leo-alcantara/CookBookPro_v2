@@ -49,6 +49,10 @@ public class Recipe {
         this.categories = categories;
     }
 
+    public Recipe(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
     public Recipe(String recipeName, List<RecipeIngredient> ingredients,
                   RecipeInstruction instructions, List<RecipeCategory> categories) {
         this.recipeName = recipeName;

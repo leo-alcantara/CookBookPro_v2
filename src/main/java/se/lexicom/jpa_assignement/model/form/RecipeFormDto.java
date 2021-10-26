@@ -11,15 +11,17 @@ public class RecipeFormDto {
 
     private String recipeName;
     @JsonManagedReference
-    private List<RecipeIngredient> ingredients;
-    private RecipeInstruction instructions;
+    private List<RecipeIngredientFormDto> ingredients;
+    //Change type to string
+    private RecipeInstructionFormDto instructions;
     @JsonManagedReference
-    private List<RecipeCategory> categories;
+    //Change type to String
+    private List<RecipeCategoryFormDto> categories;
 
     public RecipeFormDto() {
     }
 
-    public RecipeFormDto(String recipeName, List<RecipeIngredient> ingredients, RecipeInstruction instructions, List<RecipeCategory> categories) {
+    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, RecipeInstructionFormDto instructions, List<RecipeCategoryFormDto> categories) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -34,27 +36,27 @@ public class RecipeFormDto {
         this.recipeName = recipeName;
     }
 
-    public List<RecipeIngredient> getIngredients() {
+    public List<RecipeIngredientFormDto> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<RecipeIngredient> ingredients) {
+    public void setIngredients(List<RecipeIngredientFormDto> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public RecipeInstruction getInstructions() {
+    public RecipeInstructionFormDto getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(RecipeInstruction instructions) {
+    public void setInstructions(RecipeInstructionFormDto instructions) {
         this.instructions = instructions;
     }
 
-    public List<RecipeCategory> getCategories() {
+    public List<RecipeCategoryFormDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<RecipeCategory> categories) {
+    public void setCategories(List<RecipeCategoryFormDto> categories) {
         this.categories = categories;
     }
 }

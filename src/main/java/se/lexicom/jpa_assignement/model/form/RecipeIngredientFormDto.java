@@ -3,20 +3,26 @@ package se.lexicom.jpa_assignement.model.form;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import se.lexicom.jpa_assignement.model.Ingredient;
 import se.lexicom.jpa_assignement.model.Measurement;
-import se.lexicom.jpa_assignement.model.Recipe;
 
 public class RecipeIngredientFormDto {
 
+    //Change Type to String
     private Ingredient ingredient;
     private double amount;
     private Measurement measurement;
     @JsonBackReference
-    private Recipe recipe;
+    private RecipeFormDto recipe;
 
     public RecipeIngredientFormDto() {
     }
 
-    public RecipeIngredientFormDto(Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredientFormDto(Ingredient ingredient, double amount, Measurement measurement) {
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.measurement = measurement;
+    }
+
+    public RecipeIngredientFormDto(Ingredient ingredient, double amount, Measurement measurement, RecipeFormDto recipe) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
@@ -47,11 +53,11 @@ public class RecipeIngredientFormDto {
         this.measurement = measurement;
     }
 
-    public Recipe getRecipe() {
+    public RecipeFormDto getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(RecipeFormDto recipe) {
         this.recipe = recipe;
     }
 }

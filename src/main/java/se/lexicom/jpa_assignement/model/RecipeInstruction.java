@@ -1,5 +1,7 @@
 package se.lexicom.jpa_assignement.model;
 
+import se.lexicom.jpa_assignement.model.form.RecipeInstructionFormDto;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class RecipeInstruction {
     public RecipeInstruction(String recipeInstructions) {
         this.recipeInstructions = recipeInstructions;
     }
+
 
     public int getRecipeInstructionId() {
         return recipeInstructionId;

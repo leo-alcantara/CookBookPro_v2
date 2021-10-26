@@ -10,6 +10,7 @@ public class RecipeCategoryDto {
     private int recipeCategoryId;
     private String category;
     @JsonBackReference
+    //Exclude this field
     private List<RecipeDto> recipes;
 
     public RecipeCategoryDto() {
@@ -19,6 +20,10 @@ public class RecipeCategoryDto {
         this.recipeCategoryId = recipeCategoryId;
         this.category = category;
         this.recipes = recipes;
+    }
+
+    public RecipeCategoryDto(String category) {
+        this.category = category;
     }
 
     public int getRecipeCategoryId() {

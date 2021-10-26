@@ -10,6 +10,8 @@ import se.lexicom.jpa_assignement.model.Recipe;
 import se.lexicom.jpa_assignement.service.RecipeServiceImpl;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,6 +27,10 @@ public class RecipeControllerImpl implements RecipeController {
         this.recipeServiceImpl = recipeServiceImpl;
     }
 
+    private final List<String> searchTypes = Arrays.asList(
+         "all", "recipe-name", "ingredient-name", "category-name", "recipe-categories"
+    );
+
     @Override
     @PostMapping
     public ResponseEntity<RecipeDto> createRecipe(@RequestBody @Valid RecipeFormDto formDto) {
@@ -39,9 +45,38 @@ public class RecipeControllerImpl implements RecipeController {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<RecipeDto>> findAll() {
-        return ResponseEntity.ok(recipeServiceImpl.findAll());
+    public ResponseEntity<List<RecipeDto>> find(
+            @RequestParam(name = "search", defaultValue = "all") String search,
+            @RequestParam(name = "values", defaultValue = "all") String[] values) {
+        List<RecipeDto> recipeDtoList;
+
+        switch (search){
+            case "all":
+                recipeDtoList = recipeServiceImpl.findAll();
+                break;
+            case "recipe-name":
+                String recipeName = values[0];
+                recipeDtoList = recipeServiceImpl.findRecipeByNameContainsIgnoreCase(recipeName);
+                break;
+            case "ingredient-name":
+                String ingredientName = values[0];
+                recipeDtoList = recipeServiceImpl.findRecipeByIngredientNameContainsIgnoreCase(ingredientName);
+                break;
+            case "category-name":
+                String categoryName = values[0];
+                recipeDtoList = recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName);
+                break;
+            case "recipe-categories":
+                List<String> recipeCategories = new ArrayList<>();
+                recipeDtoList = recipeServiceImpl.findRecipeSeveralCategories(recipeCategories);
+                break;
+            default: throw new IllegalArgumentException("Invalid search type");
+
+        }
+
+        return null;
     }
+
 
     @Override
     @PutMapping
