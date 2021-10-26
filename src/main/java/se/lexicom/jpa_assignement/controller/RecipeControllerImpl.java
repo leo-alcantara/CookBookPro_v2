@@ -28,7 +28,7 @@ public class RecipeControllerImpl implements RecipeController {
     }
 
     private final List<String> searchTypes = Arrays.asList(
-         "all", "recipe-name", "ingredient-name", "category-name", "recipe-categories"
+            "all", "recipe-name", "ingredient-name", "category-name", "recipe-categories"
     );
 
     @Override
@@ -50,7 +50,7 @@ public class RecipeControllerImpl implements RecipeController {
             @RequestParam(name = "values", defaultValue = "all") String[] values) {
         List<RecipeDto> recipeDtoList;
 
-        switch (search){
+        switch (search) {
             case "all":
                 recipeDtoList = recipeServiceImpl.findAll();
                 break;
@@ -70,18 +70,17 @@ public class RecipeControllerImpl implements RecipeController {
                 List<String> recipeCategories = new ArrayList<>();
                 recipeDtoList = recipeServiceImpl.findRecipeSeveralCategories(recipeCategories);
                 break;
-            default: throw new IllegalArgumentException("Invalid search type");
-
+            default:
+                throw new IllegalArgumentException("Invalid search type");
         }
-
-        return null;
+        return ResponseEntity.ok(recipeDtoList);
     }
 
 
     @Override
     @PutMapping
     public ResponseEntity<RecipeDto> update(@RequestBody @Valid RecipeFormDto formDto) {
-            return ResponseEntity.ok().body(recipeServiceImpl.update(formDto));
+        return ResponseEntity.ok().body(recipeServiceImpl.update(formDto));
     }
 
     //NOT SURE IF THIS IS RIGHT
@@ -99,7 +98,7 @@ public class RecipeControllerImpl implements RecipeController {
         return ResponseEntity.ok().build();
     }
 
-    @Override
+   /* @Override
     @GetMapping(path = "{recipe-name}")
     public ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(@PathVariable("recipe-name") String recipeName) {
         return ResponseEntity.ok(recipeServiceImpl.findRecipeByNameContainsIgnoreCase(recipeName));
@@ -121,5 +120,5 @@ public class RecipeControllerImpl implements RecipeController {
     @GetMapping(path = "/{recipe-categories}")
     public ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(@PathVariable("recipe-categories") Collection<String> recipeCategories) {
         return ResponseEntity.ok(recipeServiceImpl.findRecipeSeveralCategories(recipeCategories));
-    }
+    }*/
 }

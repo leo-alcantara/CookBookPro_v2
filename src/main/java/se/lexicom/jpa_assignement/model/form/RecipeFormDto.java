@@ -2,23 +2,27 @@ package se.lexicom.jpa_assignement.model.form;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class RecipeFormDto {
 
+    @NotBlank
+    @Size(min = 3, max = 30, message = "Recipe Name must contain more than three characters.")
     private String recipeName;
     @JsonManagedReference
+    @NotEmpty
     private List<RecipeIngredientFormDto> ingredients;
-    //Change type to string
+    @NotBlank
     private String instructions;
-    @JsonManagedReference
-    //Change type to String
-    private String categories;
+    private String[] categories;
 
     public RecipeFormDto() {
     }
 
-    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, String instructions, String categories) {
+    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, String instructions, String[] categories) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -49,11 +53,11 @@ public class RecipeFormDto {
         this.instructions = instructions;
     }
 
-    public String getCategories() {
+    public String[] getCategories() {
         return categories;
     }
 
-    public void setCategories(String categories) {
+    public void setCategories(String[] categories) {
         this.categories = categories;
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class RecipeCategoryFormDto {
 
     private String category;
-    @JsonBackReference
+    //@JsonBackReference
     private List<RecipeDto> recipes;
 
     public RecipeCategoryFormDto() {

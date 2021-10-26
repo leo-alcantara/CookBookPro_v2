@@ -31,6 +31,13 @@ public class RecipeIngredientDto {
         this.recipe = recipe;
     }
 
+    public RecipeIngredientDto(int recipeIngredientId, IngredientDto ingredient, double amount, Measurement measurement) {
+        this.recipeIngredientId = recipeIngredientId;
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.measurement = measurement;
+    }
+
     public int getRecipeIngredientId() {
         return recipeIngredientId;
     }

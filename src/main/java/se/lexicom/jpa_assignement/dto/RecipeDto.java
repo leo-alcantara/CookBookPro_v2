@@ -20,14 +20,16 @@ public class RecipeDto {
     public RecipeDto() {
     }
 
-    public RecipeDto(String recipeName, List<RecipeIngredientDto> ingredients, RecipeInstructionDto instructions, List<RecipeCategoryDto> categories) {
+    public RecipeDto(String recipeName, List<RecipeIngredientDto> ingredients,
+                     RecipeInstructionDto instructions, List<RecipeCategoryDto> categories) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.categories = categories;
     }
 
-    public RecipeDto(int recipeId, String recipeName, List<RecipeIngredientDto> ingredients, RecipeInstructionDto instructions, List<RecipeCategoryDto> categories) {
+    public RecipeDto(int recipeId, String recipeName, List<RecipeIngredientDto> ingredients,
+                     RecipeInstructionDto instructions, List<RecipeCategoryDto> categories) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredients = ingredients;

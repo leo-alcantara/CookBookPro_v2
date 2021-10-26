@@ -24,11 +24,11 @@ public interface RecipeController {
 
     ResponseEntity<Void> clear();
 
-    ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(String recipeName);
+    /*ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(String recipeName);
 
     ResponseEntity<List<RecipeDto>> findRecipeByIngredientNameContainsIgnoreCase(String ingredientName);
 
     ResponseEntity<List<RecipeDto>> findRecipeByCategoryContainsIgnoreCase(String categoryName);
 
-    ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(Collection<String> recipeCategories);
+    ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(Collection<String> recipeCategories);*/
 }

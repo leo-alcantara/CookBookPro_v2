@@ -1,13 +1,12 @@
 package se.lexicom.jpa_assignement.model.form;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.lexicom.jpa_assignement.model.Ingredient;
 import se.lexicom.jpa_assignement.model.Measurement;
 
 public class RecipeIngredientFormDto {
 
     //Change Type to String
-    private Ingredient ingredient;
+    private String ingredient;
     private double amount;
     private Measurement measurement;
     @JsonBackReference
@@ -16,24 +15,24 @@ public class RecipeIngredientFormDto {
     public RecipeIngredientFormDto() {
     }
 
-    public RecipeIngredientFormDto(Ingredient ingredient, double amount, Measurement measurement) {
+    public RecipeIngredientFormDto(String ingredient, double amount, Measurement measurement) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
     }
 
-    public RecipeIngredientFormDto(Ingredient ingredient, double amount, Measurement measurement, RecipeFormDto recipe) {
+    public RecipeIngredientFormDto(String ingredient, double amount, Measurement measurement, RecipeFormDto recipe) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
         this.recipe = recipe;
     }
 
-    public Ingredient getIngredient() {
+    public String getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(Ingredient ingredient) {
+    public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
 
