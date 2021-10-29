@@ -2,8 +2,8 @@ package se.lexicom.jpa_assignement.controller;
 
 import org.springframework.http.ResponseEntity;
 import se.lexicom.jpa_assignement.dto.RecipeCategoryDto;
-import se.lexicom.jpa_assignement.model.form.RecipeCategoryFormDto;
-import se.lexicom.jpa_assignement.model.RecipeCategory;
+import se.lexicom.jpa_assignement.dto.RecipeCategoryFormDto;
+import se.lexicom.jpa_assignement.entity.RecipeCategory;
 
 import java.util.List;
 

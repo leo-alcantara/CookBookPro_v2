@@ -1,6 +1,6 @@
 package se.lexicom.jpa_assignement.DAO;
 
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.entity.Recipe;
 
 import java.util.Collection;
 import java.util.List;

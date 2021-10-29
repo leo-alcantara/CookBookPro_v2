@@ -28,4 +28,12 @@ public class IngredientDto {
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
     }
+
+    @Override
+    public String toString() {
+        return "IngredientDto{" +
+                "ingredientId=" + ingredientId +
+                ", ingredientName='" + ingredientName + '\'' +
+                '}';
+    }
 }

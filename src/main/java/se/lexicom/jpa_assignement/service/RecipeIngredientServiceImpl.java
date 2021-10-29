@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicom.jpa_assignement.DAO.RecipeIngredientDAOImpl;
 import se.lexicom.jpa_assignement.dto.RecipeIngredientDto;
-import se.lexicom.jpa_assignement.model.form.RecipeIngredientFormDto;
-import se.lexicom.jpa_assignement.model.RecipeIngredient;
+import se.lexicom.jpa_assignement.dto.RecipeIngredientFormDto;
+import se.lexicom.jpa_assignement.entity.RecipeIngredient;
 
 import java.util.ArrayList;
 import java.util.List;

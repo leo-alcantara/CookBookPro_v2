@@ -1,6 +1,5 @@
-package se.lexicom.jpa_assignement.model;
+package se.lexicom.jpa_assignement.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
 
 import javax.persistence.*;
@@ -17,8 +16,6 @@ public class RecipeCategory {
     private String category;
 
     @ManyToMany(cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
             CascadeType.REFRESH},
             fetch = FetchType.LAZY)
     @JoinTable(name = "recipes_categories",
@@ -27,6 +24,7 @@ public class RecipeCategory {
     private List<Recipe> recipes;
 
     public RecipeCategory() {
+        recipes = new ArrayList<>();
     }
 
     public RecipeCategory(int recipeCategoryId, String category, List<Recipe> recipes) {
@@ -37,20 +35,20 @@ public class RecipeCategory {
 
     public RecipeCategory(String category) {
         this.category = category;
+        recipes = new ArrayList<>();
     }
 
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;
-        //this.recipes = recipes;
-        for (Recipe r:recipes
-        ) {addRecipe(r);
-
-        }
+        this.recipes = recipes;
+        /*for (Recipe r:recipes) {
+            addRecipe(r);
+        }*/
     }
 
 
     //Convenience Methods
-    public boolean addRecipe(Recipe recipe){
+    /*public boolean addRecipe(Recipe recipe){
         if(recipe==null) throw new ExceptionManager("Parameter can not be null");
         if(recipes==null)recipes= new ArrayList<>();
         if(!recipes.contains(recipe)){
@@ -70,7 +68,7 @@ public class RecipeCategory {
             return true;
         }
         return false;
-    }
+    }*/
 
     public int getRecipeCategoryId() {
         return recipeCategoryId;
@@ -89,6 +87,9 @@ public class RecipeCategory {
     }
 
     public List<Recipe> getRecipes() {
+        if(Objects.isNull(recipes)){
+            recipes = new ArrayList<>();
+        }
         return recipes;
     }
 

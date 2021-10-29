@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.model.form;
+package se.lexicom.jpa_assignement.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -17,12 +17,12 @@ public class RecipeFormDto {
     private List<RecipeIngredientFormDto> ingredients;
     @NotBlank
     private String instructions;
-    private String[] categories;
+    private List<String> categories;
 
     public RecipeFormDto() {
     }
 
-    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, String instructions, String[] categories) {
+    public RecipeFormDto(String recipeName, List<RecipeIngredientFormDto> ingredients, String instructions, List<String> categories) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -53,11 +53,11 @@ public class RecipeFormDto {
         this.instructions = instructions;
     }
 
-    public String[] getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 }

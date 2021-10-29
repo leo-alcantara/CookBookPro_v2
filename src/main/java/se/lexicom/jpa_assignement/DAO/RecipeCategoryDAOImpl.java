@@ -2,8 +2,9 @@ package se.lexicom.jpa_assignement.DAO;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import se.lexicom.jpa_assignement.entity.Recipe;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
-import se.lexicom.jpa_assignement.model.RecipeCategory;
+import se.lexicom.jpa_assignement.entity.RecipeCategory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -60,5 +61,15 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     @Transactional
     public void clear() {
         entityManager.clear();
+    }
+
+    @Override
+    public RecipeCategory findByName(String categoryName) {
+        List<RecipeCategory> recipeCategories = entityManager.createQuery("SELECT rc FROM RecipeCategory rc WHERE UPPER(rc.category) LIKE UPPER(CONCAT('%', ?1 , '%'))", RecipeCategory.class)
+                .setParameter(1, categoryName).getResultList();
+        if(recipeCategories.isEmpty()){
+            return null;
+        }
+        return recipeCategories.get(0);
     }
 }

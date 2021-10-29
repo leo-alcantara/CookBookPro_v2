@@ -1,6 +1,4 @@
-package se.lexicom.jpa_assignement.model;
-
-import se.lexicom.jpa_assignement.model.form.RecipeInstructionFormDto;
+package se.lexicom.jpa_assignement.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

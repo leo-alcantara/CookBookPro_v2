@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeInstructionDto;
-import se.lexicom.jpa_assignement.model.form.RecipeInstructionFormDto;
-import se.lexicom.jpa_assignement.model.RecipeInstruction;
+import se.lexicom.jpa_assignement.dto.RecipeInstructionFormDto;
+import se.lexicom.jpa_assignement.entity.RecipeInstruction;
 import se.lexicom.jpa_assignement.service.RecipeInstructionServiceImpl;
 
 import javax.validation.Valid;

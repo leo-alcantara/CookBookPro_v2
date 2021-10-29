@@ -1,7 +1,6 @@
 package se.lexicom.jpa_assignement.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.lexicom.jpa_assignement.model.Recipe;
 
 import java.util.List;
 

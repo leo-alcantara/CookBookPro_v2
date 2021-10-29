@@ -3,7 +3,7 @@ package se.lexicom.jpa_assignement.DAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
-import se.lexicom.jpa_assignement.model.Ingredient;
+import se.lexicom.jpa_assignement.entity.Ingredient;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -76,7 +76,7 @@ public class IngredientDAOImpl implements IngredientDAO {
         Optional<Ingredient> ingredient = entityManager.createQuery("SELECT i FROM Ingredient i WHERE UPPER(i.ingredientName) LIKE UPPER(CONCAT('%', :ingredientName, '%') )", Ingredient.class)
                 .setParameter("ingredientName", ingredientName).getResultStream().findFirst();
 
-        return ingredient.orElseThrow(() -> new ExceptionManager("Ingredient not found"));
+        return ingredient.orElseThrow(() -> new ExceptionManager("Ingredient not found " + ingredientName));
     }
 
 }

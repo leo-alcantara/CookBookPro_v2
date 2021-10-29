@@ -3,39 +3,83 @@ package se.lexicom.jpa_assignement.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import se.lexicom.jpa_assignement.DAO.IngredientDAOImpl;
+import se.lexicom.jpa_assignement.DAO.RecipeCategoryDAOImpl;
 import se.lexicom.jpa_assignement.DAO.RecipeDAOImpl;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
-import se.lexicom.jpa_assignement.model.form.RecipeFormDto;
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.dto.RecipeIngredientFormDto;
+import se.lexicom.jpa_assignement.entity.*;
+import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
+import se.lexicom.jpa_assignement.dto.RecipeFormDto;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeDAOImpl recipeDAO;
     private final ConversionService convert;
+    private final RecipeCategoryDAOImpl recipeCategoryDAO;
+    private final IngredientDAOImpl ingredientDAO;
 
     @Autowired
-    public RecipeServiceImpl(RecipeDAOImpl recipeDAO, ConversionService convert) {
+    public RecipeServiceImpl(RecipeDAOImpl recipeDAO, ConversionService convert,
+                             RecipeCategoryDAOImpl recipeCategoryDAO, IngredientDAOImpl ingredientDAO) {
         this.recipeDAO = recipeDAO;
         this.convert = convert;
+        this.recipeCategoryDAO = recipeCategoryDAO;
+        this.ingredientDAO = ingredientDAO;
     }
 
     @Override
     @Transactional
     public RecipeDto createRecipe(RecipeFormDto formDto) {
-        Recipe saved = recipeDAO.create(convert.toRecipe(formDto));
-        return convert.toRecipeDto(saved);
+        Recipe recipe = convert.toRecipe(formDto);
+        if (!recipeDAO.findRecipeByNameContainsIgnoreCase(recipe.getRecipeName()).isEmpty()) {
+            throw new ExceptionManager("Recipe already exists");
+        }
+        //Define Set of categories
+        Set<RecipeCategory> categorySet = new HashSet<>();
+        for (String categoryName : formDto.getCategories()) {
+            RecipeCategory category = recipeCategoryDAO.findByName(categoryName);
+            if (Objects.isNull(category)) {
+                category = new RecipeCategory(categoryName, new ArrayList<>());
+            }
+            //recipe.addRecipeCategory(category);
+categorySet.add(category);
+        }
+
+        RecipeIngredient recipeIngredient = new RecipeIngredient();
+        for (RecipeIngredientFormDto recipeIngredientFormDto : formDto.getIngredients()) {
+            recipeIngredient = convert.toRecipeIngredient(recipeIngredientFormDto);
+            recipe.addRecipeIngredient(recipeIngredient);
+        }
+
+        /*Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
+        if (Objects.isNull(ingredient)) {
+            ingredient = new Ingredient(recipeIngredient.getIngredient().getIngredientId(), recipeIngredient.getIngredient().getIngredientName());
+        }
+        recipeIngredient.setIngredient(ingredient);*/
+
+
+        RecipeInstruction recipeInstruction = new RecipeInstruction(recipe.getInstructions().getRecipeInstructionId(), formDto.getInstructions());
+        recipe.setInstructions(recipeInstruction);
+
+        recipe.setCategories(categorySet);
+      Recipe createdRecipe =   recipeDAO.create(recipe);
+        RecipeDto convertedRecipe =  convert.toRecipeDto(createdRecipe);
+        System.out.println("createdRecipe.getIngredients() = " + createdRecipe.getIngredients());
+        System.out.println("convertedRecipe.getIngredients() = " + convertedRecipe.getIngredients());
+        return convertedRecipe;
     }
 
     @Override
     @Transactional
     public RecipeDto findById(Integer recipeId) {
         Recipe foundRecipe = recipeDAO.findById(recipeId);
-        return convert.toRecipeDto(foundRecipe);
+        System.out.println("foundRecipe = " + foundRecipe);
+        RecipeDto dto = convert.toRecipeDto(foundRecipe);
+        return dto;
     }
 
     @Override
@@ -56,7 +100,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeDto delete(Recipe recipe) {
+    public RecipeDto delete(Integer recipeId) {
+        Recipe recipe = recipeDAO.findById(recipeId);
         recipeDAO.delete(recipe);
         return convert.toRecipeDto(recipe);
     }

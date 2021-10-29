@@ -1,17 +1,14 @@
-package se.lexicom.jpa_assignement.model;
+package se.lexicom.jpa_assignement.entity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +28,7 @@ class RecipeTest {
 
     private RecipeInstruction recipeInstruction;
 
-    private List<RecipeCategory> recipeCategories;
+    private Set<RecipeCategory> recipeCategories;
 
     private Ingredient ingredient;
     private Ingredient ingredient2;
@@ -54,7 +51,7 @@ class RecipeTest {
         ingredientsList = new ArrayList<>();
         ingredientsList2 = new ArrayList<>();
         ingredientsList3 = new ArrayList<>();
-        recipeCategories = new ArrayList<>();
+        recipeCategories = new HashSet<>();
         ingredient = new Ingredient("Salt");
         ingredient2 = new Ingredient("Onion");
         ingredient3 = new Ingredient("Garlic");

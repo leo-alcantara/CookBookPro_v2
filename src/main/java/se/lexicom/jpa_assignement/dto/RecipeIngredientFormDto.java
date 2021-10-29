@@ -1,11 +1,15 @@
-package se.lexicom.jpa_assignement.model.form;
+package se.lexicom.jpa_assignement.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.lexicom.jpa_assignement.model.Measurement;
+import se.lexicom.jpa_assignement.entity.Measurement;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class RecipeIngredientFormDto {
 
-    //Change Type to String
+    @NotBlank
+    @Size(min = 2, max = 50, message = "Exceeded number of characters.")
     private String ingredient;
     private double amount;
     private Measurement measurement;

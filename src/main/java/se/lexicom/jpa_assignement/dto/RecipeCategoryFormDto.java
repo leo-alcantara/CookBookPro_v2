@@ -1,6 +1,5 @@
-package se.lexicom.jpa_assignement.model.form;
+package se.lexicom.jpa_assignement.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
 
 import java.util.List;

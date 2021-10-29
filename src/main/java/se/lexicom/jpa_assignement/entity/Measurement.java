@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.model;
+package se.lexicom.jpa_assignement.entity;
 
 public enum Measurement {
 

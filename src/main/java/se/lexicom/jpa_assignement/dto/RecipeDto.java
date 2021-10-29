@@ -1,9 +1,6 @@
 package se.lexicom.jpa_assignement.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import se.lexicom.jpa_assignement.model.RecipeCategory;
-import se.lexicom.jpa_assignement.model.RecipeIngredient;
-import se.lexicom.jpa_assignement.model.RecipeInstruction;
 
 import java.util.List;
 
@@ -75,5 +72,16 @@ public class RecipeDto {
 
     public void setCategories(List<RecipeCategoryDto> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "RecipeDto{" +
+                "recipeId=" + recipeId +
+                ", recipeName='" + recipeName + '\'' +
+                ", ingredients=" + ingredients +
+                ", instructions=" + instructions +
+                ", categories=" + categories +
+                '}';
     }
 }

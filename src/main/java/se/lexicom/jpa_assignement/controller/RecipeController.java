@@ -3,10 +3,9 @@ package se.lexicom.jpa_assignement.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
-import se.lexicom.jpa_assignement.model.form.RecipeFormDto;
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.dto.RecipeFormDto;
+import se.lexicom.jpa_assignement.entity.Recipe;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface RecipeController {
@@ -20,7 +19,7 @@ public interface RecipeController {
 
     ResponseEntity<RecipeDto> update(RecipeFormDto formDto);
 
-    ResponseEntity<RecipeDto> delete(Recipe recipe);
+    ResponseEntity<RecipeDto> delete(Integer recipeId);
 
     ResponseEntity<Void> clear();
 

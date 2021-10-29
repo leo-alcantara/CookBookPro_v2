@@ -2,11 +2,12 @@ package se.lexicom.jpa_assignement.service;
 
 import org.springframework.stereotype.Component;
 import se.lexicom.jpa_assignement.dto.*;
-import se.lexicom.jpa_assignement.model.form.*;
-import se.lexicom.jpa_assignement.model.*;
+import se.lexicom.jpa_assignement.entity.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ConversionService {
@@ -20,23 +21,40 @@ public class ConversionService {
         return new IngredientDto(ingredient.getIngredientId(), ingredient.getIngredientName());
     }
 
+
+
     //RECIPE CATEGORY CONVERTER
     public RecipeCategory toRecipeCategory(RecipeCategoryFormDto formDto) {
         return new RecipeCategory(0, formDto.getCategory(), new ArrayList<>());
     }
 
     public RecipeCategoryDto toRecipeCategoryDto(RecipeCategory recipeCategory) {
-        return new RecipeCategoryDto(recipeCategory.getRecipeCategoryId(), recipeCategory.getCategory(), new ArrayList<>());
+
+        return toRecipeCategoryDto(recipeCategory, true);
     }
+
+    private RecipeCategoryDto toRecipeCategoryDto(RecipeCategory recipeCategory, boolean convertRecipes) {
+        List<RecipeDto> recipeDtoList = new ArrayList<>();
+        if (convertRecipes) {
+            for (Recipe recipe : recipeCategory.getRecipes()) {
+                RecipeDto recipeDto = toRecipeDto(recipe);
+                recipeDtoList.add(recipeDto);
+            }
+        }
+        return new RecipeCategoryDto(recipeCategory.getRecipeCategoryId(), recipeCategory.getCategory(), recipeDtoList);
+    }
+
+
 
     //RECIPE INGREDIENT CONVERTER
     public RecipeIngredient toRecipeIngredient(RecipeIngredientFormDto formDto) {
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
         for (RecipeIngredient ri : recipeIngredients) {
-            RecipeIngredient recipeIngredient = new RecipeIngredient(ri.getIngredient(), ri.getAmount(), ri.getMeasurement(), ri.getRecipe());
+            RecipeIngredient recipeIngredient = new RecipeIngredient(ri.getIngredient(), ri.getAmount(),
+                    ri.getMeasurement(), ri.getRecipe());
             recipeIngredients.add(recipeIngredient);
         }
-        List<RecipeCategory> recipeCategories = new ArrayList<>();
+        Set<RecipeCategory> recipeCategories = new HashSet<>();
         for (RecipeCategory rc : recipeCategories) {
             RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
             recipeCategories.add(recipeCategory);
@@ -49,9 +67,10 @@ public class ConversionService {
     }
 
     public RecipeIngredientDto toRecipeIngredientDto(RecipeIngredient recipeIngredient) {
-        IngredientDto ingredientDto = new IngredientDto(recipeIngredient.getRecipeIngredientId(), recipeIngredient.getIngredient().getIngredientName());
-        return new RecipeIngredientDto(recipeIngredient.getRecipeIngredientId(), ingredientDto, recipeIngredient.getAmount(), recipeIngredient.getMeasurement());
+        return new RecipeIngredientDto(recipeIngredient.getRecipeIngredientId(), toIngredientDto(recipeIngredient.getIngredient()), recipeIngredient.getAmount(), recipeIngredient.getMeasurement());
     }
+
+
 
     //RECIPE INSTRUCTION CONVERTER
     public RecipeInstruction toRecipeInstruction(RecipeInstructionFormDto formDto) {
@@ -62,13 +81,17 @@ public class ConversionService {
         return new RecipeInstructionDto(recipeInstruction.getRecipeInstructionId(), recipeInstruction.getRecipeInstructions());
     }
 
+
+
     //RECIPE CONVERTER
     public Recipe toRecipe(RecipeFormDto formDto) {
         RecipeInstruction instruction = new RecipeInstruction(0, formDto.getInstructions());
-        List<RecipeCategory> categories = new ArrayList<>();
-        for (RecipeCategory rc : categories) {
-            RecipeCategory recipeCategory = new RecipeCategory(rc.getCategory());
-            categories.add(recipeCategory);
+        Set<RecipeCategory> categories = new HashSet<>();
+        for (String categoryNames : formDto.getCategories()) {
+            for (RecipeCategory rc : categories) {
+                RecipeCategory recipeCategory = new RecipeCategory(rc.getRecipeCategoryId(), categoryNames, rc.getRecipes());
+                categories.add(recipeCategory);
+            }
         }
         List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
         for (RecipeIngredientFormDto ri : formDto.getIngredients()) {
@@ -76,18 +99,12 @@ public class ConversionService {
                     ri.getAmount(), ri.getMeasurement());
             recipeIngredientList.add(recipeIngredient);
         }
-
         Recipe recipe = new Recipe(formDto.getRecipeName(), recipeIngredientList, instruction, categories);
-        for (RecipeIngredient ri : recipeIngredientList) {
-            recipe.addRecipeIngredient(ri);
-        }
-        for (RecipeCategory rc : categories) {
-            recipe.addRecipeCategory(rc);
-        }
         return recipe;
     }
 
     public RecipeDto toRecipeDto(Recipe recipe) {
+        System.out.println("recipe.getIngrediants() = " + recipe.getIngredients());
         List<RecipeIngredientDto> ingredientsDto = new ArrayList<>();
         for (RecipeIngredient ri : recipe.getIngredients()) {
             ingredientsDto.add(toRecipeIngredientDto(ri));
@@ -97,8 +114,10 @@ public class ConversionService {
 
         List<RecipeCategoryDto> recipeCategoryDtoList = new ArrayList<>();
         for (RecipeCategory recipeCategory : recipe.getCategories()) {
-            recipeCategoryDtoList.add(toRecipeCategoryDto(recipeCategory));
+            recipeCategoryDtoList.add(toRecipeCategoryDto(recipeCategory, false));
         }
-        return new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto, recipeInstructionDto, recipeCategoryDtoList);
+        RecipeDto result =  new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto, recipeInstructionDto, recipeCategoryDtoList);
+        System.out.println("result.getIngredients() = " + result.getIngredients());
+        return result;
     }
 }

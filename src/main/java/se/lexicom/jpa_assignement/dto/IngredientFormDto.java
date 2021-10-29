@@ -1,12 +1,8 @@
-package se.lexicom.jpa_assignement.model.form;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+package se.lexicom.jpa_assignement.dto;
 
 public class IngredientFormDto {
 
-    @NotBlank
-    @Size(min = 2, max = 50, message = "Exceeded number of characters.")
+
     private String ingredientName;
 
     public IngredientFormDto() {

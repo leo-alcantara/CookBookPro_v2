@@ -1,4 +1,4 @@
-package se.lexicom.jpa_assignement.model;
+package se.lexicom.jpa_assignement.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,7 +10,6 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ingredientId;
     private String ingredientName;
-
 
     public Ingredient() {
     }

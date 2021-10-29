@@ -1,9 +1,7 @@
 package se.lexicom.jpa_assignement.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.lexicom.jpa_assignement.model.Ingredient;
-import se.lexicom.jpa_assignement.model.Measurement;
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.entity.Measurement;
 
 public class RecipeIngredientDto {
 
@@ -76,5 +74,16 @@ public class RecipeIngredientDto {
 
     public void setRecipe(RecipeDto recipe) {
         this.recipe = recipe;
+    }
+
+    @Override
+    public String toString() {
+        return "RecipeIngredientDto{" +
+                "recipeIngredientId=" + recipeIngredientId +
+                ", ingredient=" + ingredient +
+                ", amount=" + amount +
+                ", measurement=" + measurement +
+                ", recipe=" + recipe +
+                '}';
     }
 }

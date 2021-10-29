@@ -5,14 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
-import se.lexicom.jpa_assignement.model.form.RecipeFormDto;
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.dto.RecipeFormDto;
+import se.lexicom.jpa_assignement.entity.Recipe;
 import se.lexicom.jpa_assignement.service.RecipeServiceImpl;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -34,7 +33,9 @@ public class RecipeControllerImpl implements RecipeController {
     @Override
     @PostMapping
     public ResponseEntity<RecipeDto> createRecipe(@RequestBody @Valid RecipeFormDto formDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(recipeServiceImpl.createRecipe(formDto));
+        RecipeDto result = recipeServiceImpl.createRecipe(formDto);
+        System.out.println("result =11111111  " + result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class RecipeControllerImpl implements RecipeController {
                 recipeDtoList = recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName);
                 break;
             case "recipe-categories":
-                List<String> recipeCategories = new ArrayList<>();
+                List<String> recipeCategories = Arrays.asList(values[0], values[1], values[2]);
                 recipeDtoList = recipeServiceImpl.findRecipeSeveralCategories(recipeCategories);
                 break;
             default:
@@ -85,9 +86,9 @@ public class RecipeControllerImpl implements RecipeController {
 
     //NOT SURE IF THIS IS RIGHT
     @Override
-    @DeleteMapping
-    public ResponseEntity<RecipeDto> delete(@RequestBody Recipe recipe) {
-        return ResponseEntity.ok(recipeServiceImpl.delete(recipe));
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<RecipeDto> delete(@PathVariable("id") Integer recipeId) {
+        return ResponseEntity.ok(recipeServiceImpl.delete(recipeId));
     }
 
     //NOT SURE IF THIS IS RIGHT

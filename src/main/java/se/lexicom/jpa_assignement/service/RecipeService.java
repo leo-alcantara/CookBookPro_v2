@@ -1,8 +1,8 @@
 package se.lexicom.jpa_assignement.service;
 
 import se.lexicom.jpa_assignement.dto.RecipeDto;
-import se.lexicom.jpa_assignement.model.form.RecipeFormDto;
-import se.lexicom.jpa_assignement.model.Recipe;
+import se.lexicom.jpa_assignement.dto.RecipeFormDto;
+import se.lexicom.jpa_assignement.entity.Recipe;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface RecipeService {
 
     RecipeDto update(RecipeFormDto formDto);
 
-    RecipeDto delete(Recipe recipe);
+    RecipeDto delete(Integer recipeId);
 
     void clear();
 

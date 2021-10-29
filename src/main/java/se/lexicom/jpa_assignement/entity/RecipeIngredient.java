@@ -1,6 +1,4 @@
-package se.lexicom.jpa_assignement.model;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+package se.lexicom.jpa_assignement.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,7 +10,11 @@ public class RecipeIngredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int recipeIngredientId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH},
+    fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
@@ -23,8 +25,8 @@ public class RecipeIngredient {
             CascadeType.MERGE,
             CascadeType.DETACH,
             CascadeType.REFRESH},
-            fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_id")
+            fetch = FetchType.LAZY)
+    //@JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     public RecipeIngredient() {
