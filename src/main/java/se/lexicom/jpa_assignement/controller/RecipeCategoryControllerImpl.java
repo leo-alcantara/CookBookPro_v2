@@ -48,7 +48,6 @@ public class RecipeCategoryControllerImpl implements RecipeCategoryController {
             return ResponseEntity.ok().body(recipeCategoryServiceImpl.update(formDto));
     }
 
-    //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping
     public ResponseEntity<RecipeCategoryDto> delete(@RequestBody RecipeCategory recipeCategory) {

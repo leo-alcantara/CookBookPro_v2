@@ -61,7 +61,7 @@ public class Recipe {
     }
 
 
-    //Convenience Methods
+    //Convenience Methods. They are not correct according to Mehrdad
     public boolean addRecipeIngredient(RecipeIngredient recipeIngredient) {
         if (recipeIngredient == null) throw new ExceptionManager("Parameter can not be null");
         if (ingredients == null) ingredients = new ArrayList<>();

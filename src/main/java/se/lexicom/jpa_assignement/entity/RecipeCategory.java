@@ -1,7 +1,5 @@
 package se.lexicom.jpa_assignement.entity;
 
-import se.lexicom.jpa_assignement.exceptions.ExceptionManager;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,34 +39,8 @@ public class RecipeCategory {
     public RecipeCategory(String category, List<Recipe> recipes) {
         this.category = category;
         this.recipes = recipes;
-        /*for (Recipe r:recipes) {
-            addRecipe(r);
-        }*/
     }
 
-
-    //Convenience Methods
-    /*public boolean addRecipe(Recipe recipe){
-        if(recipe==null) throw new ExceptionManager("Parameter can not be null");
-        if(recipes==null)recipes= new ArrayList<>();
-        if(!recipes.contains(recipe)){
-            recipe.addRecipeCategory(this);
-            this.getRecipes().add(recipe);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean removeRecipe(Recipe recipe){
-        if(recipe==null) throw new ExceptionManager("Parameter can not be null");
-        if(recipes==null)recipes= new ArrayList<>();
-        if(recipes.contains(recipe)){
-            this.recipes.remove(recipe);
-            recipe.removeRecipeCategory(null);
-            return true;
-        }
-        return false;
-    }*/
 
     public int getRecipeCategoryId() {
         return recipeCategoryId;
@@ -87,7 +59,7 @@ public class RecipeCategory {
     }
 
     public List<Recipe> getRecipes() {
-        if(Objects.isNull(recipes)){
+        if (Objects.isNull(recipes)) {
             recipes = new ArrayList<>();
         }
         return recipes;

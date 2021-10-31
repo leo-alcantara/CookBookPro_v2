@@ -6,11 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.lexicom.jpa_assignement.dto.RecipeDto;
 import se.lexicom.jpa_assignement.dto.RecipeFormDto;
-import se.lexicom.jpa_assignement.entity.Recipe;
 import se.lexicom.jpa_assignement.service.RecipeServiceImpl;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,6 +65,7 @@ public class RecipeControllerImpl implements RecipeController {
                 String categoryName = values[0];
                 recipeDtoList = recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName);
                 break;
+            //Need to review this method implementation
             case "recipe-categories":
                 List<String> recipeCategories = Arrays.asList(values[0], values[1], values[2]);
                 recipeDtoList = recipeServiceImpl.findRecipeSeveralCategories(recipeCategories);
@@ -77,14 +76,12 @@ public class RecipeControllerImpl implements RecipeController {
         return ResponseEntity.ok(recipeDtoList);
     }
 
-
     @Override
     @PutMapping
     public ResponseEntity<RecipeDto> update(@RequestBody @Valid RecipeFormDto formDto) {
         return ResponseEntity.ok().body(recipeServiceImpl.update(formDto));
     }
 
-    //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<RecipeDto> delete(@PathVariable("id") Integer recipeId) {
@@ -99,27 +96,4 @@ public class RecipeControllerImpl implements RecipeController {
         return ResponseEntity.ok().build();
     }
 
-   /* @Override
-    @GetMapping(path = "{recipe-name}")
-    public ResponseEntity<List<RecipeDto>> findRecipeByNameContainsIgnoreCase(@PathVariable("recipe-name") String recipeName) {
-        return ResponseEntity.ok(recipeServiceImpl.findRecipeByNameContainsIgnoreCase(recipeName));
-    }
-
-    @Override
-    @GetMapping(path = "/{ingredient-name}")
-    public ResponseEntity<List<RecipeDto>> findRecipeByIngredientNameContainsIgnoreCase(@PathVariable("ingredient-name") String ingredientName) {
-        return ResponseEntity.ok(recipeServiceImpl.findRecipeByIngredientNameContainsIgnoreCase(ingredientName));
-    }
-
-    @Override
-    @GetMapping(path = "{category-name}")
-    public ResponseEntity<List<RecipeDto>> findRecipeByCategoryContainsIgnoreCase(@PathVariable("category-name") String categoryName) {
-        return ResponseEntity.ok(recipeServiceImpl.findRecipeByCategoryContainsIgnoreCase(categoryName));
-    }
-
-    @Override
-    @GetMapping(path = "/{recipe-categories}")
-    public ResponseEntity<List<RecipeDto>> findRecipeSeveralCategories(@PathVariable("recipe-categories") Collection<String> recipeCategories) {
-        return ResponseEntity.ok(recipeServiceImpl.findRecipeSeveralCategories(recipeCategories));
-    }*/
 }

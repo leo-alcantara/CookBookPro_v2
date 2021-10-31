@@ -14,7 +14,7 @@ public class RecipeIngredient {
             CascadeType.MERGE,
             CascadeType.DETACH,
             CascadeType.REFRESH},
-    fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
@@ -52,7 +52,6 @@ public class RecipeIngredient {
         this.measurement = measurement;
         this.recipe = recipe;
     }
-
 
 
     public int getRecipeIngredientId() {

@@ -54,12 +54,4 @@ public class MyControllerAdviser {
         }
         return new ValidationErrorResponse(build(HttpStatus.BAD_REQUEST, "One or more validations are incorrect.", request), violations);
     }
-
-
-
-
-
-
-
-
 }

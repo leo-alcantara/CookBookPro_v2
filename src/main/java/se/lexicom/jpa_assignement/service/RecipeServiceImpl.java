@@ -38,15 +38,13 @@ public class RecipeServiceImpl implements RecipeService {
         if (!recipeDAO.findRecipeByNameContainsIgnoreCase(recipe.getRecipeName()).isEmpty()) {
             throw new ExceptionManager("Recipe already exists");
         }
-        //Define Set of categories
         Set<RecipeCategory> categorySet = new HashSet<>();
         for (String categoryName : formDto.getCategories()) {
             RecipeCategory category = recipeCategoryDAO.findByName(categoryName);
             if (Objects.isNull(category)) {
                 category = new RecipeCategory(categoryName, new ArrayList<>());
             }
-            //recipe.addRecipeCategory(category);
-categorySet.add(category);
+            categorySet.add(category);
         }
 
         RecipeIngredient recipeIngredient = new RecipeIngredient();
@@ -55,9 +53,11 @@ categorySet.add(category);
             recipe.addRecipeIngredient(recipeIngredient);
         }
 
-        /*Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
+        //Need to check ingredients to try stop duplicates. Not sure this is the correct way.
+       /* Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
         if (Objects.isNull(ingredient)) {
             ingredient = new Ingredient(recipeIngredient.getIngredient().getIngredientId(), recipeIngredient.getIngredient().getIngredientName());
+            recipeIngredient.setIngredient(ingredient);
         }
         recipeIngredient.setIngredient(ingredient);*/
 
@@ -66,8 +66,8 @@ categorySet.add(category);
         recipe.setInstructions(recipeInstruction);
 
         recipe.setCategories(categorySet);
-      Recipe createdRecipe =   recipeDAO.create(recipe);
-        RecipeDto convertedRecipe =  convert.toRecipeDto(createdRecipe);
+        Recipe createdRecipe = recipeDAO.create(recipe);
+        RecipeDto convertedRecipe = convert.toRecipeDto(createdRecipe);
         System.out.println("createdRecipe.getIngredients() = " + createdRecipe.getIngredients());
         System.out.println("convertedRecipe.getIngredients() = " + convertedRecipe.getIngredients());
         return convertedRecipe;

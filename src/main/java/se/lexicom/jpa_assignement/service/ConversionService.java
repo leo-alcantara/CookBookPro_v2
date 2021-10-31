@@ -22,7 +22,6 @@ public class ConversionService {
     }
 
 
-
     //RECIPE CATEGORY CONVERTER
     public RecipeCategory toRecipeCategory(RecipeCategoryFormDto formDto) {
         return new RecipeCategory(0, formDto.getCategory(), new ArrayList<>());
@@ -41,9 +40,8 @@ public class ConversionService {
                 recipeDtoList.add(recipeDto);
             }
         }
-        return new RecipeCategoryDto(recipeCategory.getRecipeCategoryId(), recipeCategory.getCategory(), recipeDtoList);
+        return new RecipeCategoryDto(recipeCategory.getRecipeCategoryId(), recipeCategory.getCategory());
     }
-
 
 
     //RECIPE INGREDIENT CONVERTER
@@ -71,7 +69,6 @@ public class ConversionService {
     }
 
 
-
     //RECIPE INSTRUCTION CONVERTER
     public RecipeInstruction toRecipeInstruction(RecipeInstructionFormDto formDto) {
         return new RecipeInstruction(0, formDto.getRecipeInstructions());
@@ -80,7 +77,6 @@ public class ConversionService {
     public RecipeInstructionDto toRecipeInstructionDto(RecipeInstruction recipeInstruction) {
         return new RecipeInstructionDto(recipeInstruction.getRecipeInstructionId(), recipeInstruction.getRecipeInstructions());
     }
-
 
 
     //RECIPE CONVERTER
@@ -116,7 +112,7 @@ public class ConversionService {
         for (RecipeCategory recipeCategory : recipe.getCategories()) {
             recipeCategoryDtoList.add(toRecipeCategoryDto(recipeCategory, false));
         }
-        RecipeDto result =  new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto, recipeInstructionDto, recipeCategoryDtoList);
+        RecipeDto result = new RecipeDto(recipe.getRecipeId(), recipe.getRecipeName(), ingredientsDto, recipeInstructionDto, recipeCategoryDtoList);
         System.out.println("result.getIngredients() = " + result.getIngredients());
         return result;
     }

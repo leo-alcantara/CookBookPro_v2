@@ -8,17 +8,14 @@ public class RecipeCategoryDto {
 
     private int recipeCategoryId;
     private String category;
-    @JsonBackReference
-    //Exclude this field
-    private List<RecipeDto> recipes;
+
 
     public RecipeCategoryDto() {
     }
 
-    public RecipeCategoryDto(int recipeCategoryId, String category, List<RecipeDto> recipes) {
+    public RecipeCategoryDto(int recipeCategoryId, String category) {
         this.recipeCategoryId = recipeCategoryId;
         this.category = category;
-        this.recipes = recipes;
     }
 
     public RecipeCategoryDto(String category) {
@@ -41,11 +38,11 @@ public class RecipeCategoryDto {
         this.category = category;
     }
 
-    public List<RecipeDto> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<RecipeDto> recipes) {
-        this.recipes = recipes;
+    @Override
+    public String toString() {
+        return "RecipeCategoryDto{" +
+                "recipeCategoryId=" + recipeCategoryId +
+                ", category='" + category + '\'' +
+                '}';
     }
 }

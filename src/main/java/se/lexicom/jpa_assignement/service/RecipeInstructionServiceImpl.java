@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class RecipeInstructionServiceImpl implements RecipeInstructionService {
 
-
     private final RecipeInstructionDAOImpl recipeInstructionDAO;
     private final ConversionService convert;
 
@@ -59,6 +58,5 @@ public class RecipeInstructionServiceImpl implements RecipeInstructionService {
 
     @Override
     public void clear() {
-
     }
 }

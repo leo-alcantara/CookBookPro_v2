@@ -11,7 +11,6 @@ public class RecipeDto {
     @JsonManagedReference
     private List<RecipeIngredientDto> ingredients;
     private RecipeInstructionDto instructions;
-    @JsonManagedReference
     private List<RecipeCategoryDto> categories;
 
     public RecipeDto() {

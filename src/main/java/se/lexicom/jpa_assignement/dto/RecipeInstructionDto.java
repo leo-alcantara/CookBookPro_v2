@@ -28,4 +28,12 @@ public class RecipeInstructionDto {
     public void setRecipeInstructions(String recipeInstructions) {
         this.recipeInstructions = recipeInstructions;
     }
+
+    @Override
+    public String toString() {
+        return "RecipeInstructionDto{" +
+                "recipeInstructionId=" + recipeInstructionId +
+                ", recipeInstructions='" + recipeInstructions + '\'' +
+                '}';
+    }
 }

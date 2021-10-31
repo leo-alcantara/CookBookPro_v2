@@ -67,7 +67,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     public RecipeCategory findByName(String categoryName) {
         List<RecipeCategory> recipeCategories = entityManager.createQuery("SELECT rc FROM RecipeCategory rc WHERE UPPER(rc.category) LIKE UPPER(CONCAT('%', ?1 , '%'))", RecipeCategory.class)
                 .setParameter(1, categoryName).getResultList();
-        if(recipeCategories.isEmpty()){
+        if (recipeCategories.isEmpty()) {
             return null;
         }
         return recipeCategories.get(0);

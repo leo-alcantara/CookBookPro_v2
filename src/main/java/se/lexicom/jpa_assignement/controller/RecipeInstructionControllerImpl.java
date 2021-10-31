@@ -45,17 +45,16 @@ public class RecipeInstructionControllerImpl implements RecipeInstructionControl
     @Override
     @PutMapping
     public ResponseEntity<RecipeInstructionDto> update(@RequestBody @Valid RecipeInstructionFormDto formDto) {
-            return ResponseEntity.ok().body(recipeInstructionServiceImpl.update(formDto));
+        return ResponseEntity.ok().body(recipeInstructionServiceImpl.update(formDto));
     }
 
-    //NOT SURE IF THIS IS RIGHT
     @Override
     @DeleteMapping
     public ResponseEntity<RecipeInstructionDto> delete(@RequestBody RecipeInstruction recipeInstruction) {
         return ResponseEntity.ok(recipeInstructionServiceImpl.delete(recipeInstruction));
     }
 
-    //NOT SURE IF THIS IS RIGHT
+    //NOT SURE IF THIS IS RIGHT. IT DOESN'T WORK
     @Override
     @DeleteMapping("/clear")
     public ResponseEntity<Void> clear() {

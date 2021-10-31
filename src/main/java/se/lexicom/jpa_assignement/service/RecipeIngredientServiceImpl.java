@@ -64,6 +64,5 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
     @Transactional
     public void clear() {
         recipeIngredientDAO.clear();
-
     }
 }

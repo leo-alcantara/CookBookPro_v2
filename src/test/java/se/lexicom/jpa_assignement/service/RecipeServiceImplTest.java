@@ -25,6 +25,8 @@ class RecipeServiceImplTest {
     RecipeCategoryDAO recipeCategoryDAO;
     @Autowired
     RecipeDAO recipeDAO;
+    @Autowired
+    RecipeServiceImpl recipeService;
 
     Recipe vanillaCake = new Recipe();
 
@@ -65,34 +67,83 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void createRecipe() {
-        // save to DB
+    void test_createRecipe_successful() {
+        // Arrange
+        Recipe testRecipe;
+
+        // Act
+        testRecipe = recipeDAO.create(vanillaCake);
+
+        // Assert
+        assertNotNull(testRecipe);
+        assertNotNull(testRecipe.getRecipeId());
+        assertEquals(testRecipe.getRecipeName(), vanillaCake.getRecipeName());
+
+    }
+
+    @Test
+    void test_findById_successful() {
+        // Arrange
         recipeDAO.create(vanillaCake);
+        Recipe testRecipe;
+        int id = 0;
+
+        // Act
+        testRecipe = recipeDAO.findById(vanillaCake.getRecipeId());
+
+        // Assert
+        assertNotNull(testRecipe);
+        assertNotNull(testRecipe.getRecipeId());
+        assertEquals(testRecipe.getRecipeId(), vanillaCake.getRecipeId());
+        assertNotEquals(id, testRecipe.getRecipeId());
     }
 
     @Test
-    void findById() {
+    void test_findAll_successful() {
+        //Arrange
+        recipeDAO.create(vanillaCake);
+        Collection<Recipe> testRecipes;
 
-        Recipe recipe = recipeDAO.create(vanillaCake);
-        Recipe  foundVanillaCakeRecipe = recipeDAO.findById(recipe.getRecipeId());
-        System.out.println(foundVanillaCakeRecipe.getIngredients());
+        //Act
+        testRecipes = recipeDAO.findAll();
 
+        //Assert
+        assertNotEquals(0, testRecipes.size());
+        assertNotNull(testRecipes);
     }
 
-    @Test
-    void findAll() {
-    }
 
+    //Not sure how to test this method
     @Test
     void update() {
+        //Arrange
+        recipeDAO.create(vanillaCake);
+        Recipe testRecipe = recipeDAO.findById(vanillaCake.getRecipeId());
+        //Act
+        testRecipe.setRecipeName("Strawberry Cake");
+        recipeDAO.update(testRecipe);
+        //Assert
+        assertNotEquals(vanillaCake.getRecipeName(), testRecipe.getRecipeName());
     }
 
     @Test
     void delete() {
+        //Arrange
+        recipeDAO.create(vanillaCake);
+        Recipe testRecipe = recipeDAO.findById(vanillaCake.getRecipeId());
+        //Act
+        recipeDAO.delete(testRecipe);
+        Recipe newTestRecipe = recipeDAO.findById(testRecipe.getRecipeId());
+        //Assert
+        assertNull(newTestRecipe);
+
     }
 
     @Test
     void clear() {
+        //Arrange
+        //Act
+        //Assert
     }
 
     @Test
