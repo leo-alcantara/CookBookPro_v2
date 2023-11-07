@@ -9,8 +9,10 @@ import java.util.*;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "recipe_id", nullable = false)
     private int recipeId;
+
     private String recipeName;
 
     @OneToMany(cascade = {CascadeType.PERSIST,
@@ -22,7 +24,7 @@ public class Recipe {
     mappedBy = "recipe"*/)
     private List<RecipeIngredient> ingredients;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_instruction_id")
     private RecipeInstruction instructions;
 

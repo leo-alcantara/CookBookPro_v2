@@ -1,12 +1,12 @@
 package se.cookBookProv2.DAO;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.cookBookProv2.exceptions.ExceptionManager;
 import se.cookBookProv2.entity.Ingredient;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +39,8 @@ public class IngredientDAOImpl implements IngredientDAO {
     @Override
     @Transactional
     public List<Ingredient> findAll() {
-        return entityManager.createQuery("SELECT i FROM Ingredient i", Ingredient.class).getResultList();
+        return null;
+                //entityManager.createQuery("SELECT i FROM Ingredient i", Ingredient.class).getResultList();
     }
 
     @Override
