@@ -1,12 +1,12 @@
 package se.cookBookProv2.DAO;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.cookBookProv2.exceptions.ExceptionManager;
 import se.cookBookProv2.entity.Ingredient;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 

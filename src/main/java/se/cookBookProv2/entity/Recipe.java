@@ -24,7 +24,7 @@ public class Recipe {
     mappedBy = "recipe"*/)
     private List<RecipeIngredient> ingredients;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipe_instruction_id")
     private RecipeInstruction instructions;
 
