@@ -54,12 +54,12 @@ public class RecipeServiceImpl implements RecipeService {
         }
 
         //Need to check ingredients to try stop duplicates. Not sure this is the correct way.
-       /* Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
+        Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
         if (Objects.isNull(ingredient)) {
             ingredient = new Ingredient(recipeIngredient.getIngredient().getIngredientId(), recipeIngredient.getIngredient().getIngredientName());
             recipeIngredient.setIngredient(ingredient);
         }
-        recipeIngredient.setIngredient(ingredient);*/
+        recipeIngredient.setIngredient(ingredient);
 
 
         RecipeInstruction recipeInstruction = new RecipeInstruction(recipe.getInstructions().getRecipeInstructionId(), formDto.getInstructions());

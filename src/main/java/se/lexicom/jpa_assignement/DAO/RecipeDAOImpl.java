@@ -20,9 +20,8 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     @Transactional
     public Recipe create(Recipe recipe) throws ExceptionManager {
-        if (recipe == null) {
-            throw new ExceptionManager("Can not save item: " + recipe);
-        }
+        //if (recipe == null) throw new ExceptionManager("Can not save item: " + recipe);
+
         entityManager.persist(recipe);
         return recipe;
     }

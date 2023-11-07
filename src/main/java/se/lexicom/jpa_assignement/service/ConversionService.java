@@ -18,7 +18,7 @@ public class ConversionService {
     }
 
     public IngredientDto toIngredientDto(Ingredient ingredient) {
-        return new IngredientDto(ingredient.getIngredientId(), ingredient.getIngredientName());
+        return new IngredientDto(/*ingredient.getIngredientId(),*/ ingredient.getIngredientName());
     }
 
 
@@ -100,7 +100,7 @@ public class ConversionService {
     }
 
     public RecipeDto toRecipeDto(Recipe recipe) {
-        System.out.println("recipe.getIngrediants() = " + recipe.getIngredients());
+        //System.out.println("recipe.getIngrediants() = " + recipe.getIngredients());
         List<RecipeIngredientDto> ingredientsDto = new ArrayList<>();
         for (RecipeIngredient ri : recipe.getIngredients()) {
             ingredientsDto.add(toRecipeIngredientDto(ri));

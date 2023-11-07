@@ -13,6 +13,10 @@ public class IngredientDto {
         this.ingredientName = ingredientName;
     }
 
+    public IngredientDto(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
     public int getIngredientId() {
         return ingredientId;
     }
