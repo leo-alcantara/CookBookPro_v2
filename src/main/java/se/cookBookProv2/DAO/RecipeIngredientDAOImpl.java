@@ -18,9 +18,8 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     @Override
     @Transactional
     public RecipeIngredient create(RecipeIngredient recipeIngredient) throws ExceptionManager {
-        if (recipeIngredient == null) {
-            throw new ExceptionManager("Can not persist item: " + recipeIngredient);
-        }
+        if (recipeIngredient == null) throw new ExceptionManager("Can not persist recipeIngredient: " + recipeIngredient);
+
         entityManager.persist(recipeIngredient);
         return recipeIngredient;
     }
@@ -28,9 +27,8 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     @Override
     @Transactional
     public RecipeIngredient delete(RecipeIngredient recipeIngredient) throws ExceptionManager {
-        if (recipeIngredient == null) {
-            throw new ExceptionManager("Can not delete item: " + recipeIngredient);
-        }
+        if (recipeIngredient == null) throw new ExceptionManager("Can not delete recipeIngredient: " + recipeIngredient);
+
         entityManager.remove(recipeIngredient);
         return recipeIngredient;
     }
@@ -44,18 +42,16 @@ public class RecipeIngredientDAOImpl implements RecipeIngredientDAO {
     @Override
     @Transactional
     public RecipeIngredient findById(Integer recipeIngredientId) throws ExceptionManager {
-        if (recipeIngredientId == null) {
-            throw new ExceptionManager("Can not find item: " + recipeIngredientId);
-        }
+        if (recipeIngredientId == null) throw new ExceptionManager("Can not find recipeIngredient by id: " + recipeIngredientId);
+
         return entityManager.find(RecipeIngredient.class, recipeIngredientId);
     }
 
     @Override
     @Transactional
     public RecipeIngredient update(RecipeIngredient recipeIngredient) throws ExceptionManager {
-        if (recipeIngredient == null) {
-            throw new ExceptionManager("Can not update item: " + recipeIngredient);
-        }
+        if (recipeIngredient == null) throw new ExceptionManager("Can not update recipeIngredient: " + recipeIngredient);
+
         return entityManager.merge(recipeIngredient);
     }
 

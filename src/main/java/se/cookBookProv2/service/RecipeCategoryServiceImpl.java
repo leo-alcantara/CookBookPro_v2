@@ -25,8 +25,8 @@ public class RecipeCategoryServiceImpl implements RecipeCategoryService {
 
     @Override
     @Transactional
-    public RecipeCategoryDto createRecipeCategory(RecipeCategoryFormDto form) {
-        RecipeCategory saved = recipeCategoryDAO.create(convert.toRecipeCategory(form));
+    public RecipeCategoryDto createRecipeCategory(RecipeCategoryDto recipeCategoryDto) {
+        RecipeCategory saved = recipeCategoryDAO.create(convert.toRecipeCategory(recipeCategoryDto));
         return convert.toRecipeCategoryDto(saved);
     }
 
@@ -48,8 +48,8 @@ public class RecipeCategoryServiceImpl implements RecipeCategoryService {
 
     @Override
     @Transactional
-    public RecipeCategoryDto update(RecipeCategoryFormDto formDto) {
-        RecipeCategory original = recipeCategoryDAO.update(convert.toRecipeCategory(formDto));
+    public RecipeCategoryDto update(RecipeCategoryDto recipeCategoryDto) {
+        RecipeCategory original = recipeCategoryDAO.update(convert.toRecipeCategory(recipeCategoryDto));
         return convert.toRecipeCategoryDto(original);
     }
 

@@ -19,7 +19,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     @Transactional
     public RecipeCategory create(RecipeCategory recipeCategory) throws ExceptionManager {
         if (recipeCategory == null) {
-            throw new ExceptionManager("Can not save item: " + recipeCategory);
+            throw new ExceptionManager("Can not save recipeCategory: " + recipeCategory);
         }
         entityManager.persist(recipeCategory);
         return recipeCategory;
@@ -29,7 +29,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     @Transactional
     public RecipeCategory delete(RecipeCategory recipeCategory) throws ExceptionManager {
         if (recipeCategory == null) {
-            throw new ExceptionManager("Can not delete item: " + recipeCategory);
+            throw new ExceptionManager("Can not delete recipeCategory: " + recipeCategory);
         }
         entityManager.remove(recipeCategory);
         return recipeCategory;
@@ -45,7 +45,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
     @Transactional
     public RecipeCategory findById(Integer recipeCategoryId) throws ExceptionManager {
         if (recipeCategoryId == null) {
-            throw new ExceptionManager("Can not delete item: " + recipeCategoryId);
+            throw new ExceptionManager("Can not find recipeCategory with id " + recipeCategoryId);
         }
         return entityManager.find(RecipeCategory.class, recipeCategoryId);
     }

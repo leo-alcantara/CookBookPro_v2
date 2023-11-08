@@ -25,8 +25,8 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 
     @Override
     @Transactional
-    public RecipeIngredientDto createRecipeIngredient(RecipeIngredientFormDto formDto) {
-        RecipeIngredient saved = recipeIngredientDAO.create(convert.toRecipeIngredient(formDto));
+    public RecipeIngredientDto createRecipeIngredient(RecipeIngredientDto recipeIngredientDto) {
+        RecipeIngredient saved = recipeIngredientDAO.create(convert.toRecipeIngredient(recipeIngredientDto));
         return convert.toRecipeIngredientDto(saved);
     }
 
@@ -48,8 +48,8 @@ public class RecipeIngredientServiceImpl implements RecipeIngredientService {
 
     @Override
     @Transactional
-    public RecipeIngredientDto update(RecipeIngredientFormDto formDto) {
-        RecipeIngredient original = recipeIngredientDAO.update(convert.toRecipeIngredient(formDto));
+    public RecipeIngredientDto update(RecipeIngredientDto recipeIngredientDto) {
+        RecipeIngredient original = recipeIngredientDAO.update(convert.toRecipeIngredient(recipeIngredientDto));
         return convert.toRecipeIngredientDto(original);
     }
 

@@ -1,17 +1,29 @@
 package se.cookBookProv2.dto;
 
+import java.util.List;
+
 public class RecipeCategoryDto {
 
     private int recipeCategoryId;
     private String category;
+    List<RecipeDto> recipes;
 
 
     public RecipeCategoryDto() {
     }
 
-    public RecipeCategoryDto(int recipeCategoryId, String category) {
+    public List<RecipeDto> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<RecipeDto> recipes) {
+        this.recipes = recipes;
+    }
+
+    public RecipeCategoryDto(int recipeCategoryId, String category, List<RecipeDto> recipes) {
         this.recipeCategoryId = recipeCategoryId;
         this.category = category;
+        this.recipes = recipes;
     }
 
     public RecipeCategoryDto(String category) {

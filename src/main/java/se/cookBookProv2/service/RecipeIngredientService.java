@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface RecipeIngredientService {
 
-    RecipeIngredientDto createRecipeIngredient(RecipeIngredientFormDto formDto);
+    RecipeIngredientDto createRecipeIngredient(RecipeIngredientDto recipeIngredientDto);
 
     RecipeIngredientDto findById(Integer recipeIngredientId);
 
     List<RecipeIngredientDto> findAll();
 
-    RecipeIngredientDto update(RecipeIngredientFormDto formDto);
+    RecipeIngredientDto update(RecipeIngredientDto recipeIngredientDto);
 
     RecipeIngredientDto delete(RecipeIngredient recipeIngredient);
 

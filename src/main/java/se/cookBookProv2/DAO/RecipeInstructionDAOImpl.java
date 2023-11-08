@@ -19,9 +19,8 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     @Override
     @Transactional
     public RecipeInstruction create(RecipeInstruction recipeInstruction) throws ExceptionManager {
-        if (recipeInstruction == null) {
-            throw new ExceptionManager("Can not persist item: " + recipeInstruction);
-        }
+        if (recipeInstruction == null) throw new ExceptionManager("Can not persist recipeInstruction: " + recipeInstruction);
+
         entityManager.persist(recipeInstruction);
         return recipeInstruction;
     }
@@ -29,9 +28,8 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     @Override
     @Transactional
     public RecipeInstruction delete(RecipeInstruction recipeInstruction) throws ExceptionManager {
-        if (recipeInstruction == null) {
-            throw new ExceptionManager("Can not delete item: " + recipeInstruction);
-        }
+        if (recipeInstruction == null) throw new ExceptionManager("Can not delete recipeInstruction: " + recipeInstruction);
+
         entityManager.remove(recipeInstruction);
         return recipeInstruction;
     }
@@ -45,9 +43,8 @@ public class RecipeInstructionDAOImpl implements RecipeInstructionDAO {
     @Override
     @Transactional
     public RecipeInstruction findById(Integer recipeInstructionId) throws ExceptionManager {
-        if (recipeInstructionId == null) {
-            throw new ExceptionManager("Can not find item: " + recipeInstructionId);
-        }
+        if (recipeInstructionId == null) throw new ExceptionManager("Can not find recipeInstruction by id: " + recipeInstructionId);
+
         return entityManager.find(RecipeInstruction.class, recipeInstructionId);
     }
 

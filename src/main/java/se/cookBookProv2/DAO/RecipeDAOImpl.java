@@ -20,7 +20,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     @Transactional
     public Recipe create(Recipe recipe) throws ExceptionManager {
-        //if (recipe == null) throw new ExceptionManager("Can not save item: " + recipe);
+        if (recipe == null) throw new ExceptionManager("Can not save recipe: " + recipe);
 
         entityManager.persist(recipe);
         return recipe;
@@ -29,9 +29,8 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Override
     @Transactional
     public Recipe delete(Recipe recipe) throws ExceptionManager {
-        if (recipe == null) {
-            throw new ExceptionManager(recipe + " recipe does not exist in the database.");
-        }
+        if (recipe == null) throw new ExceptionManager(recipe + " recipe does not exist in the database.");
+
         entityManager.remove(recipe);
         return recipe;
     }
@@ -44,8 +43,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 
     @Override
     @Transactional
-    public Recipe findById(Integer integer) {
-        return entityManager.find(Recipe.class, integer);
+    public Recipe findById(Integer recipeId) {
+        return entityManager.find(Recipe.class, recipeId);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class RecipeDAOImpl implements RecipeDAO {
     @Transactional
     public List<Recipe> findRecipeByNameContainsIgnoreCase(String recipeName) throws ExceptionManager {
         if (recipeName == null) {
-            throw new ExceptionManager("Can not find item: " + recipeName);
+            throw new ExceptionManager("Can not find recipe by name: " + recipeName);
         }
         return entityManager.createQuery("SELECT r FROM Recipe r WHERE UPPER(r.recipeName ) LIKE UPPER(CONCAT('%', ?1 , '%'))", Recipe.class)
                 .setParameter(1, recipeName).getResultList();

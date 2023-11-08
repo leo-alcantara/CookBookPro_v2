@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface RecipeCategoryService {
 
-    RecipeCategoryDto createRecipeCategory(RecipeCategoryFormDto form);
+    RecipeCategoryDto createRecipeCategory(RecipeCategoryDto recipeCategoryDto);
 
     RecipeCategoryDto findById(Integer recipeCategoryId);
 
     List<RecipeCategoryDto> findAll();
 
-    RecipeCategoryDto update(RecipeCategoryFormDto formDto);
+    RecipeCategoryDto update(RecipeCategoryDto recipeCategoryDto);
 
     RecipeCategoryDto delete(RecipeCategory recipeCategory);
 

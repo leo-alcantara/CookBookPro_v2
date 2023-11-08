@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RecipeService {
 
-    RecipeDto createRecipe(RecipeFormDto formDto);
+    RecipeDto createRecipe(RecipeDto recipeDto);
 
     RecipeDto findById(Integer recipeId);
 

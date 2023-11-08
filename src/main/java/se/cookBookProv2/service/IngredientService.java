@@ -7,13 +7,13 @@ import se.cookBookProv2.entity.Ingredient;
 import java.util.List;
 
 public interface IngredientService {
-    IngredientDto createIngredient(IngredientFormDto form);
+    IngredientDto createIngredient(IngredientDto ingredientDto);
 
     IngredientDto findById(Integer ingredientId);
 
     List<IngredientDto> findAll();
 
-    IngredientDto update(IngredientFormDto formDto);
+    IngredientDto update(IngredientDto ingredientDto);
 
     IngredientDto delete(Ingredient ingredient);
 

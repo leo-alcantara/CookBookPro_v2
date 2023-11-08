@@ -33,22 +33,22 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeDto createRecipe(RecipeFormDto formDto) {
-        Recipe recipe = convert.toRecipe(formDto);
+    public RecipeDto createRecipe(RecipeDto recipeDto) {
+        Recipe recipe = convert.toRecipe(recipeDto);
         if (!recipeDAO.findRecipeByNameContainsIgnoreCase(recipe.getRecipeName()).isEmpty()) {
             throw new ExceptionManager("Recipe already exists");
         }
         Set<RecipeCategory> categorySet = new HashSet<>();
-        for (String categoryName : formDto.getCategories()) {
-            RecipeCategory category = recipeCategoryDAO.findByName(categoryName);
+        for (RecipeCategory category : recipe.getCategories()) {
+            RecipeCategory categoryByName = recipeCategoryDAO.findByName(category.getCategory());
             if (Objects.isNull(category)) {
-                category = new RecipeCategory(categoryName, new ArrayList<>());
+                category = new RecipeCategory(categoryByName.getCategory(), new ArrayList<>());
             }
             categorySet.add(category);
         }
 
         RecipeIngredient recipeIngredient = new RecipeIngredient();
-        for (RecipeIngredientFormDto recipeIngredientFormDto : formDto.getIngredients()) {
+        for (RecipeIngredientFormDto recipeIngredientFormDto : recipeDto.getIngredients()) {
             recipeIngredient = convert.toRecipeIngredient(recipeIngredientFormDto);
             recipe.addRecipeIngredient(recipeIngredient);
         }

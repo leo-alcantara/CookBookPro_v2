@@ -25,8 +25,8 @@ public class RecipeInstructionServiceImpl implements RecipeInstructionService {
 
     @Override
     @Transactional
-    public RecipeInstructionDto createRecipeInstruction(RecipeInstructionFormDto formDto) {
-        RecipeInstruction saved = recipeInstructionDAO.create(convert.toRecipeInstruction(formDto));
+    public RecipeInstructionDto createRecipeInstruction(RecipeInstructionDto recipeInstructionDto) {
+        RecipeInstruction saved = recipeInstructionDAO.create(convert.toRecipeInstruction(recipeInstructionDto));
         return convert.toRecipeInstructionDto(saved);
     }
 
@@ -45,8 +45,8 @@ public class RecipeInstructionServiceImpl implements RecipeInstructionService {
     }
 
     @Override
-    public RecipeInstructionDto update(RecipeInstructionFormDto formDto) {
-        RecipeInstruction original = recipeInstructionDAO.update(convert.toRecipeInstruction(formDto));
+    public RecipeInstructionDto update(RecipeInstructionDto recipeInstructionDto) {
+        RecipeInstruction original = recipeInstructionDAO.update(convert.toRecipeInstruction(recipeInstructionDto));
         return convert.toRecipeInstructionDto(original);
     }
 

@@ -25,8 +25,8 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public IngredientDto createIngredient(IngredientFormDto form) {
-        Ingredient saved = ingredientDAO.create(convert.toIngredient(form));
+    public IngredientDto createIngredient(IngredientDto ingredientDto) {
+        Ingredient saved = ingredientDAO.create(convert.toIngredient(ingredientDto));
         return convert.toIngredientDto(saved);
     }
 
@@ -48,8 +48,8 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public IngredientDto update(IngredientFormDto formDto) {
-        Ingredient original = ingredientDAO.update(convert.toIngredient(formDto));
+    public IngredientDto update(IngredientDto ingredientDto) {
+        Ingredient original = ingredientDAO.update(convert.toIngredient(ingredientDto));
         return convert.toIngredientDto(original);
     }
 
