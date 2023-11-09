@@ -26,8 +26,8 @@ public class RecipeIngredientControllerImpl implements RecipeIngredientControlle
 
     @Override
     @PostMapping
-    public ResponseEntity<RecipeIngredientDto> createRecipeIngredient(@RequestBody @Valid RecipeIngredientFormDto formDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(recipeIngredientServiceImpl.createRecipeIngredient(formDto));
+    public ResponseEntity<RecipeIngredientDto> createRecipeIngredient(@RequestBody @Valid RecipeIngredientDto recipeIngredientDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(recipeIngredientServiceImpl.createRecipeIngredient(recipeIngredientDto));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class RecipeIngredientControllerImpl implements RecipeIngredientControlle
 
     @Override
     @PutMapping
-    public ResponseEntity<RecipeIngredientDto> update(@RequestBody @Valid RecipeIngredientFormDto formDto) {
-            return ResponseEntity.ok().body(recipeIngredientServiceImpl.update(formDto));
+    public ResponseEntity<RecipeIngredientDto> update(@RequestBody @Valid RecipeIngredientDto recipeIngredientDto) {
+            return ResponseEntity.ok().body(recipeIngredientServiceImpl.update(recipeIngredientDto));
     }
 
     //NOT SURE IF THIS IS RIGHT

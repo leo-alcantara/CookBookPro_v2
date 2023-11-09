@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface RecipeIngredientController {
 
-    ResponseEntity<RecipeIngredientDto> createRecipeIngredient(RecipeIngredientFormDto formDto);
+    ResponseEntity<RecipeIngredientDto> createRecipeIngredient(RecipeIngredientDto recipeIngredientDto);
 
     ResponseEntity<RecipeIngredientDto> findById(Integer recipeIngredientId);
 
     ResponseEntity<List<RecipeIngredientDto>> findAll();
 
-    ResponseEntity<RecipeIngredientDto> update(@RequestBody RecipeIngredientFormDto formDto);
+    ResponseEntity<RecipeIngredientDto> update(@RequestBody RecipeIngredientDto recipeIngredientDto);
 
     ResponseEntity<RecipeIngredientDto> delete(RecipeIngredient recipeIngredient);
 

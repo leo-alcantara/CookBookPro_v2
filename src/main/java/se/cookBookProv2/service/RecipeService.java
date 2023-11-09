@@ -14,7 +14,7 @@ public interface RecipeService {
 
     List<RecipeDto> findAll();
 
-    RecipeDto update(RecipeFormDto formDto);
+    RecipeDto update(RecipeDto recipeDto);
 
     RecipeDto delete(Integer recipeId);
 

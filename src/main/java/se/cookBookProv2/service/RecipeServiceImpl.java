@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import se.cookBookProv2.DAO.IngredientDAOImpl;
 import se.cookBookProv2.DAO.RecipeCategoryDAOImpl;
 import se.cookBookProv2.DAO.RecipeDAOImpl;
+import se.cookBookProv2.DAO.RecipeIngredientDAOImpl;
 import se.cookBookProv2.dto.RecipeDto;
 import se.cookBookProv2.dto.RecipeIngredientFormDto;
 import se.cookBookProv2.entity.*;
@@ -21,56 +22,53 @@ public class RecipeServiceImpl implements RecipeService {
     private final ConversionService convert;
     private final RecipeCategoryDAOImpl recipeCategoryDAO;
     private final IngredientDAOImpl ingredientDAO;
+    private final RecipeIngredientDAOImpl recipeIngredientDAO;
 
     @Autowired
     public RecipeServiceImpl(RecipeDAOImpl recipeDAO, ConversionService convert,
-                             RecipeCategoryDAOImpl recipeCategoryDAO, IngredientDAOImpl ingredientDAO) {
+                             RecipeCategoryDAOImpl recipeCategoryDAO, IngredientDAOImpl ingredientDAO, RecipeIngredientDAOImpl recipeIngredientDAO) {
         this.recipeDAO = recipeDAO;
         this.convert = convert;
         this.recipeCategoryDAO = recipeCategoryDAO;
         this.ingredientDAO = ingredientDAO;
+        this.recipeIngredientDAO = recipeIngredientDAO;
     }
 
     @Override
     @Transactional
     public RecipeDto createRecipe(RecipeDto recipeDto) {
         Recipe recipe = convert.toRecipe(recipeDto);
-        if (!recipeDAO.findRecipeByNameContainsIgnoreCase(recipe.getRecipeName()).isEmpty()) {
-            throw new ExceptionManager("Recipe already exists");
-        }
+        if (!recipeDAO.findRecipeByNameContainsIgnoreCase(recipe.getRecipeName()).isEmpty()) throw new ExceptionManager("Recipe already exists");
+
         Set<RecipeCategory> categorySet = new HashSet<>();
+        List<Recipe> recipeList = new ArrayList<>();
+        recipeList.add(recipe);
         for (RecipeCategory category : recipe.getCategories()) {
             RecipeCategory categoryByName = recipeCategoryDAO.findByName(category.getCategory());
-            if (Objects.isNull(category)) {
-                category = new RecipeCategory(categoryByName.getCategory(), new ArrayList<>());
-            }
-            categorySet.add(category);
+            if (categoryByName == null) categoryByName = new RecipeCategory(category.getCategory(), recipeList);
+
+            categorySet.add(categoryByName);
         }
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        for (RecipeIngredientFormDto recipeIngredientFormDto : recipeDto.getIngredients()) {
-            recipeIngredient = convert.toRecipeIngredient(recipeIngredientFormDto);
+        for (RecipeIngredient recipeIngredient : recipe.getIngredients()) {
             recipe.addRecipeIngredient(recipeIngredient);
         }
 
-        //Need to check ingredients to try stop duplicates. Not sure this is the correct way.
-        Ingredient ingredient = ingredientDAO.findIngredientByNameContainsIgnoreCase(recipeIngredient.getIngredient().getIngredientName());
-        if (Objects.isNull(ingredient)) {
-            ingredient = new Ingredient(recipeIngredient.getIngredient().getIngredientId(), recipeIngredient.getIngredient().getIngredientName());
-            recipeIngredient.setIngredient(ingredient);
+        //Need to check ingredients to try stop duplicates. Not sure if this is the correct way.
+        List<RecipeIngredient> recipeIngredientList = recipe.getIngredients();
+        for (RecipeIngredient ri : recipeIngredientList) {
+            if(recipeIngredientDAO.findById(ri.getIngredient().getIngredientId()) == null) {
+                Ingredient ingredient = new Ingredient(ri.getIngredient().getIngredientId(), ri.getIngredient().getIngredientName());
+                ingredientDAO.create(ingredient);
+            }
         }
-        recipeIngredient.setIngredient(ingredient);
 
-
-        RecipeInstruction recipeInstruction = new RecipeInstruction(recipe.getInstructions().getRecipeInstructionId(), formDto.getInstructions());
-        recipe.setInstructions(recipeInstruction);
+        /*RecipeInstruction recipeInstruction = new RecipeInstruction(recipe.getInstructions().getRecipeInstructionId(), recipe.getInstructions().getRecipeInstructions());
+        recipe.setInstructions(recipeInstruction);*/
 
         recipe.setCategories(categorySet);
-        Recipe createdRecipe = recipeDAO.create(recipe);
-        RecipeDto convertedRecipe = convert.toRecipeDto(createdRecipe);
-        System.out.println("createdRecipe.getIngredients() = " + createdRecipe.getIngredients());
-        System.out.println("convertedRecipe.getIngredients() = " + convertedRecipe.getIngredients());
-        return convertedRecipe;
+        recipeDAO.create(recipe);
+        return convert.toRecipeDto(recipe);
     }
 
     @Override
@@ -93,8 +91,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeDto update(RecipeFormDto formDto) {
-        Recipe original = recipeDAO.update(convert.toRecipe(formDto));
+    public RecipeDto update(RecipeDto recipeDto) {
+        Recipe original = recipeDAO.update(convert.toRecipe(recipeDto));
         return convert.toRecipeDto(original);
     }
 

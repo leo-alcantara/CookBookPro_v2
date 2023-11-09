@@ -30,9 +30,8 @@ public class RecipeControllerImpl implements RecipeController {
 
     @Override
     @PostMapping
-    public ResponseEntity<RecipeDto> createRecipe(@RequestBody @Valid RecipeFormDto formDto) {
-        RecipeDto result = recipeServiceImpl.createRecipe(formDto);
-        System.out.println("result =11111111  " + result);
+    public ResponseEntity<RecipeDto> createRecipe(@RequestBody @Valid RecipeDto recipeDto) {
+        RecipeDto result = recipeServiceImpl.createRecipe(recipeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -78,8 +77,8 @@ public class RecipeControllerImpl implements RecipeController {
 
     @Override
     @PutMapping
-    public ResponseEntity<RecipeDto> update(@RequestBody @Valid RecipeFormDto formDto) {
-        return ResponseEntity.ok().body(recipeServiceImpl.update(formDto));
+    public ResponseEntity<RecipeDto> update(@RequestBody @Valid RecipeDto recipeDto) {
+        return ResponseEntity.ok().body(recipeServiceImpl.update(recipeDto));
     }
 
     @Override

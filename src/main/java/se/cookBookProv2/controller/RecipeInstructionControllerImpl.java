@@ -26,8 +26,8 @@ public class RecipeInstructionControllerImpl implements RecipeInstructionControl
 
     @Override
     @PostMapping
-    public ResponseEntity<RecipeInstructionDto> createRecipeInstructions(@RequestBody @Valid RecipeInstructionFormDto formDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(recipeInstructionServiceImpl.createRecipeInstruction(formDto));
+    public ResponseEntity<RecipeInstructionDto> createRecipeInstructions(@RequestBody @Valid RecipeInstructionDto recipeInstructionDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(recipeInstructionServiceImpl.createRecipeInstruction(recipeInstructionDto));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class RecipeInstructionControllerImpl implements RecipeInstructionControl
 
     @Override
     @PutMapping
-    public ResponseEntity<RecipeInstructionDto> update(@RequestBody @Valid RecipeInstructionFormDto formDto) {
-        return ResponseEntity.ok().body(recipeInstructionServiceImpl.update(formDto));
+    public ResponseEntity<RecipeInstructionDto> update(@RequestBody @Valid RecipeInstructionDto recipeInstructionDto) {
+        return ResponseEntity.ok().body(recipeInstructionServiceImpl.update(recipeInstructionDto));
     }
 
     @Override

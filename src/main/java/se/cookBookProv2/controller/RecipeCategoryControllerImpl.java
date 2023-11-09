@@ -26,8 +26,8 @@ public class RecipeCategoryControllerImpl implements RecipeCategoryController {
 
     @Override
     @PostMapping
-    public ResponseEntity<RecipeCategoryDto> createRecipeCategory(@RequestBody @Valid RecipeCategoryFormDto formDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(recipeCategoryServiceImpl.createRecipeCategory(formDto));
+    public ResponseEntity<RecipeCategoryDto> createRecipeCategory(@RequestBody @Valid RecipeCategoryDto recipeCategoryDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(recipeCategoryServiceImpl.createRecipeCategory(recipeCategoryDto));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class RecipeCategoryControllerImpl implements RecipeCategoryController {
 
     @Override
     @PutMapping
-    public ResponseEntity<RecipeCategoryDto> update(@RequestBody @Valid RecipeCategoryFormDto formDto) {
-            return ResponseEntity.ok().body(recipeCategoryServiceImpl.update(formDto));
+    public ResponseEntity<RecipeCategoryDto> update(@RequestBody @Valid RecipeCategoryDto recipeCategoryDto) {
+            return ResponseEntity.ok().body(recipeCategoryServiceImpl.update(recipeCategoryDto));
     }
 
     @Override

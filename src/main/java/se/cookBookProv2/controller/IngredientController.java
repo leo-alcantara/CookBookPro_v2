@@ -10,13 +10,13 @@ import java.util.List;
 public interface IngredientController {
 
 
-    ResponseEntity<IngredientDto> createIngredient(IngredientFormDto formDto);
+    ResponseEntity<IngredientDto> createIngredient(IngredientDto ingredientDto);
 
     ResponseEntity<IngredientDto> findById(Integer ingredientId);
 
     ResponseEntity<List<IngredientDto>> findAll();
 
-    ResponseEntity<IngredientDto> update(IngredientFormDto formDto);
+    ResponseEntity<IngredientDto> update(IngredientDto ingredientDto);
 
     ResponseEntity<IngredientDto> delete(Ingredient ingredient);
 

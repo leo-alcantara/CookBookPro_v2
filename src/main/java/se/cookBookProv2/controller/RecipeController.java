@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface RecipeController {
 
-    ResponseEntity<RecipeDto> createRecipe(@RequestBody RecipeFormDto formDto);
+    ResponseEntity<RecipeDto> createRecipe(@RequestBody RecipeDto recipeDto);
 
     ResponseEntity<RecipeDto> findById(Integer recipeId);
 
     ResponseEntity<List<RecipeDto>> find( @RequestParam(name = "search", defaultValue = "all") String search,
                                           @RequestParam(name = "values", defaultValue = "all") String[] values);
 
-    ResponseEntity<RecipeDto> update(RecipeFormDto formDto);
+    ResponseEntity<RecipeDto> update(RecipeDto recipeDto);
 
     ResponseEntity<RecipeDto> delete(Integer recipeId);
 

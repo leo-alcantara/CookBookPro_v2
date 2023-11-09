@@ -26,8 +26,8 @@ public class IngredientControllerImpl implements IngredientController {
 
     @Override
     @PostMapping
-    public ResponseEntity<IngredientDto> createIngredient(@RequestBody @Valid IngredientFormDto formDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ingredientServiceImpl.createIngredient(formDto));
+    public ResponseEntity<IngredientDto> createIngredient(@RequestBody @Valid IngredientDto ingredientDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(ingredientServiceImpl.createIngredient(ingredientDto));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class IngredientControllerImpl implements IngredientController {
 
     @Override
     @PutMapping
-    public ResponseEntity<IngredientDto> update(@RequestBody @Valid IngredientFormDto formDto) {
-            return ResponseEntity.ok().body(ingredientServiceImpl.update(formDto));
+    public ResponseEntity<IngredientDto> update(@RequestBody @Valid IngredientDto ingredientDto) {
+            return ResponseEntity.ok().body(ingredientServiceImpl.update(ingredientDto));
     }
 
     //NOT SURE IF THIS IS RIGHT

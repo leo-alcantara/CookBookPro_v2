@@ -102,6 +102,7 @@ public class ConversionService {
         List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
         for (RecipeIngredientDto ri : recipeDto.getIngredients()) {
             RecipeIngredient recipeIngredient = toRecipeIngredient(ri);
+            recipeIngredientList.add(recipeIngredient);
         }
         Recipe recipe = new Recipe(0, recipeDto.getRecipeName(), recipeIngredientList, instruction, categories);
         return recipe;

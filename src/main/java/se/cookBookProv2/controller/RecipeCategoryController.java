@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface RecipeCategoryController {
 
-    ResponseEntity<RecipeCategoryDto> createRecipeCategory(RecipeCategoryFormDto formDto);
+    ResponseEntity<RecipeCategoryDto> createRecipeCategory(RecipeCategoryDto recipeCategoryDto);
 
     ResponseEntity<RecipeCategoryDto> findById(Integer recipeCategoryId);
 
     ResponseEntity<List<RecipeCategoryDto>> findAll();
 
-    ResponseEntity<RecipeCategoryDto> update(RecipeCategoryFormDto formDto);
+    ResponseEntity<RecipeCategoryDto> update(RecipeCategoryDto recipeCategoryDto);
 
     ResponseEntity<RecipeCategoryDto> delete(RecipeCategory recipeCategory);
 
